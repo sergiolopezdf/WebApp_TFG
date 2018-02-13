@@ -25,7 +25,7 @@ router.get('/', function(req, res, next) {
     let preloadedState = store.getState()
 
     res.status(200).render('../views/index.ejs', {
-        html,
+        //html,
         script: JSON.stringify(preloadedState),
     });
 });
