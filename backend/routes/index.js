@@ -30,4 +30,10 @@ router.get('/', function(req, res, next) {
     });
 });
 
+
+/*router.get('/app/assets/css/style.css', function (req,res,next) {
+
+    res.sendFile(__dirname + '../../app/assets/css/style.css');
+
+})*/
 module.exports = router;
