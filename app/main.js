@@ -21,12 +21,11 @@ const store = createStore(reducers, preloadedState)
 hydrate(
     <AppContainer>
         <Provider store={store}>
-            <App/>
+            <App store={store}/>
         </Provider>
     </AppContainer>,
     document.getElementById('root')
 )
-
 
 if (module.hot) {
     module.hot.accept('./components/App', () => {
@@ -34,3 +33,4 @@ if (module.hot) {
         render(newApp);
     });
 }
+

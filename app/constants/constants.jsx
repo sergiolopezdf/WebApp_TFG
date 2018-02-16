@@ -1,1 +1,2 @@
-export let INITIALSTATE = null;
+export let SENDMESSAGE = null;
+export let RECEIVEDMESSAGE = null;

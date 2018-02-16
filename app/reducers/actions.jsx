@@ -1,7 +1,15 @@
-export function initialState() {
-    // Returns the element that has been clicked on
+// Sends the message down to the backend of the app
+export function sendMessage(msg) {
     return {
-        type: 'INITIAL_STATE',
-        visit: null,
+        type: 'SEND_MESSAGE',
+        msg: msg,
+    };
+}
+
+// Sends the message up to the frontend of the app
+export function receivedMessage(msg) {
+    return {
+        type: 'RECEIVED_MESSAGE',
+        msg: msg,
     };
 }

@@ -53,6 +53,8 @@ div#chatHeader {
     align-items: center;
     justify-content: flex-start;
     display: flex;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
 
 }
 
@@ -60,14 +62,21 @@ div#chatBody {
     flex: 8;
     padding-left: 1vw;
     padding-right: 1vw;
+    overflow-y: scroll;
 }
 
-#messageWrapper {
+#receivedMessageWrapper {
     padding-top: 2vh;
 
 }
 
-.message {
+#sentMessageWrapper {
+    padding-top: 2vh;
+    text-align: right;
+
+}
+
+.receivedMessage {
     color: #FFFFFF;
     background: rgba(82, 159, 255, 0.98);
     padding-left: 1vw;
@@ -77,6 +86,17 @@ div#chatBody {
     border-radius: 8px;
     font-size: 13px;
 
+}
+
+.sentMessage {
+    color: #FFFFFF;
+    background: rgba(82, 159, 255, 0.98);
+    padding-left: 1vw;
+    padding-right: 1vw;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    border-radius: 8px;
+    font-size: 13px;
 }
 
 .chatHeaderTitle {
@@ -96,7 +116,7 @@ div#chatWindowMessageBox {
     flex-direction: row;
 }
 
-#input {
+#msg {
     border: none;
     flex: 8;
     margin-right: 1vw;
@@ -121,4 +141,36 @@ div#chatWindowMessageBox {
 
 .button:hover {
     background: rgba(0, 0, 0, 0.7);
+}
+
+#contact {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 1vh;
+}
+
+#contactName {
+    font-size: 12px;
+    flex: 10;
+}
+
+#contactStatus {
+    flex: 1;
+}
+
+.contactStatus {
+    border-radius: 25px;
+    height: 10px;
+    width: 10px;
+    display: inline-block;
+    margin-top: 4px;
+
+}
+
+#contactStatus .online {
+    background-color: rgba(71, 255, 43, 0.98);
+}
+
+#contactStatus .offline {
+    background-color: rgba(255, 38, 52, 0.98);
 }

@@ -1,9 +1,11 @@
 import {combineReducers} from 'redux';
-import initialReducer from './initialReducer'
+import sendMessage from './sendMessage'
+import receivedMessage from "./receivedMessage";
 
 
 let GlobalState = combineReducers({
-    initialState: initialReducer,
+    sendMessage: sendMessage,
+    receivedMessage: receivedMessage
 });
 
 export default GlobalState;

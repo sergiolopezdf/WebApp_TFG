@@ -6,7 +6,8 @@ export default class ChatWindowBody extends React.Component {
     render() {
         return (
             <div id="chatBody">
-                <ChatMessage/>
+                <ChatMessage received={true}/>
+                <ChatMessage received={false}/>
             </div>
 
         )

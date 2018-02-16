@@ -5,6 +5,7 @@ import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 import reducers from '../../app/reducers/reducers';
 import App from '../../app/components/App';
+import io from 'socket.io-client';
 
 
 let router = express.Router();
@@ -24,16 +25,26 @@ router.get('/', function(req, res, next) {
     // Grab the initial state from our Redux store
     let preloadedState = store.getState()
 
+    //Chat client config
+    var socket = io('http://localhost:4000/chat');
+    var id = 1;
+
+    console.log("new room");
+    socket.emit('room', id);
+
+    store.subscribe(function () {
+        let state = store.getState();
+        console.log(state);
+
+        //socket.emit('message', msg);
+    });
+
+
     res.status(200).render('../views/index.ejs', {
-        //html,
         script: JSON.stringify(preloadedState),
     });
 });
 
 
-/*router.get('/app/assets/css/style.css', function (req,res,next) {
 
-    res.sendFile(__dirname + '../../app/assets/css/style.css');
-
-})*/
 module.exports = router;
