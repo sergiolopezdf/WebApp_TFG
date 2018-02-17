@@ -2,15 +2,29 @@ import React from 'react';
 import './../assets/css/style.css';
 import ChatMessage from "./ChatMessage";
 
+
+var msgs = [];
+
 export default class ChatWindowBody extends React.Component {
     render() {
-        return (
-            <div id="chatBody">
-                <ChatMessage received={true}/>
-                <ChatMessage received={false}/>
-            </div>
 
+
+        if (!this.props.messages) {
+            return <div id="chatBody"></div>
+        }
+
+        return (
+
+            <div id="chatBody">
+                {
+                    this.props.messages.map((element, index) => {
+                        return <ChatMessage message={element} key={index}/>
+                    })
+                }
+
+            </div>
         )
+
 
     }
 }

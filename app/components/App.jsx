@@ -3,11 +3,10 @@ import '../assets/css/style.css';
 import {connect} from 'react-redux';
 import ChatContactBar from './chat/ChatContactBar';
 import ChatMain from './chat/ChatMain';
-import {sendMessage} from "../reducers/actions";
+import {newMessage} from "../../redux/reducers/actions";
+import {openConnection, receivedMessage, sendMessage} from "../chatClient";
 
-import {createStore} from 'redux';
-import reducers from '../../app/reducers/reducers';
-
+var selectedChat = "1_2";
 
 class App extends React.Component {
 
@@ -16,19 +15,42 @@ class App extends React.Component {
 
         this._sendMessage = this._sendMessage.bind(this);
 
+        openConnection();
+
+        receivedMessage((msg) => {
+            console.log("recibo");
+            this.props.dispatch(newMessage(msg));
+        });
+
+
+
     }
 
+
     _sendMessage(msg) {
-        this.props.dispatch(sendMessage(msg));
+        this.props.dispatch(newMessage(msg));
+
+        /* this.props.store.subscribe(() => {
+             console.log(this.props.store.getState());
+         })*/
+
+        sendMessage(msg);
 
     }
 
     render() {
 
+
+
+
+
+        //console.log(this.props.chat[selectedChat]);
+
+
         return (
             <div id="wrapper">
 
-                <ChatMain send={this._sendMessage}/>
+                <ChatMain send={this._sendMessage} messages={this.props.chat[selectedChat]}/>
 
                 <ChatContactBar/>
 
@@ -42,8 +64,8 @@ class App extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        sendMessage: state.sendMessage,
-        receivedMessage: state.receivedMessage,
+        chat: state.chat,
+        renderModules: state.renderModules
     };
 }
 

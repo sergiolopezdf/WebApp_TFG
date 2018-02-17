@@ -11,7 +11,13 @@ export default class ChatWindowMessage extends React.Component {
     }
 
     _sendMessage() {
-        let msg = $('#msg').val();
+        let msg = {
+            author: "1",
+            date: new Date(),
+            message: $('#msg').val(),
+            thread: "default",
+            chat: "1_2"
+        }
 
         $('#msg').val("");
 

@@ -19,10 +19,13 @@ export default class ChatMain extends React.Component {
 
 
     render() {
+
+
+        //console.log(this.props.messages);
         return (
             <div id="chatWindow">
                 <ChatWindowHeader/>
-                <ChatWindowBody/>
+                <ChatWindowBody messages={this.props.messages}/>
                 <ChatWindowMessage send={this._sendMessage}/>
             </div>
         );
