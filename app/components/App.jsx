@@ -18,10 +18,13 @@ class App extends React.Component {
         openConnection();
 
         receivedMessage((msg) => {
-            console.log("recibo");
             this.props.dispatch(newMessage(msg));
         });
 
+
+        this.props.store.subscribe(() => {
+            console.log(this.props.store.getState());
+        })
 
 
     }
@@ -29,13 +32,7 @@ class App extends React.Component {
 
     _sendMessage(msg) {
         this.props.dispatch(newMessage(msg));
-
-        /* this.props.store.subscribe(() => {
-             console.log(this.props.store.getState());
-         })*/
-
         sendMessage(msg);
-
     }
 
     render() {
