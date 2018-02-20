@@ -23,14 +23,18 @@ div#chatSideWrapper {
     padding: 0.7%;
 }
 
-div#chatMainWrapper {
+div.mainWrapper {
     margin: 0px;
+    flex: 5;
+
+}
+
+div#chatMainWrapper {
     padding-left: 12vw;
     padding-right: 12vw;
     padding-top: 10vh;
     padding-bottom: 10vh;
     max-height: 100vh;
-    flex: 5;
     background: rgba(0, 0, 0, 0.7);
 
 }

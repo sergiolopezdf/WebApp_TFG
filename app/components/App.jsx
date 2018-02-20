@@ -3,10 +3,9 @@ import '../assets/css/style.css';
 import {connect} from 'react-redux';
 import ChatContactBar from './chat/ChatContactBar';
 import ChatMain from './chat/ChatMain';
-import {newMessage} from "../../redux/reducers/actions";
-import {openConnection, receivedMessage, sendMessage} from "../chatClient";
-
-var selectedChat = "1_2";
+import Main from './Main';
+import {addNewOnlineUser, newMessage, setCurrentChat, setOnlineUsers, setUserId} from "../../redux/reducers/actions";
+import {openChat, receivedMessage, sendMessage, openConnection, getUsersOnline, chatRequest} from "../chatClient";
 
 class App extends React.Component {
 
@@ -14,21 +13,42 @@ class App extends React.Component {
         super(props);
 
         this._sendMessage = this._sendMessage.bind(this);
+        this._openNewChat = this._openNewChat.bind(this);
+        //this.componentDidMount = this.componentDidMount.bind(this);
 
-        openConnection();
+        let userId = prompt("Set user ID");
+
+        this.props.dispatch(setUserId(userId));
+
+        openConnection(userId);
+
+        getUsersOnline((users) => {
+            this.props.dispatch(setOnlineUsers(users));
+
+        });
 
         receivedMessage((msg) => {
             this.props.dispatch(newMessage(msg));
-        });
-
-
-        this.props.store.subscribe(() => {
             console.log(this.props.store.getState());
-        })
 
+        });
 
     }
 
+
+    _openNewChat(userId) {
+
+        let n1 = Math.min(parseInt(this.props.userId), parseInt(userId));
+        let n2 = Math.max(parseInt(this.props.userId), parseInt(userId));
+
+
+        let room = n1 + "_" + n2;
+
+        openChat(room);
+
+        this.props.dispatch(setCurrentChat(room));
+
+    }
 
     _sendMessage(msg) {
         this.props.dispatch(newMessage(msg));
@@ -37,23 +57,34 @@ class App extends React.Component {
 
     render() {
 
+        //console.log((this.props.onlineUsers));
 
+        if (this.props.currentChat) {
+            return (
+                <div id="wrapper">
 
+                    <ChatMain send={this._sendMessage} author={this.props.userId} chat={this.props.currentChat}
+                              messages={this.props.chat[this.props.currentChat]}/>
 
+                    <ChatContactBar onlineUsers={this.props.onlineUsers} openNewChat={this._openNewChat}/>
 
-        //console.log(this.props.chat[selectedChat]);
+                </div>
+
+            );
+        }
 
 
         return (
             <div id="wrapper">
 
-                <ChatMain send={this._sendMessage} messages={this.props.chat[selectedChat]}/>
-
-                <ChatContactBar/>
+                <Main/>
+                <ChatContactBar userId={this.props.userId} onlineUsers={this.props.onlineUsers}
+                                openNewChat={this._openNewChat}/>
 
             </div>
+        )
 
-        );
+
     }
 
 }
@@ -62,7 +93,10 @@ class App extends React.Component {
 function mapStateToProps(state) {
     return {
         chat: state.chat,
-        renderModules: state.renderModules
+        modules: state.renderModules,
+        userId: state.userId,
+        currentChat: state.currentChat,
+        onlineUsers: state.onlineUsers
     };
 }
 

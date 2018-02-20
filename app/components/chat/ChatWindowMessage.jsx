@@ -12,11 +12,11 @@ export default class ChatWindowMessage extends React.Component {
 
     _sendMessage() {
         let msg = {
-            author: "1",
+            author: this.props.author,
             date: new Date(),
             message: $('#msg').val(),
             thread: "default",
-            chat: "1_2"
+            chat: this.props.chat
         }
 
         $('#msg').val("");

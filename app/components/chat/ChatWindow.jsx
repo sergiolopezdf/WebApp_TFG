@@ -26,7 +26,7 @@ export default class ChatMain extends React.Component {
             <div id="chatWindow">
                 <ChatWindowHeader/>
                 <ChatWindowBody messages={this.props.messages}/>
-                <ChatWindowMessage send={this._sendMessage}/>
+                <ChatWindowMessage send={this._sendMessage} author={this.props.author} chat={this.props.chat}/>
             </div>
         );
 

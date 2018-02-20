@@ -1,11 +1,29 @@
 import io from 'socket.io-client';
 
-var socket = io('http://localhost:4000/chat');
-var id = "1_2";
+let socket = io('http://localhost:4000/chat');
 
-function openConnection() {
-    console.log("new room");
-    socket.emit('room', id);
+function openChat(room, callback) {
+
+    console.log("New chat: " + room);
+    socket.emit('room', room);
+
+}
+
+
+//IT NEEDS TO BE AN INTEGER!!!!!!!!!
+function openConnection(myUserId) {
+
+    socket.emit('newUser', myUserId);
+
+}
+
+function getUsersOnline(callback) {
+
+    socket.on('getUsersOnline', users => {
+        callback(users);
+        //console.log(users);
+    })
+
 }
 
 function sendMessage(msg) {
@@ -20,6 +38,6 @@ function receivedMessage(callback) {
 
 }
 
-export {openConnection, sendMessage, receivedMessage}
 
+export {openConnection, openChat, sendMessage, receivedMessage, getUsersOnline};
 

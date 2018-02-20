@@ -6,3 +6,27 @@ export function newMessage(msg) {
         msg: msg,
     };
 }
+
+export function setUserId(id) {
+    return {
+        type: 'SET_USER_ID',
+        id: id,
+    };
+}
+
+export function setCurrentChat(chatId) {
+    return {
+        type: 'SET_CURRENT_CHAT',
+        chatId: chatId,
+    };
+
+}
+
+export function setOnlineUsers(onlineUsers) {
+    return {
+        type: 'SET_ONLINE_USERS',
+        users: onlineUsers,
+    };
+
+}
+
