@@ -5,7 +5,7 @@ import ChatContactBar from './chat/ChatContactBar';
 import ChatMain from './chat/ChatMain';
 import Main from './Main';
 import {addNewOnlineUser, newMessage, setCurrentChat, setOnlineUsers, setUserId} from "../../redux/reducers/actions";
-import {openChat, receivedMessage, sendMessage, openConnection, getUsersOnline, chatRequest} from "../chatClient";
+import {chatRequest, getUsersOnline, openChat, openConnection, receivedMessage, sendMessage} from "../chatClient";
 
 class App extends React.Component {
 
@@ -48,6 +48,8 @@ class App extends React.Component {
 
         this.props.dispatch(setCurrentChat(room));
 
+        console.log(this.props.store.getState());
+
     }
 
     _sendMessage(msg) {
@@ -66,7 +68,8 @@ class App extends React.Component {
                     <ChatMain send={this._sendMessage} author={this.props.userId} chat={this.props.currentChat}
                               messages={this.props.chat[this.props.currentChat]}/>
 
-                    <ChatContactBar onlineUsers={this.props.onlineUsers} openNewChat={this._openNewChat}/>
+                    <ChatContactBar userId={this.props.userId} onlineUsers={this.props.onlineUsers}
+                                    openNewChat={this._openNewChat}/>
 
                 </div>
 

@@ -17,7 +17,6 @@ export default class ChatContactBar extends React.Component {
 
 
     render() {
-        console.log("Chat contact");
         return (
             <div id="contact" onClick={this._openNewChat}>
                 <span id="contactName">{this.props.user}</span>

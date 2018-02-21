@@ -1,13 +1,11 @@
 import React from 'react';
 import './../assets/css/style.css';
 
-var author = "1";
-
 
 export default class ChatMessage extends React.Component {
     render() {
 
-        if (this.props.message.author !== author) {
+        if (this.props.message.author !== this.props.author) {
             return (
                 <div id="receivedMessageWrapper">
                     <span className="receivedMessage">{this.props.message.message}</span>

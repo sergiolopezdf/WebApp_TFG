@@ -18,7 +18,7 @@ export default class ChatWindowBody extends React.Component {
             <div id="chatBody">
                 {
                     this.props.messages.map((element, index) => {
-                        return <ChatMessage message={element} key={index}/>
+                        return <ChatMessage author={this.props.author} message={element} key={index}/>
                     })
                 }
 
