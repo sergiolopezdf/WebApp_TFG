@@ -8,9 +8,28 @@ export default class ChatWindowMessage extends React.Component {
     constructor(props) {
         super(props);
         this._sendMessage = this._sendMessage.bind(this);
+
+
+        /* $("#msg").keypress(key => {
+             console.log("adjasda");
+             if (key.which === 13) {
+                 this._sendMessage();
+             }
+         })
+
+         $('#msg').keydown(function () {
+             console.log('typing');
+         });*/
+
     }
 
     _sendMessage() {
+
+
+        if ($('#msg').val() === "") {
+            return;
+        }
+
         let msg = {
             author: this.props.author,
             date: new Date(),
@@ -27,7 +46,7 @@ export default class ChatWindowMessage extends React.Component {
     render() {
         return (
             <div id="chatWindowMessageBox">
-                <input id="msg"/>
+                <textarea id="msg"/>
                 <button action="submit" className="button" onClick={this._sendMessage}>
                     Send
                 </button>

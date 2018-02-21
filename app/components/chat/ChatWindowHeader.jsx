@@ -8,7 +8,7 @@ export default class ChatWindowHeader extends React.Component {
             <div id="chatHeader">
               <span className="chatHeaderTitle">
                 Chat with:
-                <span className="chatHeaderName"> John Doe</span>
+                <span className="chatHeaderName"> {this.props.author} </span>
             </span>
             </div>
 

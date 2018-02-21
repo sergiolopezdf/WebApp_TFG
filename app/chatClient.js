@@ -4,8 +4,11 @@ let socket = io('http://localhost:4000/chat');
 
 function openChat(room, callback) {
 
-    console.log("New chat: " + room);
     socket.emit('room', room);
+
+    socket.on('getHistory', fullChat => {
+        callback(fullChat);
+    })
 
 }
 

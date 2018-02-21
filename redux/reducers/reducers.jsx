@@ -11,11 +11,12 @@ let initialState = {
 }
 
 
-function newMessage(state = initialState.chat, action) {
+function chatUpdate(state = initialState.chat, action) {
     switch (action.type) {
         case 'NEW_MESSAGE':
             let newChat = JSON.parse(JSON.stringify(state));
 
+            //Reading chat ID from the first message
             if (newChat[action.msg.chat] === undefined) {
                 newChat[action.msg.chat] = [action.msg];
             } else {
@@ -24,12 +25,19 @@ function newMessage(state = initialState.chat, action) {
 
             return newChat;
 
+        case 'UPDATE_CHAT_HISTORY':
+            let chatUpdate = JSON.parse(JSON.stringify(state));
+
+            //Reading chat ID from the first message
+            chatUpdate[action.chat[0].chat] = action.chat;
+
+            return chatUpdate;
+
         default:
             return state;
 
     }
 }
-
 
 function renderModules(state = initialState.modules, action) {
     switch (action.type) {
@@ -82,7 +90,7 @@ function setOnlineUsers(state = initialState.onlineUsers, action) {
 
 
 let GlobalState = combineReducers({
-    chat: newMessage,
+    chat: chatUpdate,
     modules: renderModules,
     userId: setUserId,
     currentChat: setCurrentChat,

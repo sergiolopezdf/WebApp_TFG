@@ -4,7 +4,16 @@ import {connect} from 'react-redux';
 import ChatContactBar from './chat/ChatContactBar';
 import ChatMain from './chat/ChatMain';
 import Main from './Main';
-import {addNewOnlineUser, newMessage, setCurrentChat, setOnlineUsers, setUserId} from "../../redux/reducers/actions";
+import {
+    addNewOnlineUser,
+    newMessage,
+    setChatHistory,
+    setCurrentChat,
+    setOnlineUsers,
+    setUserId
+} from "../../redux/reducers/actions";
+
+
 import {chatRequest, getUsersOnline, openChat, openConnection, receivedMessage, sendMessage} from "../chatClient";
 
 class App extends React.Component {
@@ -33,6 +42,7 @@ class App extends React.Component {
 
         });
 
+
     }
 
 
@@ -44,7 +54,10 @@ class App extends React.Component {
 
         let room = n1 + "_" + n2;
 
-        openChat(room);
+        openChat(room, fullHistory => {
+            this.props.dispatch(setChatHistory(fullHistory));
+            console.log(this.props.store.getState());
+        });
 
         this.props.dispatch(setCurrentChat(room));
 
