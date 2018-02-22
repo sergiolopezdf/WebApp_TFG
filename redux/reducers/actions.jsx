@@ -1,6 +1,6 @@
 // Sends the message down to the backend of the app
 export function newMessage(msg) {
-    //console.log(msg);
+    // console.log(msg);
     return {
         type: 'NEW_MESSAGE',
         msg: msg,
@@ -10,8 +10,8 @@ export function newMessage(msg) {
 export function setChatHistory(fullChat) {
     return {
         type: 'UPDATE_CHAT_HISTORY',
-        chat: fullChat
-    }
+        chat: fullChat,
+    };
 }
 
 export function setUserId(id) {
@@ -37,13 +37,12 @@ export function setOnlineUsers(onlineUsers) {
 
 }
 
-
 export function userTyping(bool, chat) {
     return {
         type: 'USER_TYPING',
         chat: chat,
-        typing: bool
-    }
+        typing: bool,
+    };
 
 }
 
@@ -53,6 +52,6 @@ export function setRemoteUsersTyping(details) {
         type: 'REMOTE_USER_TYPING',
         chat: details.chat,
         typing: details.typing,
-        userId: details.userId
-    }
+        userId: details.userId,
+    };
 }

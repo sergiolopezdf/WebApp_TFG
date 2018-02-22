@@ -12,9 +12,8 @@ import {
     setOnlineUsers,
     setRemoteUsersTyping,
     setUserId,
-    userTyping
+    userTyping,
 } from "../../redux/reducers/actions";
-
 
 import {
     chatRequest,
@@ -24,7 +23,7 @@ import {
     receivedMessage,
     remoteUserIsTyping,
     sendMessage,
-    userIsTyping
+    userIsTyping,
 } from "../chatClient";
 
 class App extends React.Component {
@@ -50,38 +49,34 @@ class App extends React.Component {
         receivedMessage((msg) => {
             this.props.dispatch(newMessage(msg));
 
-
         });
 
         remoteUserIsTyping(details => {
 
-            //console.log(details);
+            // console.log(details);
             this.props.dispatch(setRemoteUsersTyping(details));
 
-            //console.log(this.props.store.getState());
+            // console.log(this.props.store.getState());
 
         });
 
-
     }
-
 
     _openNewChat(userId) {
 
         let n1 = Math.min(parseInt(this.props.userId), parseInt(userId));
         let n2 = Math.max(parseInt(this.props.userId), parseInt(userId));
 
-
         let room = n1 + "_" + n2;
 
         openChat(room, fullHistory => {
             this.props.dispatch(setChatHistory(fullHistory));
-            //console.log(this.props.store.getState());
+            // console.log(this.props.store.getState());
         });
 
         this.props.dispatch(setCurrentChat(room));
 
-        //console.log(this.props.store.getState());
+        // console.log(this.props.store.getState());
 
     }
 
@@ -98,7 +93,7 @@ class App extends React.Component {
 
     render() {
 
-        //console.log((this.props.onlineUsers));
+        // console.log((this.props.onlineUsers));
 
         if (this.props.currentChat) {
             return (
@@ -109,29 +104,26 @@ class App extends React.Component {
                               remoteUsersTyping={this.props.remoteUsersTyping[this.props.currentChat]}/>
 
                     <ChatContactBar userId={this.props.userId} onlineUsers={this.props.onlineUsers}
-                                    openNewChat={this._openNewChat}/>
+                                    openNewChat={this._openNewChat} remoteUsersTyping={this.props.remoteUsersTyping}/>
 
                 </div>
 
             );
         }
 
-
         return (
             <div id="wrapper">
 
                 <Main/>
                 <ChatContactBar userId={this.props.userId} onlineUsers={this.props.onlineUsers}
-                                openNewChat={this._openNewChat}/>
+                                openNewChat={this._openNewChat} remoteUsersTyping={this.props.remoteUsersTyping}/>
 
             </div>
-        )
-
+        );
 
     }
 
 }
-
 
 function mapStateToProps(state) {
     return {
@@ -141,7 +133,7 @@ function mapStateToProps(state) {
         currentChat: state.currentChat,
         onlineUsers: state.onlineUsers,
         userTyping: state.userTyping,
-        remoteUsersTyping: state.remoteUsersTyping
+        remoteUsersTyping: state.remoteUsersTyping,
     };
 }
 

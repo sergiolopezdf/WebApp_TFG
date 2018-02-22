@@ -3,29 +3,28 @@ import {combineReducers} from 'redux';
 let initialState = {
     chat: {},
     modules: {
-        chat: true
+        chat: true,
     },
     currentChat: null,
     myUserId: null,
     onlineUsers: [],
     userTyping: {
         typing: false,
-        chat: null
+        chat: null,
     },
-    remoteUsersTyping: {}
-}
-
+    remoteUsersTyping: {},
+};
 
 function chatUpdate(state = initialState.chat, action) {
     switch (action.type) {
         case 'NEW_MESSAGE':
             let newChat = JSON.parse(JSON.stringify(state));
 
-            //Reading chat ID from the first message
+            // Reading chat ID from the first message
             if (newChat[action.msg.chat] === undefined) {
                 newChat[action.msg.chat] = [action.msg];
             } else {
-                newChat[action.msg.chat].push(action.msg);
+                newChat[action.msg.chat].splice(0, 0, action.msg);
             }
 
             return newChat;
@@ -33,7 +32,7 @@ function chatUpdate(state = initialState.chat, action) {
         case 'UPDATE_CHAT_HISTORY':
             let chatUpdate = JSON.parse(JSON.stringify(state));
 
-            //Reading chat ID from the first message
+            // Reading chat ID from the first message
             chatUpdate[action.chat[0].chat] = action.chat;
 
             return chatUpdate;
@@ -64,7 +63,6 @@ function setUserId(state = initialState.myUserId, action) {
     }
 }
 
-
 function setCurrentChat(state = initialState.currentChat, action) {
     switch (action.type) {
         case 'SET_CURRENT_CHAT':
@@ -75,7 +73,6 @@ function setCurrentChat(state = initialState.currentChat, action) {
     }
 }
 
-
 function setOnlineUsers(state = initialState.onlineUsers, action) {
 
     switch (action.type) {
@@ -85,9 +82,7 @@ function setOnlineUsers(state = initialState.onlineUsers, action) {
 
             newState = action.users;
 
-
             return newState;
-
 
         default:
             return state;
@@ -116,15 +111,15 @@ function remoteUsersTyping(state = initialState.remoteUsersTyping, action) {
     switch (action.type) {
         case 'REMOTE_USER_TYPING':
 
-            //console.log(action);
+            // console.log(action);
 
             let newState = JSON.parse(JSON.stringify(state));
 
             newState[action.chat] = {
                 chat: action.userId,
-                typing: action.typing
+                typing: action.typing,
 
-            }
+            };
 
             return newState;
 
@@ -142,7 +137,7 @@ let GlobalState = combineReducers({
     currentChat: setCurrentChat,
     onlineUsers: setOnlineUsers,
     userTyping: isUserTyping,
-    remoteUsersTyping: remoteUsersTyping
+    remoteUsersTyping: remoteUsersTyping,
 });
 
 export default GlobalState;

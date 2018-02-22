@@ -2,9 +2,7 @@ import React from 'react';
 import './../assets/css/style.css';
 import $ from 'jquery';
 
-
 export default class ChatWindowMessage extends React.Component {
-
 
     constructor(props) {
         super(props);
@@ -18,15 +16,15 @@ export default class ChatWindowMessage extends React.Component {
     _keyDown(event) {
         if (event.keyCode === 13) {
             this._sendMessage();
+            event.preventDefault(); //Disabling \n
             this._userTyping(false);
             return;
         }
 
-        if (event.keyCode === 18 || event.keyCode === 17 || event.keyCode === 9) { //ALT o CTRL
+        if (event.keyCode === 18 || event.keyCode === 17 || event.keyCode === 9) { // ALT o CTRL
             this._userTyping(false);
             return;
         }
-
 
         if (event.keyCode > 110 && event.keyCode < 125) {
             this._userTyping(false);
@@ -45,9 +43,7 @@ export default class ChatWindowMessage extends React.Component {
         this.props.userTyping(bool, this.props.currentChat);
     }
 
-
     _sendMessage() {
-
 
         if ($('#msg').val() === "") {
             return;
@@ -58,8 +54,8 @@ export default class ChatWindowMessage extends React.Component {
             date: new Date(),
             message: $('#msg').val(),
             thread: "default",
-            chat: this.props.currentChat
-        }
+            chat: this.props.currentChat,
+        };
 
         $('#msg').val("");
 
@@ -74,9 +70,8 @@ export default class ChatWindowMessage extends React.Component {
                     Send
                 </button>
 
-
             </div>
-        )
+        );
 
     }
 }
