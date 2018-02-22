@@ -22,6 +22,16 @@ export default class ChatWindowMessage extends React.Component {
             return;
         }
 
+        if (event.keyCode === 18 || event.keyCode === 17 || event.keyCode === 9) { //ALT o CTRL
+            this._userTyping(false);
+            return;
+        }
+
+
+        if (event.keyCode > 110 && event.keyCode < 125) {
+            this._userTyping(false);
+            return;
+        }
 
         this._userTyping(true);
 
@@ -32,7 +42,7 @@ export default class ChatWindowMessage extends React.Component {
     }
 
     _userTyping(bool) {
-        this.props.userTyping(bool, this.props.chat);
+        this.props.userTyping(bool, this.props.currentChat);
     }
 
 
@@ -48,7 +58,7 @@ export default class ChatWindowMessage extends React.Component {
             date: new Date(),
             message: $('#msg').val(),
             thread: "default",
-            chat: this.props.chat
+            chat: this.props.currentChat
         }
 
         $('#msg').val("");

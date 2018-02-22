@@ -24,7 +24,7 @@ export default class ChatMain extends React.Component {
 
         return (
             <div id="chatMainWrapper" className="mainWrapper">
-                <ChatWindow author={this.props.author} send={this._sendMessage} chat={this.props.chat}
+                <ChatWindow author={this.props.author} send={this._sendMessage} currentChat={this.props.currentChat}
                             messages={this.props.messages} userTyping={this._userTyping}
                             remoteUsersTyping={this.props.remoteUsersTyping}/>
             </div>

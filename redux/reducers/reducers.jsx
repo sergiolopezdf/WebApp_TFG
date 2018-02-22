@@ -120,8 +120,8 @@ function remoteUsersTyping(state = initialState.remoteUsersTyping, action) {
 
             let newState = JSON.parse(JSON.stringify(state));
 
-            newState[action.userId] = {
-                chat: action.chat,
+            newState[action.chat] = {
+                chat: action.userId,
                 typing: action.typing
 
             }

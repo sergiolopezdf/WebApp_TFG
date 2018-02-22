@@ -104,9 +104,9 @@ class App extends React.Component {
             return (
                 <div id="wrapper">
 
-                    <ChatMain send={this._sendMessage} author={this.props.userId} chat={this.props.currentChat}
+                    <ChatMain send={this._sendMessage} author={this.props.userId} currentChat={this.props.currentChat}
                               messages={this.props.chat[this.props.currentChat]} userTyping={this._userTyping}
-                              remoteUsersTyping={this.props.remoteUsersTyping}/>
+                              remoteUsersTyping={this.props.remoteUsersTyping[this.props.currentChat]}/>
 
                     <ChatContactBar userId={this.props.userId} onlineUsers={this.props.onlineUsers}
                                     openNewChat={this._openNewChat}/>

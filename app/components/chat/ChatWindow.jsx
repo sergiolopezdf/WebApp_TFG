@@ -25,12 +25,14 @@ export default class ChatMain extends React.Component {
     render() {
 
 
-        //CAMBIAR HEADER!! AUTHOR ESTÁ MAL. REMOTE USERS TYPING SOLO PASAR EL QUE ESTÁ HABLANDO
+
         return (
             <div id="chatWindow">
-                <ChatWindowHeader author={this.props.author} remoteUsersTyping={this.props.remoteUsersTyping}/>
+                <ChatWindowHeader currentChat={this.props.currentChat}
+                                  remoteUsersTyping={this.props.remoteUsersTyping}/>
                 <ChatWindowBody author={this.props.author} messages={this.props.messages}/>
-                <ChatWindowMessage send={this._sendMessage} author={this.props.author} chat={this.props.chat}
+                <ChatWindowMessage send={this._sendMessage} author={this.props.author}
+                                   currentChat={this.props.currentChat}
                                    userTyping={this._userTyping}/>
             </div>
         );
