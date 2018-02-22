@@ -37,3 +37,22 @@ export function setOnlineUsers(onlineUsers) {
 
 }
 
+
+export function userTyping(bool, chat) {
+    return {
+        type: 'USER_TYPING',
+        chat: chat,
+        typing: bool
+    }
+
+}
+
+export function setRemoteUsersTyping(details) {
+
+    return {
+        type: 'REMOTE_USER_TYPING',
+        chat: details.chat,
+        typing: details.typing,
+        userId: details.userId
+    }
+}

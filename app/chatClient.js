@@ -41,6 +41,26 @@ function receivedMessage(callback) {
 
 }
 
+function userIsTyping(bool, chat, userId) {
 
-export {openConnection, openChat, sendMessage, receivedMessage, getUsersOnline};
+    let details = {
+        chat: chat,
+        userId: userId,
+        typing: bool
+    }
+
+
+    socket.emit('typing', details);
+}
+
+function remoteUserIsTyping(callback) {
+
+    socket.on('typing', details => {
+        callback(details);
+    });
+
+}
+
+
+export {openConnection, openChat, sendMessage, receivedMessage, getUsersOnline, userIsTyping, remoteUserIsTyping};
 

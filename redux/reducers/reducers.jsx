@@ -7,7 +7,12 @@ let initialState = {
     },
     currentChat: null,
     myUserId: null,
-    onlineUsers: []
+    onlineUsers: [],
+    userTyping: {
+        typing: false,
+        chat: null
+    },
+    remoteUsersTyping: {}
 }
 
 
@@ -82,19 +87,62 @@ function setOnlineUsers(state = initialState.onlineUsers, action) {
 
 
             return newState;
+
+
         default:
             return state;
 
     }
 }
 
+function isUserTyping(state = initialState.userTyping, action) {
+    switch (action.type) {
+        case 'USER_TYPING':
+
+            let newState = JSON.parse(JSON.stringify(state));
+
+            newState.chat = action.chat;
+            newState.typing = action.typing;
+
+            return newState;
+        default:
+            return state;
+
+    }
+}
+
+function remoteUsersTyping(state = initialState.remoteUsersTyping, action) {
+
+    switch (action.type) {
+        case 'REMOTE_USER_TYPING':
+
+            //console.log(action);
+
+            let newState = JSON.parse(JSON.stringify(state));
+
+            newState[action.userId] = {
+                chat: action.chat,
+                typing: action.typing
+
+            }
+
+            return newState;
+
+        default:
+            return state;
+
+    }
+
+}
 
 let GlobalState = combineReducers({
     chat: chatUpdate,
     modules: renderModules,
     userId: setUserId,
     currentChat: setCurrentChat,
-    onlineUsers: setOnlineUsers
+    onlineUsers: setOnlineUsers,
+    userTyping: isUserTyping,
+    remoteUsersTyping: remoteUsersTyping
 });
 
 export default GlobalState;

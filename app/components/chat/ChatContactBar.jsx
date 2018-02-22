@@ -19,7 +19,6 @@ export default class ChatContactBar extends React.Component {
 
     render() {
 
-        //console.log(this.props.onlineUsers);
         return (
             <div id="chatSideWrapper">
                 {
