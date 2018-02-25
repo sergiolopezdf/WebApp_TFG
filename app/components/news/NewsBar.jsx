@@ -13,11 +13,9 @@ export default class NewsBar extends React.Component {
         return <div id="newsBar">
 
             <div id="newsBarOptions">
-                <NewsBarItem title="Show"/>
-                <NewsBarItem title="Write new"/>
-
+                <NewsBarItem title="Show" link="news"/>
+                <NewsBarItem title="Write new" link="publish_new"/>
             </div>
-
         </div>;
 
     }

@@ -5,6 +5,7 @@ let initialState = {
     modules: {
         chat: false,
         news: false,
+        publishNew: false
     },
     currentChat: null,
     myUserId: null,
@@ -155,7 +156,7 @@ let GlobalState = combineReducers({
     onlineUsers: setOnlineUsers,
     userTyping: isUserTyping,
     remoteUsersTyping: remoteUsersTyping,
-    news: setNews
+    news: setNews,
 });
 
 export default GlobalState;

@@ -13,7 +13,7 @@ export default class Title extends React.Component {
         return (
             <div id="title">
 
-                WebApp
+                <a href="/"> WebApp</a>
             </div>
         );
 

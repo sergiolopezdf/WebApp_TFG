@@ -9,11 +9,20 @@ export default class NewsItem extends React.Component {
 
     render() {
 
-        return [
-            <div key={1}>{this.props.new.Author}</div>,
-            <p key={2}>{this.props.new.Content}</p>,
+        return (
 
-        ];
+            <div className="new">
+
+
+                <span className="newTitle">{this.props.new.title}</span>
+
+                <div className="newAuthorWrapper"><span className="newAuthor">Author: </span>{this.props.new.author}
+                </div>
+                <p key={3}>{this.props.new.content}</p>
+
+            </div>
+
+        );
 
     }
 }

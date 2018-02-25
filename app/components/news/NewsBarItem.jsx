@@ -10,8 +10,7 @@ export default class NewsBarItem extends React.Component {
     render() {
 
         return <div id="newsBarItem">
-
-            {this.props.title}
+            <a href={this.props.link}>{this.props.title}</a>
         </div>
 
     }

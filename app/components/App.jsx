@@ -56,30 +56,20 @@ class App extends React.Component {
 
         });
 
-        //console.log(this.props.store.getState());
-
         remoteUserIsTyping(details => {
-
-            // console.log(details);
             this.props.dispatch(setRemoteUsersTyping(details));
-
-            // console.log(this.props.store.getState());
-
         });
-
 
     }
 
     componentDidMount() {
         if (this.props.modules.news) {
-            this._getNews()
+            this._getNews();
         }
     }
 
     _getNews() {
-
-
-        fetch('http://localhost:5000/api/posts?access_token=bb')
+        fetch('http://localhost:5000/api/news?access_token=bb')
             .then((response) => response.json())
 
             .then((parsedResponse) => {
@@ -91,7 +81,6 @@ class App extends React.Component {
             .catch((error) => {
                 console.log(error);
             });
-
     }
 
     _openNewChat(userId) {
@@ -127,6 +116,30 @@ class App extends React.Component {
         this.props.dispatch(showChat(false));
     }
 
+    _submitNew(data) {
+
+        let url = "http://localhost:5000/api/news?access_token=bb";
+
+        // HTTP request
+        let req = new XMLHttpRequest();
+
+        // True == async
+        req.open('POST', url, true);
+
+        req.setRequestHeader("Content-type", "application/json");
+
+        req.send(JSON.stringify(data));
+
+        req.onreadystatechange = function () {
+            console.log(req.status);
+            if (req.readyState == XMLHttpRequest.DONE && req.status == 200) {
+
+            }
+
+        }
+
+    }
+
     render() {
 
         return (
@@ -141,11 +154,12 @@ class App extends React.Component {
                               remoteUsersTyping={this.props.remoteUsersTyping[this.props.currentChat]}
                               hideChat={this._hideChat}/>}
 
-                    <Main modules={this.props.modules} getNews={this._getNews} news={this.props.news}/>
+                    <Main modules={this.props.modules} getNews={this._getNews} news={this.props.news}
+                          submitNew={this._submitNew} userId={this.props.userId}/>
+
                     <ChatContactBar userId={this.props.userId} onlineUsers={this.props.onlineUsers}
                                     openNewChat={this._openNewChat} remoteUsersTyping={this.props.remoteUsersTyping}/>
                 </div>
-
 
             </div>
         );
@@ -163,7 +177,7 @@ function mapStateToProps(state) {
         onlineUsers: state.onlineUsers,
         userTyping: state.userTyping,
         remoteUsersTyping: state.remoteUsersTyping,
-        news: state.news
+        news: state.news,
     };
 }
 

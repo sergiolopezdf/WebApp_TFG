@@ -1,7 +1,8 @@
-div {
-    /*
-    border: thin dashed #333;
-    */
+@import url('https://fonts.googleapis.com/css?family=Catamaran');
+@import url('https://fonts.googleapis.com/css?family=Dosis');
+
+body {
+    font-family: 'Catamaran', sans-serif;
 }
 
 div#wrapper {
@@ -39,6 +40,7 @@ div#headerWrapper {
     align-content: center;
     padding-top: 1vh;
     padding-bottom: 1vh;
+    font-family: 'Dosis', sans-serif;
 }
 
 div#navBar {
@@ -63,8 +65,13 @@ div#title {
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 35px;
 }
 
+div#title a {
+    color: #FFFFFF;
+    text-decoration: none;
+}
 /*************************************/
 /*NewsBar*/
 /*************************************/
@@ -77,7 +84,7 @@ div#newsBar {
 }
 
 div#newsBarItem {
-    padding: 1vh;
+    padding: 3vh;
     color: #FFFFFF;
     border-right: thin solid #FFFFFF;
 }
@@ -90,7 +97,74 @@ div#newsBarOptions {
     background: rgba(82, 159, 255, 0.98);
     display: flex;
     flex-direction: row;
-    border-radius: 15px;
+    border-radius: 7px;
+}
+
+div#newsBarItem a {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+/*************************************/
+/*News*/
+/*************************************/
+
+div.newsWrapper {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    padding-left: 4vw;
+    padding-right: 4vw;
+
+}
+
+div.new {
+    width: 100%;
+    margin-bottom: 4vh;
+    border-bottom: thin solid #CCCCCC;
+}
+
+.newTitle {
+    color: rgba(82, 159, 255, 0.98);
+    font-size: 30px;
+}
+
+.newAuthor {
+    color: rgba(82, 159, 255, 0.98);
+}
+
+.newAuthorWrapper {
+    font-size: 10px;
+}
+
+button#newButton {
+    background: rgba(82, 159, 255, 0.98);
+    color: #FFFFFF;
+    border-radius: 8px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+    padding: 15px;
+}
+
+input#title {
+    width: 100%;
+    outline: none;
+    resize: none;
+    border: none;
+    border-top: thin dotted #CCCCCC;
+    border-bottom: thin dotted #CCCCCC;
+}
+
+textarea#content {
+    width: 100%;
+    resize: none;
+    border: none;
+    outline: none;
+    height: 50%;
+    border-top: thin dotted #CCCCCC;
+    border-bottom: thin dotted #CCCCCC;
 }
 
 /*************************************/
@@ -122,7 +196,7 @@ div#chatSideWrapper {
 }
 
 #contactName {
-    font-size: 12px;
+    font-size: 13px;
     flex: 10;
 }
 
@@ -191,14 +265,14 @@ div#chatBody {
 }
 
 #receivedMessageWrapper {
-    padding-top: 1vh;
+    padding-top: 2vh;
     display: block;
 
 }
 
 #sentMessageWrapper {
     text-align: right;
-    padding-top: 1vh;
+    padding-top: 2vh;
     display: block;
     width: 100%;
 

@@ -14,7 +14,6 @@ export default class Navbar extends React.Component {
         return (
             <div id="navBar">
                 <NavbarItem link={"News"} title={"News"}/>
-                <NavbarItem link={"publish_new"} title={"Publish new"}/>
             </div>
         );
 

@@ -10,19 +10,24 @@ export default class News extends React.Component {
 
     render() {
 
-
         if (this.props.news === null) {
-            return <div>Cargando...</div>
+            return <div>Cargando...</div>;
         }
 
         let news = this.props.news;
 
-        return news.map((element, key) => {
-            return (
-                <NewsItem new={element} key={key}/>
-            );
-        })
+        return (
+            <div className="newsWrapper">
+                {
+                    news.map((element, key) => {
+                        return (
+                            <NewsItem new={element} key={key}/>
+                        );
+                    })
+                }
 
+            </div>
+        );
 
     }
 }
