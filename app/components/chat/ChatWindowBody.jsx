@@ -2,8 +2,6 @@ import React from 'react';
 import './../assets/css/style.css';
 import ChatMessage from "./ChatMessage";
 
-let msgs = [];
-
 export default class ChatWindowBody extends React.Component {
     render() {
 

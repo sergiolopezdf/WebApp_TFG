@@ -16,7 +16,7 @@ export default class ChatWindowMessage extends React.Component {
     _keyDown(event) {
         if (event.keyCode === 13) {
             this._sendMessage();
-            event.preventDefault(); //Disabling \n
+            event.preventDefault(); // Disabling \n
             this._userTyping(false);
             return;
         }
@@ -35,7 +35,7 @@ export default class ChatWindowMessage extends React.Component {
 
     }
 
-    _keyUp(event) {
+    _keyUp() {
         this._userTyping(false);
     }
 

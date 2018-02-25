@@ -3,7 +3,6 @@ import './../assets/css/style.css';
 
 export default class ChatWindowHeader extends React.Component {
 
-
     render() {
 
         return (
@@ -15,12 +14,12 @@ export default class ChatWindowHeader extends React.Component {
             </span>
                 {this.props.remoteUsersTyping !== undefined &&
                 <span className="typing">
-                        {this.props.remoteUsersTyping.typing && " (typing...)"}
+                        {this.props.remoteUsersTyping.typing && "         (typing...)"}
                     </span>
                 }
             </div>
 
-        )
+        );
 
     }
 }

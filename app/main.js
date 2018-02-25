@@ -10,13 +10,18 @@ import App from './components/App';
 
 
 // Grab the state from a global variable injected into the server-generated HTML
-const preloadedState = window.__INITIAL_STATE__
+
+
+const preloadedState = window.initialReduxState;
 
 // Allow the passed state to be garbage-collected
-delete window.__INITIAL_STATE__
+delete window.initialReduxState;
 
+
+console.log(preloadedState);
 // Create Redux store with initial state
 const store = createStore(reducers, preloadedState)
+
 
 hydrate(
     <AppContainer>

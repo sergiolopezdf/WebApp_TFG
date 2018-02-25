@@ -10,11 +10,16 @@
 
 </head>
 <body>
+
 <div id="root"></div>
-<script src="bundle.js"></script>
 
 <script>
-    window.__INITIAL_STATE__ = <%- script %>
+    window.initialReduxState = <%- script %>
 </script>
+
+
+<script src="bundle.js"></script>
+
+
 </body>
 </html>

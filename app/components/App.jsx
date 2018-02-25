@@ -9,9 +9,11 @@ import {
     newMessage,
     setChatHistory,
     setCurrentChat,
+    setNews,
     setOnlineUsers,
     setRemoteUsersTyping,
     setUserId,
+    showChat,
     userTyping,
 } from "../../redux/reducers/actions";
 
@@ -25,6 +27,7 @@ import {
     sendMessage,
     userIsTyping,
 } from "../chatClient";
+import Header from "./Header";
 
 class App extends React.Component {
 
@@ -34,6 +37,8 @@ class App extends React.Component {
         this._sendMessage = this._sendMessage.bind(this);
         this._openNewChat = this._openNewChat.bind(this);
         this._userTyping = this._userTyping.bind(this);
+        this._hideChat = this._hideChat.bind(this);
+        this.componentDidMount = this.componentDidMount.bind(this);
 
         let userId = prompt("Set user ID");
 
@@ -51,6 +56,8 @@ class App extends React.Component {
 
         });
 
+        //console.log(this.props.store.getState());
+
         remoteUserIsTyping(details => {
 
             // console.log(details);
@@ -59,6 +66,31 @@ class App extends React.Component {
             // console.log(this.props.store.getState());
 
         });
+
+
+    }
+
+    componentDidMount() {
+        if (this.props.modules.news) {
+            this._getNews()
+        }
+    }
+
+    _getNews() {
+
+
+        fetch('http://localhost:5000/api/posts?access_token=bb')
+            .then((response) => response.json())
+
+            .then((parsedResponse) => {
+
+                let news = parsedResponse.reverse();
+
+                this.props.dispatch(setNews(news));
+            })
+            .catch((error) => {
+                console.log(error);
+            });
 
     }
 
@@ -71,10 +103,10 @@ class App extends React.Component {
 
         openChat(room, fullHistory => {
             this.props.dispatch(setChatHistory(fullHistory));
-            // console.log(this.props.store.getState());
         });
 
         this.props.dispatch(setCurrentChat(room));
+        this.props.dispatch(showChat(true));
 
         // console.log(this.props.store.getState());
 
@@ -91,32 +123,29 @@ class App extends React.Component {
         userIsTyping(bool, chat, this.props.userId);
     }
 
+    _hideChat() {
+        this.props.dispatch(showChat(false));
+    }
+
     render() {
-
-        // console.log((this.props.onlineUsers));
-
-        if (this.props.currentChat) {
-            return (
-                <div id="wrapper">
-
-                    <ChatMain send={this._sendMessage} author={this.props.userId} currentChat={this.props.currentChat}
-                              messages={this.props.chat[this.props.currentChat]} userTyping={this._userTyping}
-                              remoteUsersTyping={this.props.remoteUsersTyping[this.props.currentChat]}/>
-
-                    <ChatContactBar userId={this.props.userId} onlineUsers={this.props.onlineUsers}
-                                    openNewChat={this._openNewChat} remoteUsersTyping={this.props.remoteUsersTyping}/>
-
-                </div>
-
-            );
-        }
 
         return (
             <div id="wrapper">
 
-                <Main/>
-                <ChatContactBar userId={this.props.userId} onlineUsers={this.props.onlineUsers}
-                                openNewChat={this._openNewChat} remoteUsersTyping={this.props.remoteUsersTyping}/>
+                <Header/>
+
+                <div id="contentWrapper">
+                    {this.props.modules.chat &&
+                    <ChatMain send={this._sendMessage} author={this.props.userId} currentChat={this.props.currentChat}
+                              messages={this.props.chat[this.props.currentChat]} userTyping={this._userTyping}
+                              remoteUsersTyping={this.props.remoteUsersTyping[this.props.currentChat]}
+                              hideChat={this._hideChat}/>}
+
+                    <Main modules={this.props.modules} getNews={this._getNews} news={this.props.news}/>
+                    <ChatContactBar userId={this.props.userId} onlineUsers={this.props.onlineUsers}
+                                    openNewChat={this._openNewChat} remoteUsersTyping={this.props.remoteUsersTyping}/>
+                </div>
+
 
             </div>
         );
@@ -128,12 +157,13 @@ class App extends React.Component {
 function mapStateToProps(state) {
     return {
         chat: state.chat,
-        modules: state.renderModules,
+        modules: state.modules,
         userId: state.userId,
         currentChat: state.currentChat,
         onlineUsers: state.onlineUsers,
         userTyping: state.userTyping,
         remoteUsersTyping: state.remoteUsersTyping,
+        news: state.news
     };
 }
 

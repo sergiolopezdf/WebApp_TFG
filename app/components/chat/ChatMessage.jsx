@@ -1,7 +1,6 @@
 import React from 'react';
 import './../assets/css/style.css';
 
-
 export default class ChatMessage extends React.Component {
     render() {
 
@@ -10,17 +9,14 @@ export default class ChatMessage extends React.Component {
                 <div id="receivedMessageWrapper">
                     <span className="receivedMessage">{this.props.message.message}</span>
                 </div>
-            )
+            );
 
-        } else {
-            return (
+        }
+        return (
                 <div id="sentMessageWrapper">
                     <span className="sentMessage">{this.props.message.message}</span>
                 </div>
-            )
-
-        }
-
+        );
 
     }
 }

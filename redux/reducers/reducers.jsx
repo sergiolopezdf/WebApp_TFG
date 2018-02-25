@@ -3,7 +3,8 @@ import {combineReducers} from 'redux';
 let initialState = {
     chat: {},
     modules: {
-        chat: true,
+        chat: false,
+        news: false,
     },
     currentChat: null,
     myUserId: null,
@@ -13,6 +14,7 @@ let initialState = {
         chat: null,
     },
     remoteUsersTyping: {},
+    news: null,
 };
 
 function chatUpdate(state = initialState.chat, action) {
@@ -43,10 +45,25 @@ function chatUpdate(state = initialState.chat, action) {
     }
 }
 
+function setNews(state = initialState.news, action) {
+    switch (action.type) {
+        case 'SET_NEWS':
+            let newState = JSON.parse(JSON.stringify(state));
+            newState = action.news;
+            return newState;
+        default:
+            return state;
+
+    }
+
+}
+
 function renderModules(state = initialState.modules, action) {
     switch (action.type) {
-        case 'RENDER_MODULES':
-            return action.modules;
+        case 'SHOW_CHAT':
+            let newState = JSON.parse(JSON.stringify(state));
+            newState.chat = action.dismiss;
+            return newState;
         default:
             return state;
 
@@ -138,6 +155,7 @@ let GlobalState = combineReducers({
     onlineUsers: setOnlineUsers,
     userTyping: isUserTyping,
     remoteUsersTyping: remoteUsersTyping,
+    news: setNews
 });
 
 export default GlobalState;

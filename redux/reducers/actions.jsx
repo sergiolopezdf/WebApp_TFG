@@ -55,3 +55,20 @@ export function setRemoteUsersTyping(details) {
         userId: details.userId,
     };
 }
+
+export function showChat(bool) {
+    return {
+        type: 'SHOW_CHAT',
+        dismiss: bool,
+
+    };
+
+}
+
+export function setNews(news) {
+    return {
+        type: 'SET_NEWS',
+        news: news
+    }
+
+}
