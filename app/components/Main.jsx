@@ -23,6 +23,12 @@ export default class Main extends React.Component {
 
         return (
             <div className="mainWrapper">
+                {(!this.props.modules.news && !this.props.modules.publishNew) &&
+                <div className="bodyWrapper">
+                    <div className="newTitle">Welcome to WebApp</div>
+                </div>}
+
+
                 {this.props.modules.news && <NewsBar/>}
                 {this.props.modules.news && <News getNews={this._getNews} news={this.props.news}/>}
                 {this.props.modules.publishNew && <NewsBar/>}

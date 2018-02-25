@@ -28,6 +28,15 @@ div.mainWrapper {
 
 }
 
+div.bodyWrapper {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    padding-left: 4vw;
+    padding-right: 4vw;
+
+}
+
 /*************************************/
 /*NavBar*/
 /*************************************/
@@ -108,15 +117,6 @@ div#newsBarItem a {
 /*************************************/
 /*News*/
 /*************************************/
-
-div.newsWrapper {
-    display: flex;
-    align-items: flex-start;
-    flex-direction: column;
-    padding-left: 4vw;
-    padding-right: 4vw;
-
-}
 
 div.new {
     width: 100%;

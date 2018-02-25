@@ -22,7 +22,7 @@ export default class PublishNews extends React.Component {
 
     render() {
         return (
-            <div className="newsWrapper">
+            <div className="bodyWrapper">
                 <span className="newTitle">Title: </span>
                 <input name={"Name"} type={"text"} id={"title"}/>
                 <span className="newTitle">Content: </span>

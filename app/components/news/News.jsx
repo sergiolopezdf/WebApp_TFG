@@ -11,13 +11,13 @@ export default class News extends React.Component {
     render() {
 
         if (this.props.news === null) {
-            return <div>Cargando...</div>;
+            return <div className="bodyWrapper">Cargando...</div>;
         }
 
         let news = this.props.news;
 
         return (
-            <div className="newsWrapper">
+            <div className="bodyWrapper">
                 {
                     news.map((element, key) => {
                         return (
