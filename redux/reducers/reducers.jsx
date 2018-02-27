@@ -5,10 +5,10 @@ let initialState = {
     modules: {
         chat: false,
         news: false,
-        publishNew: false
+        publishNew: false,
     },
     currentChat: null,
-    myUserId: null,
+    myself: null,
     onlineUsers: [],
     userTyping: {
         typing: false,
@@ -71,10 +71,10 @@ function renderModules(state = initialState.modules, action) {
     }
 }
 
-function setUserId(state = initialState.myUserId, action) {
+function setUser(state = initialState.myself, action) {
     switch (action.type) {
-        case 'SET_USER_ID':
-            return action.id;
+        case 'SET_USER':
+            return action.user;
         default:
             return state;
 
@@ -151,7 +151,7 @@ function remoteUsersTyping(state = initialState.remoteUsersTyping, action) {
 let GlobalState = combineReducers({
     chat: chatUpdate,
     modules: renderModules,
-    userId: setUserId,
+    myself: setUser,
     currentChat: setCurrentChat,
     onlineUsers: setOnlineUsers,
     userTyping: isUserTyping,

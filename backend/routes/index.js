@@ -1,62 +1,19 @@
 import express from 'express';
 import React from 'react';
 import {renderToString} from 'react-dom/server';
-import {createStore} from 'redux';
-import reducers from '../../redux/reducers/reducers';
+
+import {main, news, publishNews} from "../controllers/render";
+import {loginRequired} from "./../controllers/session";
 
 let router = express.Router();
 
-/* GET home page. */
-router.get('/', (req, res, next) => {
+router.use(loginRequired);
 
+/* GET */
+router.get('/', main);
 
-    // Create a new Redux store instance. No initial state, so default
-    let store = createStore(reducers);
+router.get('/news', news);
 
-    // Grab the initial state from our Redux store
-    let preloadedState = store.getState();
-
-    res.status(200).render('../views/index.ejs', {
-        script: JSON.stringify(preloadedState),
-    });
-});
-
-router.get('/news', (req, res, next) => {
-    let initialState = {
-        modules: {
-            news: true
-        }
-    };
-
-    // Create a new Redux store instance
-    let store = createStore(reducers, initialState);
-
-    // Grab the initial state from our Redux store
-    let preloadedState = store.getState();
-
-    res.status(200).render('../views/index.ejs', {
-        script: JSON.stringify(preloadedState),
-    });
-
-});
-
-router.get('/publish_new', (req, res, next) => {
-    let initialState = {
-        modules: {
-            publishNew: true
-        },
-    };
-
-    // Create a new Redux store instance
-    let store = createStore(reducers, initialState);
-
-    // Grab the initial state from our Redux store
-    let preloadedState = store.getState();
-
-    res.status(200).render('../views/index.ejs', {
-        script: JSON.stringify(preloadedState),
-    });
-
-});
+router.get('/publish_new', publishNews);
 
 module.exports = router;

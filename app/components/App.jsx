@@ -12,7 +12,7 @@ import {
     setNews,
     setOnlineUsers,
     setRemoteUsersTyping,
-    setUserId,
+    setUser,
     showChat,
     userTyping,
 } from "../../redux/reducers/actions";
@@ -34,17 +34,21 @@ class App extends React.Component {
     constructor(props) {
         super(props);
 
+        console.log(this.props.store.getState());
+
         this._sendMessage = this._sendMessage.bind(this);
         this._openNewChat = this._openNewChat.bind(this);
         this._userTyping = this._userTyping.bind(this);
         this._hideChat = this._hideChat.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
 
-        let userId = prompt("Set user ID");
+        /*let user = prompt("Set user");
+        let passw = prompt("Set password");*/
 
-        this.props.dispatch(setUserId(userId));
 
-        openConnection(userId);
+        //this.props.dispatch(setUserId(userId));
+
+        openConnection(this.props.myself.id);
 
         getUsersOnline((users) => {
             this.props.dispatch(setOnlineUsers(users));
@@ -109,7 +113,7 @@ class App extends React.Component {
     _userTyping(bool, chat) {
         this.props.dispatch(userTyping(bool, chat));
 
-        userIsTyping(bool, chat, this.props.userId);
+        userIsTyping(bool, chat, this.props.myself.id);
     }
 
     _hideChat() {
@@ -149,15 +153,16 @@ class App extends React.Component {
 
                 <div id="contentWrapper">
                     {this.props.modules.chat &&
-                    <ChatMain send={this._sendMessage} author={this.props.userId} currentChat={this.props.currentChat}
+                    <ChatMain send={this._sendMessage} author={this.props.myself.id}
+                              currentChat={this.props.currentChat}
                               messages={this.props.chat[this.props.currentChat]} userTyping={this._userTyping}
                               remoteUsersTyping={this.props.remoteUsersTyping[this.props.currentChat]}
                               hideChat={this._hideChat}/>}
 
                     <Main modules={this.props.modules} getNews={this._getNews} news={this.props.news}
-                          submitNew={this._submitNew} userId={this.props.userId}/>
+                          submitNew={this._submitNew} userId={this.props.myself.id}/>
 
-                    <ChatContactBar userId={this.props.userId} onlineUsers={this.props.onlineUsers}
+                    <ChatContactBar userId={this.props.myself.id} onlineUsers={this.props.onlineUsers}
                                     openNewChat={this._openNewChat} remoteUsersTyping={this.props.remoteUsersTyping}/>
                 </div>
 
@@ -172,7 +177,7 @@ function mapStateToProps(state) {
     return {
         chat: state.chat,
         modules: state.modules,
-        userId: state.userId,
+        myself: state.myself,
         currentChat: state.currentChat,
         onlineUsers: state.onlineUsers,
         userTyping: state.userTyping,

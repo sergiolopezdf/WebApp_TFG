@@ -14,10 +14,10 @@ export function setChatHistory(fullChat) {
     };
 }
 
-export function setUserId(id) {
+export function setUser(user) {
     return {
-        type: 'SET_USER_ID',
-        id: id,
+        type: 'SET_USER',
+        user: user,
     };
 }
 

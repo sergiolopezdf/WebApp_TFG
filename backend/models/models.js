@@ -1,4 +1,4 @@
-import {digestPassword} from './crypto';
+import {digestPassword} from '../crypto';
 
 let Sequelize = require('sequelize');
 
@@ -17,16 +17,16 @@ let User = sequelize.define('user', {
     password: {
         type: Sequelize.STRING,
         validate: {notEmpty: {msg: "Password must not be empty."}},
-        /*set(password) {
+        set(password) {
             this.setDataValue('password', digestPassword(password));
-        },*/
+        },
     },
 
 });
 
 let New = sequelize.define('new', {
 
-    //No author and date. It's created by default
+    // No author and date. It's created by default
     content: {
         type: Sequelize.STRING,
         validate: {notEmpty: {msg: "Content must not be empty."}},
@@ -34,11 +34,10 @@ let New = sequelize.define('new', {
 
 });
 
-//Exporting authorId as foreingKey. Then, importing it with the same name.
+// Exporting authorId as foreingKey. Then, importing it with the same name.
 // 'as' is just for getters and setters
 New.belongsTo(User, {foreignKey: 'authorId'});
 User.hasMany(New, {as: 'author', foreignKey: 'authorId'});
-
 
 sequelize.sync()
     .then(() => {

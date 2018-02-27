@@ -1,11 +1,7 @@
-import {SHA256} from 'crypto-js';
+import sha256 from 'crypto-js/sha256';
+import Hex from 'crypto-js/enc-hex';
 
 export function digestPassword(password) {
-    return SHA256(password);
+    return sha256(password).toString(Hex);
 }
 
-export function checkPassword(hash, password) {
-
-    return digestPassword(password) === hash;
-
-}

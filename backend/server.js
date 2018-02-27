@@ -7,7 +7,7 @@ let bodyParser = require('body-parser');
 let index = require('./routes/index');
 import webpack from 'webpack';
 import config from '../webpack.config.js';
-import {sequelize, User} from './models';
+import {sequelize, User} from './models/models';
 
 // Useful vars
 const compiler = webpack(config);
@@ -40,6 +40,7 @@ app.use('/', index);
   err.status = 404;
   next(err);
 });*/
+/*
 
 sequelize
     .authenticate()
@@ -49,10 +50,11 @@ sequelize
     .catch(err => {
         console.error('Unable to connect to the database:', err);
     });
+*/
 
-let newUser = User.build({
-    username: "sl",
-    password: "sl",
+/*let newUser = User.build({
+    username: "admin",
+    password: "admin",
 });
 
 let Sequelize = require('sequelize');
@@ -62,7 +64,7 @@ newUser.save()
     })
     .catch(Sequelize.UniqueConstraintError, error => {
         console.log(error);
-    });
+    });*/
 
 // error handler
 app.use(function(err, req, res, next) {
