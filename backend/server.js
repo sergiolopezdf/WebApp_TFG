@@ -8,6 +8,7 @@ let index = require('./routes/index');
 import webpack from 'webpack';
 import config from '../webpack.config.js';
 import session from 'express-session';
+import flash from 'express-flash';
 import {User, sequelize} from './models/models';
 
 // Useful vars
@@ -48,6 +49,8 @@ app.use(function (req, res, next) {
 
 });
 
+//app.use(flash());
+
 // catch 404 and forward to error handler
 /* app.use(function(req, res, next) {
   var err = new Error('Not Found');
@@ -66,16 +69,6 @@ sequelize
     });
 */
 
-let newUser = User.build({
-    username: "admin",
-    password: "admin",
-});
-
-let Sequelize = require('sequelize');
-newUser.save()
-    .then(() => {
-        console.log("User ok");
-    })
 
 
 // error handler

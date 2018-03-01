@@ -11,7 +11,12 @@ export default class News extends React.Component {
     render() {
 
         if (this.props.news === null) {
-            return <div className="bodyWrapper">Cargando...</div>;
+            return (
+                <div class="spinner">
+                    <div class="double-bounce1"></div>
+                    <div class="double-bounce2"></div>
+                </div>
+            )
         }
 
         let news = this.props.news;

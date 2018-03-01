@@ -15,7 +15,7 @@ export default class Header extends React.Component {
         return (
             <div id="headerWrapper">
                 <Title/>
-                <Navbar/>
+                <Navbar myself={this.props.myself}/>
             </div>
         );
 

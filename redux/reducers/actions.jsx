@@ -62,7 +62,6 @@ export function showChat(bool) {
         dismiss: bool,
 
     };
-
 }
 
 export function setNews(news) {
@@ -71,4 +70,10 @@ export function setNews(news) {
         news: news
     }
 
+}
+
+export function deleteAlerts() {
+    return {
+        type: 'DELETE_ALERTS',
+    }
 }

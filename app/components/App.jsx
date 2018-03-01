@@ -6,6 +6,7 @@ import ChatMain from './chat/ChatMain';
 import Main from './Main';
 import {
     addNewOnlineUser,
+    deleteAlerts,
     newMessage,
     setChatHistory,
     setCurrentChat,
@@ -40,6 +41,7 @@ class App extends React.Component {
         this._userTyping = this._userTyping.bind(this);
         this._hideChat = this._hideChat.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
+        this._removeAlerts = this._removeAlerts.bind(this);
 
         /* let user = prompt("Set user");
         let passw = prompt("Set password");*/
@@ -118,6 +120,12 @@ class App extends React.Component {
         this.props.dispatch(showChat(false));
     }
 
+
+    _removeAlerts() {
+        console.log("alertttt");
+        this.props.dispatch(deleteAlerts());
+    }
+
     _submitNew(data) {
 
         //console.log(data);
@@ -149,7 +157,7 @@ class App extends React.Component {
         return (
             <div id="wrapper">
 
-                <Header/>
+                <Header myself={this.props.myself}/>
 
                 <div id="contentWrapper">
                     {this.props.modules.chat &&
@@ -160,7 +168,8 @@ class App extends React.Component {
                               hideChat={this._hideChat}/>}
 
                     <Main modules={this.props.modules} getNews={this._getNews} news={this.props.news}
-                          submitNew={this._submitNew} userId={this.props.myself.id}/>
+                          submitNew={this._submitNew} myself={this.props.myself} removeAlerts={this._removeAlerts}
+                          alertMessages={this.props.alertMessages}/>
 
                     <ChatContactBar userId={this.props.myself.id} onlineUsers={this.props.onlineUsers}
                                     openNewChat={this._openNewChat} remoteUsersTyping={this.props.remoteUsersTyping}/>
@@ -183,6 +192,7 @@ function mapStateToProps(state) {
         userTyping: state.userTyping,
         remoteUsersTyping: state.remoteUsersTyping,
         news: state.news,
+        alertMessages: state.alertMessages
     };
 }
 

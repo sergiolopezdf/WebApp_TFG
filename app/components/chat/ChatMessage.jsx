@@ -12,9 +12,11 @@ export default class ChatMessage extends React.Component {
             );
 
         }
+
+        //SPAN!!
         return (
                 <div id="sentMessageWrapper">
-                    <span className="sentMessage">{this.props.message.message}</span>
+                    <p className="sentMessage">{this.props.message.message}</p>
                 </div>
         );
 

@@ -21,6 +21,10 @@ let User = sequelize.define('user', {
             this.setDataValue('password', digestPassword(password));
         },
     },
+    admin: {
+        type: Sequelize.BOOLEAN,
+        validate: {notEmpty: {msg: "admin must not be empty."}},
+    }
 
 });
 
@@ -46,10 +50,22 @@ User.hasMany(New, {as: 'author', foreignKey: 'authorId'});
 sequelize.sync()
     .then(() => {
         console.log("DB has been created");
+
+        let newUser = User.build({
+            username: "admin",
+            password: "admin",
+            admin: true
+        });
+
+        newUser.save()
+            .then(() => {
+                console.log("User ok");
+            })
     })
     .catch((err) => {
         console.log("Error while creating DB: ", err);
     });
+
 
 exports.New = New;
 exports.User = User;

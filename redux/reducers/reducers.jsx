@@ -5,7 +5,9 @@ let initialState = {
     modules: {
         chat: false,
         news: false,
-        publishNew: false
+        publishNew: false,
+        management: false,
+        main: false
     },
     currentChat: null,
     myself: null,
@@ -16,6 +18,7 @@ let initialState = {
     },
     remoteUsersTyping: {},
     news: null,
+    alertMessages: null
 };
 
 function chatUpdate(state = initialState.chat, action) {
@@ -44,6 +47,20 @@ function chatUpdate(state = initialState.chat, action) {
             return state;
 
     }
+}
+
+function deleteAlerts(state = initialState.alertMessages, action) {
+    switch (action.type) {
+        case 'DELETE_ALERTS':
+            let newState = JSON.parse(JSON.stringify(state));
+            newState = null;
+            return newState;
+        default:
+            return state;
+
+    }
+
+
 }
 
 function setNews(state = initialState.news, action) {
@@ -157,6 +174,7 @@ let GlobalState = combineReducers({
     userTyping: isUserTyping,
     remoteUsersTyping: remoteUsersTyping,
     news: setNews,
+    alertMessages: deleteAlerts
 });
 
 export default GlobalState;

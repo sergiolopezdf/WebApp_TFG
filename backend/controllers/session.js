@@ -3,14 +3,40 @@ import {digestPassword} from "../crypto";
 
 export async function loginRequired(req, res, next) {
 
-    console.log(req.session.user);
+    // console.log(req.session.user);
 
     if (req.session.user) {
         next();
         return;
     }
 
-    res.render('../views/login.ejs');
+    res.render('../views/login.ejs', {
+        msg: false
+    });
+
+}
+
+export async function adminRequired(req, res, next) {
+    if (req.session.user.admin) {
+        next();
+        return;
+    }
+
+    res.send(403);
+
+}
+
+export async function updatePassword(req, res, next) {
+
+    let user = await User.findOne({where: {username: req.session.user.username}});
+
+    user.password = req.body.updatePassword;
+
+    if (await user.save()) {
+        req.session.alert = "Password updated";
+    }
+
+    next();
 
 }
 
@@ -20,23 +46,28 @@ export async function login(req, res, next) {
     let username = req.body.username;
     let password = req.body.password;
 
-
     password = digestPassword(password);
 
     let user = await _authenticateUser(username, password);
-
 
     if (user) {
         req.session.user = user;
         console.log(req.session);
         res.redirect('/');
+        return;
     }
+
+    res.render('../views/login.ejs', {
+        msg: "Incorrect username or password",
+    });
 }
 
 async function _authenticateUser(username, password) {
     let user = await User.findOne({where: {username: username}});
 
-    //console.log(user);
+    if (!user) {
+        return null;
+    }
 
     let loginOk = _isPasswordCorrect(password, user.password);
 
@@ -44,6 +75,7 @@ async function _authenticateUser(username, password) {
         return {
             id: user.id,
             username: user.username,
+            admin: user.admin,
         };
     }
     return null;

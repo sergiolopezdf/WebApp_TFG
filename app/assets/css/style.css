@@ -25,6 +25,7 @@ div#contentWrapper {
 div.mainWrapper {
     margin: 0px;
     flex: 5;
+    padding-top: 2vh;
 
 }
 
@@ -35,6 +36,16 @@ div.bodyWrapper {
     padding-left: 4vw;
     padding-right: 4vw;
 
+}
+
+#alert {
+    margin-left: 4vw;
+    margin-right: 4vw;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    padding: 1vh;
+    background: rgba(50, 230, 33, 0.65);
+    border-radius: 5px;
 }
 
 /*************************************/
@@ -81,6 +92,19 @@ div#title a {
     color: #FFFFFF;
     text-decoration: none;
 }
+
+/*************************************/
+/*Form*/
+/*************************************/
+.styledInput {
+    outline: none;
+    resize: none;
+    border: none;
+    border-top: thin dotted #CCCCCC;
+    border-bottom: thin dotted #CCCCCC;
+}
+
+
 /*************************************/
 /*NewsBar*/
 /*************************************/
@@ -354,4 +378,51 @@ div#chatWindowMessageBox {
     font-size: 11px;
     color: #CCCCCC;
     text-align: right;
+}
+
+/*************************************/
+/*Spinner*/
+/*************************************/
+
+
+.spinner {
+    width: 40px;
+    height: 40px;
+
+    position: relative;
+    margin: 100px auto;
+}
+
+.double-bounce1, .double-bounce2 {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #333;
+    opacity: 0.6;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
+    animation: sk-bounce 2.0s infinite ease-in-out;
+}
+
+.double-bounce2 {
+    -webkit-animation-delay: -1.0s;
+    animation-delay: -1.0s;
+}
+
+@-webkit-keyframes sk-bounce {
+    0%, 100% { -webkit-transform: scale(0.0) }
+    50% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes sk-bounce {
+    0%, 100% {
+        transform: scale(0.0);
+        -webkit-transform: scale(0.0);
+    } 50% {
+          transform: scale(1.0);
+          -webkit-transform: scale(1.0);
+      }
 }
