@@ -26,19 +26,7 @@ export async function adminRequired(req, res, next) {
 
 }
 
-export async function updatePassword(req, res, next) {
 
-    let user = await User.findOne({where: {username: req.session.user.username}});
-
-    user.password = req.body.updatePassword;
-
-    if (await user.save()) {
-        req.session.alert = "Password updated";
-    }
-
-    next();
-
-}
 
 export async function login(req, res, next) {
 

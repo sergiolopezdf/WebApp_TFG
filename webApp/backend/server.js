@@ -8,7 +8,6 @@ let index = require('./routes/index');
 import webpack from 'webpack';
 import config from '../webpack.config.js';
 import session from 'express-session';
-import flash from 'express-flash';
 import {User, sequelize} from './models/models';
 
 // Useful vars

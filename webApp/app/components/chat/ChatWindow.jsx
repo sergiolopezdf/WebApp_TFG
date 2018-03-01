@@ -18,13 +18,11 @@ export default class ChatMain extends React.Component {
         this.props.send(msg);
     }
 
-    _userTyping(bool, chat) {
-        this.props.userTyping(bool, chat);
+    _userTyping(bool, chatId) {
+        this.props.userTyping(bool, chatId);
     }
 
     render() {
-
-
 
         return (
             <div id="chatWindow">
@@ -32,7 +30,7 @@ export default class ChatMain extends React.Component {
                                   remoteUsersTyping={this.props.remoteUsersTyping}/>
                 <ChatWindowBody author={this.props.author} messages={this.props.messages}/>
                 <ChatWindowMessage send={this._sendMessage} author={this.props.author}
-                                   currentChat={this.props.currentChat}
+                                   currentChatId={this.props.currentChat.chatId}
                                    userTyping={this._userTyping}/>
             </div>
         );

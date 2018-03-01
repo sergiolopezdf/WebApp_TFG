@@ -16,7 +16,7 @@ export default class ChatMessage extends React.Component {
         //SPAN!!
         return (
                 <div id="sentMessageWrapper">
-                    <p className="sentMessage">{this.props.message.message}</p>
+                    <span className="sentMessage">{this.props.message.message}</span>
                 </div>
         );
 

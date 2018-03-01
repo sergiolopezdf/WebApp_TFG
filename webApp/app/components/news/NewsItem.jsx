@@ -9,6 +9,8 @@ export default class NewsItem extends React.Component {
 
     render() {
 
+        console.log(this.props.new)
+
         return (
 
             <div className="new">
@@ -16,7 +18,7 @@ export default class NewsItem extends React.Component {
 
                 <span className="newTitle">{this.props.new.title}</span>
 
-                <div className="newAuthorWrapper"><span className="newAuthor">Author: </span>{this.props.new.author}
+                <div className="newAuthorWrapper"><span className="newAuthor">Author: </span>{this.props.new.authorId}
                 </div>
                 <p>{this.props.new.content}</p>
 

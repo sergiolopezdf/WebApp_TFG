@@ -7,10 +7,11 @@ export function newMessage(msg) {
     };
 }
 
-export function setChatHistory(fullChat) {
+export function setChatHistory(fullChat, room) {
     return {
         type: 'UPDATE_CHAT_HISTORY',
-        chat: fullChat,
+        chatMsgs: fullChat,
+        chatId: room
     };
 }
 
@@ -21,26 +22,19 @@ export function setUser(user) {
     };
 }
 
-export function setCurrentChat(chatId) {
+export function setCurrentChat(chatId, username) {
     return {
         type: 'SET_CURRENT_CHAT',
         chatId: chatId,
+        username: username
     };
 
 }
 
-export function setOnlineUsers(onlineUsers) {
-    return {
-        type: 'SET_ONLINE_USERS',
-        users: onlineUsers,
-    };
-
-}
-
-export function userTyping(bool, chat) {
+export function userTyping(bool, chatId) {
     return {
         type: 'USER_TYPING',
-        chat: chat,
+        chatId: chatId,
         typing: bool,
     };
 
@@ -76,4 +70,12 @@ export function deleteAlerts() {
     return {
         type: 'DELETE_ALERTS',
     }
+}
+
+export function newAlert(msg) {
+    return {
+        type: 'NEW_ALERT',
+        msg: msg
+    }
+
 }

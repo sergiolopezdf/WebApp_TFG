@@ -4,6 +4,7 @@ import News from "./news/News";
 import NewsBar from "./news/NewsBar";
 import PublishNews from "./news/PublishNews";
 import Management from "./management/Management";
+import UsersManagement from "./management/UsersManagement";
 import Alerts from "./Alerts";
 
 export default class Main extends React.Component {
@@ -22,13 +23,12 @@ export default class Main extends React.Component {
         this.props.submitNew(data);
     }
 
-
     _removeAlerts() {
         this.props.removeAlerts();
     }
 
-
     render() {
+
 
         return (
             <div className="mainWrapper">
@@ -47,6 +47,8 @@ export default class Main extends React.Component {
                 {this.props.modules.publishNew &&
                 <PublishNews submitNew={this._submitNew} userId={this.props.myself.id}/>}
                 {this.props.modules.management && <Management myself={this.props.myself}/>}
+
+                {this.props.modules.users && <UsersManagement remoteUsers={this.props.remoteUsers}/>}
 
             </div>
         );

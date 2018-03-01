@@ -12,22 +12,10 @@ function openChat(room, callback) {
 
 }
 
-
-//IT NEEDS TO BE AN INTEGER!!!!!!!!!
 function openConnection(myUserId) {
-
     socket.emit('newUser', myUserId);
-
 }
 
-function getUsersOnline(callback) {
-
-    socket.on('getUsersOnline', users => {
-        callback(users);
-        //console.log(users);
-    })
-
-}
 
 function sendMessage(msg) {
     socket.emit('message', msg);
@@ -62,5 +50,5 @@ function remoteUserIsTyping(callback) {
 }
 
 
-export {openConnection, openChat, sendMessage, receivedMessage, getUsersOnline, userIsTyping, remoteUserIsTyping};
+export {openConnection, openChat, sendMessage, receivedMessage, userIsTyping, remoteUserIsTyping};
 

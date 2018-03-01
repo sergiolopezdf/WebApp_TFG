@@ -8,15 +8,16 @@ export default class Navbar extends React.Component {
         super(props);
     }
 
-
     render() {
 
         return (
             <div id="navBar">
                 <NavbarItem link={"News"} title={"News"}/>
+                <NavbarItem link={"Management"} title={"Management"}/>
                 {
-                    this.props.myself.admin && <NavbarItem link={"Management"} title={"Management"}/>
+                    this.props.myself.admin && <NavbarItem link={"Users"} title={"Users"}/>
                 }
+
             </div>
         );
 

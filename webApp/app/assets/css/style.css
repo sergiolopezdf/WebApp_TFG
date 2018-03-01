@@ -44,7 +44,7 @@ div.bodyWrapper {
     margin-top: 1vh;
     margin-bottom: 1vh;
     padding: 1vh;
-    background: rgba(50, 230, 33, 0.65);
+    background: rgba(132,235,59,0.73);
     border-radius: 5px;
 }
 
@@ -103,6 +103,16 @@ div#title a {
     border-top: thin dotted #CCCCCC;
     border-bottom: thin dotted #CCCCCC;
 }
+
+/*************************************/
+/*UserMgmt*/
+/*************************************/
+
+table#users {
+    width: 100%;
+}
+
+
 
 
 /*************************************/
@@ -205,7 +215,7 @@ div#chatSideWrapper {
 }
 
 #contactStatus .online {
-    background-color: rgba(71, 255, 43, 0.98);
+    background-color: rgba(132,235,59,0.73);
 }
 
 #contactStatus .offline {
@@ -304,7 +314,7 @@ div#chatBody {
 
 .receivedMessage {
     color: #FFFFFF;
-    background: rgba(82, 159, 255, 0.98);
+    background: rgba(132,235,59,0.73);
     padding-left: 0.5vw;
     padding-right: 0.5vw;
     padding-top: 0.5vh;

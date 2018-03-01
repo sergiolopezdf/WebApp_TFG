@@ -7,16 +7,17 @@ let initialState = {
         news: false,
         publishNew: false,
         management: false,
-        main: false
+        main: false,
+        users:false
     },
     currentChat: null,
     myself: null,
-    onlineUsers: [],
+    remoteUsers: null,
+    remoteUsersTyping: {},
     userTyping: {
         typing: false,
         chat: null,
     },
-    remoteUsersTyping: {},
     news: null,
     alertMessages: null
 };
@@ -26,11 +27,10 @@ function chatUpdate(state = initialState.chat, action) {
         case 'NEW_MESSAGE':
             let newChat = JSON.parse(JSON.stringify(state));
 
-            // Reading chat ID from the first message
-            if (newChat[action.msg.chat] === undefined) {
-                newChat[action.msg.chat] = [action.msg];
+            if (newChat[action.msg.chatId] === undefined) {
+                newChat[action.msg.chatId] = [action.msg];
             } else {
-                newChat[action.msg.chat].splice(0, 0, action.msg);
+                newChat[action.msg.chatId].splice(0, 0, action.msg);
             }
 
             return newChat;
@@ -38,8 +38,7 @@ function chatUpdate(state = initialState.chat, action) {
         case 'UPDATE_CHAT_HISTORY':
             let chatUpdate = JSON.parse(JSON.stringify(state));
 
-            // Reading chat ID from the first message
-            chatUpdate[action.chat[0].chat] = action.chat;
+            chatUpdate[action.chatId] = action.chatMsgs;
 
             return chatUpdate;
 
@@ -49,12 +48,22 @@ function chatUpdate(state = initialState.chat, action) {
     }
 }
 
-function deleteAlerts(state = initialState.alertMessages, action) {
+
+function setRemoteUsers(state = initialState.remoteUsers, action) {
+    return state;
+}
+
+function alertManager(state = initialState.alertMessages, action) {
     switch (action.type) {
         case 'DELETE_ALERTS':
             let newState = JSON.parse(JSON.stringify(state));
             newState = null;
             return newState;
+
+        case 'NEW_ALERT':
+            let newState2 = JSON.parse(JSON.stringify(state));
+            newState2 = action.msg;
+            return newState2;
         default:
             return state;
 
@@ -82,6 +91,7 @@ function renderModules(state = initialState.modules, action) {
             let newState = JSON.parse(JSON.stringify(state));
             newState.chat = action.dismiss;
             return newState;
+
         default:
             return state;
 
@@ -101,22 +111,12 @@ function setUser(state = initialState.myself, action) {
 function setCurrentChat(state = initialState.currentChat, action) {
     switch (action.type) {
         case 'SET_CURRENT_CHAT':
-            return action.chatId;
-        default:
-            return state;
-
-    }
-}
-
-function setOnlineUsers(state = initialState.onlineUsers, action) {
-
-    switch (action.type) {
-        case 'SET_ONLINE_USERS':
-
             let newState = JSON.parse(JSON.stringify(state));
 
-            newState = action.users;
-
+            newState = {
+                chatId: action.chatId,
+                username: action.username
+            }
             return newState;
 
         default:
@@ -131,7 +131,7 @@ function isUserTyping(state = initialState.userTyping, action) {
 
             let newState = JSON.parse(JSON.stringify(state));
 
-            newState.chat = action.chat;
+            newState.chatId = action.chatId;
             newState.typing = action.typing;
 
             return newState;
@@ -170,11 +170,11 @@ let GlobalState = combineReducers({
     modules: renderModules,
     myself: setUser,
     currentChat: setCurrentChat,
-    onlineUsers: setOnlineUsers,
     userTyping: isUserTyping,
+    remoteUsers: setRemoteUsers,
     remoteUsersTyping: remoteUsersTyping,
     news: setNews,
-    alertMessages: deleteAlerts
+    alertMessages: alertManager
 });
 
 export default GlobalState;

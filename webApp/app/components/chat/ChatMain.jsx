@@ -16,8 +16,8 @@ export default class ChatMain extends React.Component {
         this.props.send(msg);
     }
 
-    _userTyping(bool, chat) {
-        this.props.userTyping(bool, chat);
+    _userTyping(bool, chatId) {
+        this.props.userTyping(bool, chatId);
     }
 
     _hideChat() {

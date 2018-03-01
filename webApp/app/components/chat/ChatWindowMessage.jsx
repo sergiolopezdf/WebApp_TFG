@@ -40,7 +40,7 @@ export default class ChatWindowMessage extends React.Component {
     }
 
     _userTyping(bool) {
-        this.props.userTyping(bool, this.props.currentChat);
+        this.props.userTyping(bool, this.props.currentChatId);
     }
 
     _sendMessage() {
@@ -54,7 +54,7 @@ export default class ChatWindowMessage extends React.Component {
             date: new Date(),
             message: $('#msg').val(),
             thread: "default",
-            chat: this.props.currentChat,
+            chatId: this.props.currentChatId,
         };
 
         $('#msg').val("");

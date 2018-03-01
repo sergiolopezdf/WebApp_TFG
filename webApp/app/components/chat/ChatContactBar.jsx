@@ -11,11 +11,12 @@ export default class ChatContactBar extends React.Component {
 
     }
 
-    _openNewChat(userId) {
-        this.props.openNewChat(userId);
+    _openNewChat(user) {
+        this.props.openNewChat(user);
     }
 
     _getChat(userId) {
+
         let n1 = Math.min(parseInt(this.props.userId), parseInt(userId));
         let n2 = Math.max(parseInt(this.props.userId), parseInt(userId));
 
@@ -27,15 +28,15 @@ export default class ChatContactBar extends React.Component {
         return (
             <div id="chatSideWrapper">
                 {
-                    this.props.onlineUsers.map((user, index) => {
+                    this.props.remoteUsers.map((user, index) => {
 
-                        if (user === this.props.userId) { // User=userId fornow
+                        if (user.id === this.props.userId) {
                             return;
                         }
 
-                        if (this.props.remoteUsersTyping[this._getChat(user)] !== undefined) {
+                        if (this.props.remoteUsersTyping[this._getChat(user.id)] !== undefined) {
                             return <ChatContact user={user}
-                                                typing={this.props.remoteUsersTyping[this._getChat(user)].typing}
+                                                typing={this.props.remoteUsersTyping[this._getChat(user.id)].typing}
                                                 key={index} openNewChat={this._openNewChat}/>;
                         }
 

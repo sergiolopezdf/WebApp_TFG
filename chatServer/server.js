@@ -13,75 +13,24 @@ var io = require('socket.io')(server, {
 
 });
 
-var onlineUsers = [];
-
 
 var io = io.of('/chat');
 
 //Connection
 io.on('connection', function (socket) {
     socket.on('newUser', function (userId) {
-
-        //console.log('a user connected');
-
         socket.userId = userId;
 
-        //Adding the user to the array.
-
-        //First user ever (empty array)
-        if (onlineUsers.length < 1) {
-            onlineUsers.push(userId);
-
-            //Notify everyone there's a new user online
-            socket.broadcast.emit('getUsersOnline', onlineUsers);
-            socket.emit('getUsersOnline', onlineUsers);
-            return;
-        }
-
-        //It needs to be sorted (from least id to greatest id)
-        for (var i = 0; i < onlineUsers.length; i++) {
-
-            if (onlineUsers[i] === userId) {
-                return;
-            }
-
-            if (onlineUsers[i] > userId) {
-                onlineUsers.splice(i, 0, userId);
-
-                //Notify everyone there's a new user online
-                socket.broadcast.emit('getUsersOnline', onlineUsers);
-                socket.emit('getUsersOnline', onlineUsers);
-                return;
-            }
-
-        }
-
-        //If it's the last one
-        onlineUsers.push(userId);
-
-        //Notify everyone there's a new user online
-        socket.broadcast.emit('getUsersOnline', onlineUsers);
-        socket.emit('getUsersOnline', onlineUsers);
+        //ADD STATUS TO DATABASE!!
 
     });
-
-
 });
 
 //Disconnection
 io.on('connection', function (socket) {
     socket.on('disconnect', function () {
 
-        //Remove an user from array
-        for (var i = 0; i < onlineUsers.length; i++) {
-            if (onlineUsers[i] === socket.userId) {
-                onlineUsers.splice(i, 1);
-            }
-        }
-
-        //Notify everyone there's a new user offline
-        socket.broadcast.emit('getUsersOnline', onlineUsers);
-        //console.log('user disconnected');
+        //ADD STATUS TO DATABASE!!
     });
 });
 
@@ -90,6 +39,8 @@ io.on('connection', function (socket) {
 
     socket.on('room', function (room) {
         socket.join(room);
+
+        console.log("Now in room: "+ room);
 
         let filename = 'chats/' + room + '.json';
 
@@ -124,7 +75,7 @@ io.on('connection', function (socket) {
 
     socket.on('message', function (msg) {
 
-        var room = "" + msg.chat;
+        var room = "" + msg.chatId;
 
         let filename = 'chats/' + room + '.json';
 
