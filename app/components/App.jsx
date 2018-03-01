@@ -12,7 +12,6 @@ import {
     setNews,
     setOnlineUsers,
     setRemoteUsersTyping,
-    setUser,
     showChat,
     userTyping,
 } from "../../redux/reducers/actions";
@@ -42,11 +41,10 @@ class App extends React.Component {
         this._hideChat = this._hideChat.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
 
-        /*let user = prompt("Set user");
+        /* let user = prompt("Set user");
         let passw = prompt("Set password");*/
 
-
-        //this.props.dispatch(setUserId(userId));
+        // this.props.dispatch(setUserId(userId));
 
         openConnection(this.props.myself.id);
 
@@ -122,6 +120,8 @@ class App extends React.Component {
 
     _submitNew(data) {
 
+        //console.log(data);
+
         let url = "http://localhost:5000/api/news?access_token=bb";
 
         // HTTP request
@@ -140,7 +140,7 @@ class App extends React.Component {
 
             }
 
-        }
+        };
 
     }
 

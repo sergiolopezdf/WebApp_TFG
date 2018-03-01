@@ -4,11 +4,16 @@ import reducers from '../../redux/reducers/reducers';
 
 export function main(req, res, next) {
 
+
     let initialState = {
-        myself: req.session.user
+        myself: null
     }
 
-    // Create a new Redux store instance. No initial state, so default
+    if (req.session) {
+        initialState.myself = req.session.user;
+    }
+
+    // Create a new Redux store instance. No initial state, default
     let store = createStore(reducers, initialState);
 
     // Grab the initial state from our Redux store

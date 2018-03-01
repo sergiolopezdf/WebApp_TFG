@@ -3,36 +3,40 @@ import {digestPassword} from "../crypto";
 
 export async function loginRequired(req, res, next) {
 
-    if (req.session) {
+    console.log(req.session.user);
+
+    if (req.session.user) {
         next();
         return;
     }
 
-    //Render login page
+    res.render('../views/login.ejs');
 
 }
 
-export async function saveLogin(req, res, next) {
+export async function login(req, res, next) {
+
     // Render login page
-    let username = "sl";
-    let password = "sl";
+    let username = req.body.username;
+    let password = req.body.password;
+
 
     password = digestPassword(password);
 
-    let user = await _authenticateUser(username, password)
+    let user = await _authenticateUser(username, password);
+
 
     if (user) {
-        req.session = {
-            user: user,
-        }
-        next();
-        return;
+        req.session.user = user;
+        console.log(req.session);
+        res.redirect('/');
     }
-
 }
 
 async function _authenticateUser(username, password) {
-    let user = await User.findOne({where: {username: username}})
+    let user = await User.findOne({where: {username: username}});
+
+    //console.log(user);
 
     let loginOk = _isPasswordCorrect(password, user.password);
 
@@ -40,7 +44,7 @@ async function _authenticateUser(username, password) {
         return {
             id: user.id,
             username: user.username,
-        }
+        };
     }
     return null;
 }

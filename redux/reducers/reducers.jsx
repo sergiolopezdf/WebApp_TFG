@@ -5,7 +5,7 @@ let initialState = {
     modules: {
         chat: false,
         news: false,
-        publishNew: false,
+        publishNew: false
     },
     currentChat: null,
     myself: null,

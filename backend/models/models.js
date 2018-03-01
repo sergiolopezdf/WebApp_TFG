@@ -27,6 +27,10 @@ let User = sequelize.define('user', {
 let New = sequelize.define('new', {
 
     // No author and date. It's created by default
+    title: {
+        type: Sequelize.STRING,
+        validate: {notEmpty: {msg: "Title must not be empty."}},
+    },
     content: {
         type: Sequelize.STRING,
         validate: {notEmpty: {msg: "Content must not be empty."}},

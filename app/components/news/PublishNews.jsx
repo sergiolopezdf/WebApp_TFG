@@ -12,9 +12,11 @@ export default class PublishNews extends React.Component {
     _submitNew() {
 
         let data = {
-            author: this.props.userId,
+            authorId: this.props.userId,
             title: $('input#title').val(),
             content: $('textarea#content').val(),
+            createdAt: new Date(),
+            updatedAt: new Date()
         };
 
         this.props.submitNew(data);
