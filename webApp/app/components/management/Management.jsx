@@ -10,17 +10,38 @@ export default class Management extends React.Component {
     render() {
         return (
             <div className="bodyWrapper">
-                <span className="newTitle">User: </span>
-                <span>{this.props.myself.username} - {this.props.myself.admin && "(admin)"}</span>
-                <span className="newTitle">ID: </span>
-                <span>{this.props.myself.id}</span>
+                <span className="newTitle">Personal data management</span>
+
+                <table class={"users"}>
+                    <tr>
+                        <th>Name:</th>
+                        <td>{this.props.myself.name}</td>
+                    </tr>
+                    <tr>
+                        <th>Username:</th>
+                        <td>{this.props.myself.username}</td>
+                    </tr>
+                    <tr>
+                        <th>ID:</th>
+                        <td>{this.props.myself.id}</td>
+                    </tr>
+                    <tr>
+                        <th>Admin:</th>
+                        <td>{this.props.myself.admin ? "Yes" : "No"}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Update password:</th>
+                        <td>
+                            <form action={'/update_password'} method={"post"}>
+                                <input name={"updatePassword"} type={"password"} className={"styledInput"}/>
+                                <button id="newButton" action="submit">Submit</button>
+                            </form>
+                        </td>
+                    </tr>
 
 
-                <form action={'/update_password'} method={"post"}>
-                    <span className="newTitle">Update password: </span>
-                    <input name={"updatePassword"} type={"password"} className={"styledInput"}/>
-                    <button id="newButton" action="submit">Submit</button>
-                </form>
+                </table>
 
 
             </div>

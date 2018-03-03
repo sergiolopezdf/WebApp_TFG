@@ -108,7 +108,7 @@ div#title a {
 /*UserMgmt*/
 /*************************************/
 
-table#users {
+table.users {
     width: 100%;
 }
 

@@ -11,9 +11,11 @@ export async function newUser(req, res, next) {
     }
 
     let newUser = User.build({
+        name: req.body.name,
         username: req.body.username,
         password: req.body.password,
-        admin: false,
+        admin: req.body.admin === "on" ? true : false,
+        online: false,
     });
 
     let userOk = await newUser.save();
@@ -25,12 +27,7 @@ export async function newUser(req, res, next) {
 
 }
 
-export async function getUsers(req,res,next) {
-
-
-
-
-
+export async function getUsers(req, res, next) {
 
 }
 

@@ -11,7 +11,7 @@ export async function loginRequired(req, res, next) {
     }
 
     res.render('../views/login.ejs', {
-        msg: false
+        msg: false,
     });
 
 }
@@ -25,8 +25,6 @@ export async function adminRequired(req, res, next) {
     res.send(403);
 
 }
-
-
 
 export async function login(req, res, next) {
 
@@ -63,6 +61,9 @@ async function _authenticateUser(username, password) {
         return {
             id: user.id,
             username: user.username,
+            name: user.name,
+            online: user.online,
+            createdAt: user.createdAt,
             admin: user.admin,
         };
     }

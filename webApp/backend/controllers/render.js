@@ -5,7 +5,7 @@ import {User} from './../models/models';
 export async function main(req, res, next) {
 
     let users = await User.findAll({
-        attributes: ['id', 'username', 'admin']
+        attributes: ['id', 'username', 'admin', 'name', 'createdAt'],
     });
 
     let initialState = {
@@ -37,7 +37,7 @@ export async function main(req, res, next) {
 export async function news(req, res, next) {
 
     let users = await User.findAll({
-        attributes: ['id', 'username', 'admin']
+        attributes: ['id', 'username', 'admin', 'name', 'createdAt'],
     });
 
     let initialState = {
@@ -66,7 +66,7 @@ export async function news(req, res, next) {
 export async function management(req, res, next) {
 
     let users = await User.findAll({
-        attributes: ['id', 'username', 'admin']
+        attributes: ['id', 'username', 'admin', 'name', 'createdAt'],
     });
 
     let initialState = {
@@ -95,9 +95,8 @@ export async function management(req, res, next) {
 export async function users(req, res, next) {
 
     let users = await User.findAll({
-        attributes: ['id', 'username', 'admin']
+        attributes: ['id', 'username', 'admin', 'name', 'createdAt'],
     });
-
     let initialState = {
         myself: req.session.user,
         remoteUsers: users,
@@ -124,7 +123,7 @@ export async function users(req, res, next) {
 export async function publishNews(req, res, next) {
 
     let users = await User.findAll({
-        attributes: ['id', 'username', 'admin']
+        attributes: ['id', 'username', 'admin', 'name', 'createdAt'],
     });
 
     let initialState = {

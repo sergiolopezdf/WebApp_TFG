@@ -14,6 +14,11 @@ let User = sequelize.define('user', {
         validate: {notEmpty: {msg: "Username must not be empty."}},
     },
 
+    name: {
+        type: Sequelize.STRING,
+        validate: {notEmpty: {msg: "Name must not be empty."}},
+    },
+
     password: {
         type: Sequelize.STRING,
         validate: {notEmpty: {msg: "Password must not be empty."}},
@@ -21,10 +26,15 @@ let User = sequelize.define('user', {
             this.setDataValue('password', digestPassword(password));
         },
     },
+
     admin: {
         type: Sequelize.BOOLEAN,
         validate: {notEmpty: {msg: "admin must not be empty."}},
-    }
+    },
+    online: {
+        type: Sequelize.BOOLEAN,
+        validate: {notEmpty: {msg: "User online must not be empty."}},
+    },
 
 });
 
@@ -53,19 +63,20 @@ sequelize.sync()
 
         let newUser = User.build({
             username: "admin",
+            name: "SuperAdmin",
             password: "admin",
-            admin: true
+            online: "false",
+            admin: true,
         });
 
         newUser.save()
             .then(() => {
                 console.log("User ok");
-            })
+            });
     })
     .catch((err) => {
         console.log("Error while creating DB: ", err);
     });
-
 
 exports.New = New;
 exports.User = User;
