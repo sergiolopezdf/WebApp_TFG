@@ -50,7 +50,18 @@ function chatUpdate(state = initialState.chat, action) {
 
 
 function setRemoteUsers(state = initialState.remoteUsers, action) {
-    return state;
+    switch (action.type) {
+        case 'SET_REMOTE_USERS':
+            let newState = JSON.parse(JSON.stringify(state));
+
+            newState = action.users;
+
+            return newState;
+
+        default:
+            return state;
+
+    }
 }
 
 function alertManager(state = initialState.alertMessages, action) {

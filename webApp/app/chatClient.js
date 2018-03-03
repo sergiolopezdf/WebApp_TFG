@@ -13,6 +13,7 @@ function openChat(room, callback) {
 }
 
 function openConnection(myUserId) {
+
     socket.emit('newUser', myUserId);
 }
 
@@ -25,6 +26,13 @@ function sendMessage(msg) {
 function receivedMessage(callback) {
     socket.on('chat message', msg => {
         callback(msg);
+    });
+
+}
+
+function newUserOnline(callback) {
+    socket.on('newUserOnline', userId => {
+        callback(userId);
     });
 
 }
@@ -49,6 +57,5 @@ function remoteUserIsTyping(callback) {
 
 }
 
-
-export {openConnection, openChat, sendMessage, receivedMessage, userIsTyping, remoteUserIsTyping};
+export {openConnection, openChat, sendMessage, receivedMessage, userIsTyping, remoteUserIsTyping, newUserOnline};
 

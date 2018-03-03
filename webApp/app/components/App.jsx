@@ -5,18 +5,26 @@ import ChatContactBar from './chat/ChatContactBar';
 import ChatMain from './chat/ChatMain';
 import Main from './Main';
 import {
-    addNewOnlineUser,
     deleteAlerts, newAlert,
     newMessage,
     setChatHistory,
     setCurrentChat,
     setNews,
+    setRemoteUsers,
     setRemoteUsersTyping,
     showChat,
     userTyping,
 } from "../../redux/reducers/actions";
 
-import {openChat, openConnection, receivedMessage, remoteUserIsTyping, sendMessage, userIsTyping,} from "../chatClient";
+import {
+    openChat,
+    openConnection,
+    receivedMessage,
+    remoteUserIsTyping,
+    sendMessage,
+    userIsTyping,
+    newUserOnline,
+} from "../chatClient";
 import Header from "./Header";
 
 class App extends React.Component {
@@ -43,6 +51,10 @@ class App extends React.Component {
 
         remoteUserIsTyping(details => {
             this.props.dispatch(setRemoteUsersTyping(details));
+        });
+
+        newUserOnline(userId => {
+            console.log(userId);
         });
 
     }
@@ -121,7 +133,7 @@ class App extends React.Component {
 
         req.send(JSON.stringify(data));
 
-        req.onreadystatechange = function () {
+        req.onreadystatechange = function() {
             console.log(req.status);
             if (req.readyState == XMLHttpRequest.DONE && req.status == 200) {
 
@@ -130,7 +142,6 @@ class App extends React.Component {
         };
 
         this.props.dispatch(newAlert("Your new has been saved"));
-
 
     }
 

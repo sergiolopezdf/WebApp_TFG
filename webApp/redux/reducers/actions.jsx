@@ -40,6 +40,14 @@ export function userTyping(bool, chatId) {
 
 }
 
+export function setRemoteUsers(users) {
+    return {
+        type: "SET_REMOTE_USERS",
+        users: users,
+    };
+
+}
+
 export function setRemoteUsersTyping(details) {
 
     return {
