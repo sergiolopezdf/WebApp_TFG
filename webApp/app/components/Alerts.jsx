@@ -9,9 +9,6 @@ export default class Alerts extends React.Component {
 
     render() {
 
-
-        console.log("Alert")
-
         if (this.props.alertMessages) {
             return (
                 <div id={"alert"}>{this.props.alertMessages}</div>

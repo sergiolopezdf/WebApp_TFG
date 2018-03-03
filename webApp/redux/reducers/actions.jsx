@@ -40,16 +40,21 @@ export function userTyping(bool, chatId) {
 
 }
 
-export function setRemoteUsers(users) {
+export function setNewUserOnline(userId) {
     return {
-        type: "SET_REMOTE_USERS",
-        users: users,
+        type: "SET_NEW_USER_ONLINE",
+        userId: userId,
     };
+}
 
+export function setNewUserOffline(userId) {
+    return {
+        type: "SET_NEW_USER_OFFLINE",
+        userId: userId,
+    };
 }
 
 export function setRemoteUsersTyping(details) {
-
     return {
         type: 'REMOTE_USER_TYPING',
         chat: details.chat,

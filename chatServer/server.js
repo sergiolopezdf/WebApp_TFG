@@ -37,14 +37,15 @@ io.on('connection', function(socket) {
 io.on('connection', function(socket) {
     socket.on('disconnect', function() {
 
-        console.log(socket.userId);
 
         models.User.findOne({where: {id: socket.userId}})
             .then(user => {
                 user.online = false;
                 user.save();
-
             });
+
+        socket.broadcast.emit('newUserOffline', socket.userId);
+
     });
 });
 

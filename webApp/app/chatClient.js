@@ -8,7 +8,7 @@ function openChat(room, callback) {
 
     socket.on('getHistory', fullChat => {
         callback(fullChat);
-    })
+    });
 
 }
 
@@ -16,7 +16,6 @@ function openConnection(myUserId) {
 
     socket.emit('newUser', myUserId);
 }
-
 
 function sendMessage(msg) {
     socket.emit('message', msg);
@@ -34,6 +33,13 @@ function newUserOnline(callback) {
     socket.on('newUserOnline', userId => {
         callback(userId);
     });
+}
+
+function newUserOffline(callback) {
+    console.log("entro");
+    socket.on('newUserOffline', userId => {
+        callback(userId);
+    });
 
 }
 
@@ -42,9 +48,8 @@ function userIsTyping(bool, chat, userId) {
     let details = {
         chat: chat,
         userId: userId,
-        typing: bool
-    }
-
+        typing: bool,
+    };
 
     socket.emit('typing', details);
 }
@@ -57,5 +62,14 @@ function remoteUserIsTyping(callback) {
 
 }
 
-export {openConnection, openChat, sendMessage, receivedMessage, userIsTyping, remoteUserIsTyping, newUserOnline};
+export {
+    openConnection,
+    openChat,
+    sendMessage,
+    receivedMessage,
+    userIsTyping,
+    remoteUserIsTyping,
+    newUserOnline,
+    newUserOffline,
+};
 

@@ -9,7 +9,7 @@ import {
     newMessage,
     setChatHistory,
     setCurrentChat,
-    setNews,
+    setNews, setNewUserOffline, setNewUserOnline,
     setRemoteUsers,
     setRemoteUsersTyping,
     showChat,
@@ -24,6 +24,7 @@ import {
     sendMessage,
     userIsTyping,
     newUserOnline,
+    newUserOffline,
 } from "../chatClient";
 import Header from "./Header";
 
@@ -54,7 +55,11 @@ class App extends React.Component {
         });
 
         newUserOnline(userId => {
-            console.log(userId);
+            this.props.dispatch(setNewUserOnline(userId));
+        });
+
+        newUserOffline(userId => {
+            this.props.dispatch(setNewUserOffline(userId));
         });
 
     }

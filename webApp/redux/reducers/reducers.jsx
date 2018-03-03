@@ -51,12 +51,27 @@ function chatUpdate(state = initialState.chat, action) {
 
 function setRemoteUsers(state = initialState.remoteUsers, action) {
     switch (action.type) {
-        case 'SET_REMOTE_USERS':
+        case 'SET_NEW_USER_ONLINE':
             let newState = JSON.parse(JSON.stringify(state));
 
-            newState = action.users;
+            newState.map((user, index) => {
+                if (action.userId === user.id) {
+                    user.online = true;
+                }
+            });
 
             return newState;
+
+        case 'SET_NEW_USER_OFFLINE':
+            let newState2 = JSON.parse(JSON.stringify(state));
+
+            newState2.map((user, index) => {
+                if (action.userId === user.id) {
+                    user.online = false;
+                }
+            });
+
+            return newState2;
 
         default:
             return state;
