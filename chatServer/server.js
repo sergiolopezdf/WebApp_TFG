@@ -4,7 +4,6 @@ var keys = Object.keys || require('object-keys');
 var fs = require('fs');
 var models = require("./models/models");
 
-
 var io = require('socket.io')(server, {
     //serveClient: false,
     // below are engine.IO options
@@ -37,7 +36,6 @@ io.on('connection', function(socket) {
 io.on('connection', function(socket) {
     socket.on('disconnect', function() {
 
-
         models.User.findOne({where: {id: socket.userId}})
             .then(user => {
                 user.online = false;
@@ -57,27 +55,20 @@ io.on('connection', function(socket) {
 
         console.log("Now in room: " + room);
 
-        let filename = 'chats/' + room + '.json';
+        let chat = models.selectChatTable(room);
 
-        fs.readFile(filename, function(err, data) {
+        models.sequelize.sync()
+            .then(() => {
+                console.log("New table (chat) has been created");
+            })
+            .catch((err) => {
+                console.log("Error while creating table/chat: ", err);
+            });
 
-            if (err) {
-                console.log(err);
-
-                let data = [];
-
-                data = JSON.stringify(data);
-
-                fs.writeFile(filename, data, function(err) {
-                    console.log("Write file error: " + err);
-
-                });
-            } else {
-                data = JSON.parse(data);
-                socket.emit('getHistory', data);
-            }
-
-        });
+        chat.findAll()
+            .then((msgs) => {
+                socket.emit('getHistory', msgs);
+            });
 
     });
 
@@ -90,19 +81,17 @@ io.on('connection', function(socket) {
 
         var room = "" + msg.chatId;
 
-        let filename = 'chats/' + room + '.json';
+        let chat = models.selectChatTable(room);
 
-        /* fs.readFile(filename, function(err, data) {
-             data = JSON.parse(data);
-             data.splice(0, 0, msg);
-             data = JSON.stringify(data);
+        let newMsg = chat.build({
+            author: msg.author,
+            date: msg.date,
+            message: msg.message,
+            read: false,
+            thread: msg.thread,
+        });
 
-             fs.writeFile(filename, data, function(err) {
-                 console.log("Write file error: " + err);
-
-             });
-
-         });*/
+        newMsg.save();
 
         socket.broadcast.to(room).emit('chat message', msg);
 

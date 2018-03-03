@@ -28,7 +28,6 @@ let User = sequelize.define('user', {
             this.setDataValue('password', crypto.digestPassword(password));
         },
     },
-
     admin: {
         type: Sequelize.BOOLEAN,
         validate: {notEmpty: {msg: "admin must not be empty."}},
@@ -40,9 +39,35 @@ let User = sequelize.define('user', {
 
 });
 
-// Exporting authorId as foreingKey. Then, importing it with the same name.
-// 'as' is just for getters and setters
+function selectChatTable(chatId) {
+
+    let table = sequelize.define(chatId, {
+        author: {
+            type: Sequelize.INTEGER,
+            validate: {notEmpty: {msg: "Sender must not be empty."}},
+        },
+        date: {
+            type: Sequelize.DATE,
+            validate: {notEmpty: {msg: "Date must not be empty."}},
+        },
+        message: {
+            type: Sequelize.STRING,
+        },
+        read: {
+            type: Sequelize.BOOLEAN,
+
+        },
+        thread: {
+            type: Sequelize.STRING,
+        },
+    }, {
+        timestamps: false,
+    });
+
+    return table;
+
+}
 
 exports.User = User;
-
+exports.selectChatTable = selectChatTable;
 exports.sequelize = sequelize;

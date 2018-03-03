@@ -62,7 +62,7 @@ async function _authenticateUser(username, password) {
             id: user.id,
             username: user.username,
             name: user.name,
-            online: user.online,
+            online: true,
             createdAt: user.createdAt,
             admin: user.admin,
         };
