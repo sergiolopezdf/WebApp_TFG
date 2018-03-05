@@ -93,6 +93,32 @@ io.on('connection', function(socket) {
 
         newMsg.save();
 
+        let pendingMsgs = null;
+
+        models.UnreadMessages.findOne({
+            where: {
+                chat: room,
+                authorId: {
+                    $not: msg.author,
+                },
+            },
+        }).then(row => {
+            pendingMsgs = row;
+        });
+
+        if (pendingMsgs) {
+            pendingMsgs.nMessages++;
+        } else {
+            pendingMsgs = models.UnreadMessages.build({
+                authorId: msg.author,
+                chat: room,
+                nMessages: 1,
+            });
+        }
+        pendingMsgs.save();
+
+
+
         socket.broadcast.to(room).emit('chat message', msg);
 
     });

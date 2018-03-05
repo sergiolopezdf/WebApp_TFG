@@ -39,6 +39,22 @@ let User = sequelize.define('user', {
 
 });
 
+let UnreadMessages = sequelize.define('unreadMessages', {
+
+    chat: {
+        type: Sequelize.STRING,
+        validate: {notEmpty: {msg: "Chat must not be empty."}},
+    },
+
+    nMessages: {
+        type: Sequelize.INTEGER,
+        validate: {notEmpty: {msg: "nMessages must not be empty."}},
+    },
+
+}, {
+    timestamps: false,
+});
+
 function selectChatTable(chatId) {
 
     let table = sequelize.define(chatId, {
@@ -53,10 +69,6 @@ function selectChatTable(chatId) {
         message: {
             type: Sequelize.STRING,
         },
-        read: {
-            type: Sequelize.BOOLEAN,
-
-        },
         thread: {
             type: Sequelize.STRING,
         },
@@ -68,6 +80,10 @@ function selectChatTable(chatId) {
 
 }
 
+UnreadMessages.belongsTo(User, {foreignKey: 'authorId'});
+User.hasMany(UnreadMessages, {as: 'author', foreignKey: 'authorId'});
+
 exports.User = User;
+exports.UnreadMessages = UnreadMessages;
 exports.selectChatTable = selectChatTable;
 exports.sequelize = sequelize;
