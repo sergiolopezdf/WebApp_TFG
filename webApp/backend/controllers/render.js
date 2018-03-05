@@ -34,6 +34,7 @@ export async function main(req, res, next) {
     });
 }
 
+/*
 export async function news(req, res, next) {
 
     let users = await User.findAll({
@@ -62,8 +63,9 @@ export async function news(req, res, next) {
     });
 
 }
+*/
 
-export async function management(req, res, next) {
+/*export async function management(req, res, next) {
 
     let users = await User.findAll({
         attributes: ['id', 'username', 'admin', 'name', 'createdAt', 'online'],
@@ -90,9 +92,9 @@ export async function management(req, res, next) {
         script: JSON.stringify(preloadedState),
     });
 
-}
+}*/
 
-export async function users(req, res, next) {
+/*export async function users(req, res, next) {
 
     let users = await User.findAll({
         attributes: ['id', 'username', 'admin', 'name', 'createdAt', 'online'],
@@ -118,7 +120,7 @@ export async function users(req, res, next) {
         script: JSON.stringify(preloadedState),
     });
 
-}
+}*/
 
 export async function publishNews(req, res, next) {
 

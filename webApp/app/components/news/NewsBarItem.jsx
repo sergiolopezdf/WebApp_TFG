@@ -1,5 +1,6 @@
 import React from 'react';
 import './../../assets/css/style.css';
+import {Link} from 'react-router-dom';
 
 export default class NewsBarItem extends React.Component {
 
@@ -10,7 +11,7 @@ export default class NewsBarItem extends React.Component {
     render() {
 
         return <div id="newsBarItem">
-            <a href={this.props.link}>{this.props.title}</a>
+            <Link to={this.props.link}>{this.props.title}</Link>
         </div>
 
     }

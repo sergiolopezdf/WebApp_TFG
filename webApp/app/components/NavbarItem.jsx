@@ -1,6 +1,8 @@
 import React from 'react';
 import './../assets/css/style.css';
 
+import {Link} from 'react-router-dom';
+
 export default class NavbarItem extends React.Component {
 
     constructor(props) {
@@ -14,7 +16,8 @@ export default class NavbarItem extends React.Component {
         return (
             <div id="navBarItem">
 
-                <a href={url}>{this.props.title}</a>
+                <Link to={url}>{this.props.title}</Link>
+
 
             </div>
         );

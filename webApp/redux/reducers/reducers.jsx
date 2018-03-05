@@ -4,11 +4,6 @@ let initialState = {
     chat: {},
     modules: {
         chat: false,
-        news: false,
-        publishNew: false,
-        management: false,
-        main: false,
-        users:false
     },
     currentChat: null,
     myself: null,

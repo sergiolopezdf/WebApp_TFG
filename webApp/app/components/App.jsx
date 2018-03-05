@@ -3,7 +3,13 @@ import '../assets/css/style.css';
 import {connect} from 'react-redux';
 import ChatContactBar from './chat/ChatContactBar';
 import ChatMain from './chat/ChatMain';
-import Main from './Main';
+import News from "./news/News";
+import NewsBar from "./news/NewsBar";
+import PublishNews from "./news/PublishNews";
+import Management from "./management/Management";
+import UsersManagement from "./management/UsersManagement";
+import Alerts from "./Alerts";
+import Index from "./Index";
 import {
     deleteAlerts, newAlert,
     newMessage,
@@ -15,6 +21,8 @@ import {
     showChat,
     userTyping,
 } from "../../redux/reducers/actions";
+
+import {Route, Switch, BrowserRouter as Router} from 'react-router-dom';
 
 import {
     openChat,
@@ -153,27 +161,83 @@ class App extends React.Component {
     render() {
 
         return (
-            <div id="wrapper">
 
-                <Header myself={this.props.myself}/>
+            <Router>
 
-                <div id="contentWrapper">
-                    {this.props.modules.chat &&
-                    <ChatMain send={this._sendMessage} author={this.props.myself.id}
-                              currentChat={this.props.currentChat}
-                              messages={this.props.chat[this.props.currentChat.chatId]} userTyping={this._userTyping}
-                              remoteUsersTyping={this.props.remoteUsersTyping[this.props.currentChat]}
-                              hideChat={this._hideChat}/>}
+                <div id="wrapper">
 
-                    <Main modules={this.props.modules} getNews={this._getNews} news={this.props.news}
-                          submitNew={this._submitNew} myself={this.props.myself} removeAlerts={this._removeAlerts}
-                          alertMessages={this.props.alertMessages} remoteUsers={this.props.remoteUsers}/>
+                    <Header myself={this.props.myself}/>
 
-                    <ChatContactBar userId={this.props.myself.id} remoteUsers={this.props.remoteUsers}
-                                    openNewChat={this._openNewChat} remoteUsersTyping={this.props.remoteUsersTyping}/>
+                    <div id="contentWrapper">
+
+                        {this.props.alertMessages &&
+                        <Alerts alertMessages={this.props.alertMessages} removeAlerts={this._removeAlerts}/>}
+
+
+                        {this.props.modules.chat &&
+                        <ChatMain send={this._sendMessage} author={this.props.myself.id}
+                                  currentChat={this.props.currentChat}
+                                  messages={this.props.chat[this.props.currentChat.chatId]}
+                                  userTyping={this._userTyping}
+                                  remoteUsersTyping={this.props.remoteUsersTyping[this.props.currentChat]}
+                                  hideChat={this._hideChat}/>}
+
+
+                        <Switch>
+
+                            <Route exact={true} path={'/'} render={() => {
+                                return (
+                                    <div className="mainWrapper">
+                                        <Index/>
+                                    </div>
+                                );
+                            }}/>
+
+
+                            <Route exact={true} path={'/news'} render={() => {
+                                return (
+                                    <div className="mainWrapper">
+                                        <NewsBar/>
+                                        <News getNews={this._getNews} news={this.props.news}/>
+                                    </div>
+                                );
+                            }}/>
+
+
+                            <Route exact={true} path={'/users'} render={() => {
+                                return (
+                                    <div className="mainWrapper">
+                                        <UsersManagement remoteUsers={this.props.remoteUsers}/>
+                                    </div>
+                                );
+                            }}/>
+
+                            <Route exact={true} path={'/management'} render={() => {
+                                return (
+                                    <div className="mainWrapper">
+                                        <Management myself={this.props.myself}/>
+                                    </div>
+                                );
+                            }}/>
+
+                            <Route exact={true} path={'/publish_new'} render={() => {
+                                return (
+                                    <div className="mainWrapper">
+                                        <NewsBar/>
+                                        <PublishNews submitNew={this._submitNew} userId={this.props.myself.id}/>
+                                    </div>
+                                );
+                            }}/>
+
+                        </Switch>
+
+                        <ChatContactBar userId={this.props.myself.id} remoteUsers={this.props.remoteUsers}
+                                        openNewChat={this._openNewChat}
+                                        remoteUsersTyping={this.props.remoteUsersTyping}/>
+                    </div>
+
                 </div>
-
-            </div>
+            </Router>
         );
 
     }
