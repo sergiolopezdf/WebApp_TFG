@@ -122,6 +122,7 @@ export async function news(req, res, next) {
 
 }*/
 
+/*
 export async function publishNews(req, res, next) {
 
     let users = await User.findAll({
@@ -150,3 +151,4 @@ export async function publishNews(req, res, next) {
     });
 
 }
+*/
