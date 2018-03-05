@@ -14,7 +14,7 @@ export default class Alerts extends React.Component {
                 <div id={"alert"}>{this.props.alertMessages}</div>
 
             );
-            this.props.removeAlerts();
+
         }
 
     }

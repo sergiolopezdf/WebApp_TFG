@@ -48,6 +48,19 @@ export async function login(req, res, next) {
     });
 }
 
+export async function logout(req, res, next) {
+
+    if (req.session.user) {
+        req.session.destroy();
+
+    }
+
+    res.render('../views/login.ejs', {
+        msg: false,
+    });
+
+}
+
 async function _authenticateUser(username, password) {
     let user = await User.findOne({where: {username: username}});
 

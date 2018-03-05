@@ -78,7 +78,7 @@ function alertManager(state = initialState.alertMessages, action) {
     switch (action.type) {
         case 'DELETE_ALERTS':
             let newState = JSON.parse(JSON.stringify(state));
-            newState = null;
+            newState = false;
             return newState;
 
         case 'NEW_ALERT':

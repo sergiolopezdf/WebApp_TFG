@@ -1,5 +1,6 @@
 import React from 'react';
 import './../assets/css/style.css';
+import {Link} from 'react-router-dom';
 
 export default class Title extends React.Component {
 
@@ -13,7 +14,7 @@ export default class Title extends React.Component {
         return (
             <div id="title">
 
-                <a href="/"> WebApp</a>
+                <Link to={"/"}> WebApp</Link>
             </div>
         );
 

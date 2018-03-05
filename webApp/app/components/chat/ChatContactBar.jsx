@@ -1,6 +1,7 @@
 import React from 'react';
 import '../../assets/css/style.css';
 import ChatContact from './ChatContact';
+import ChatMyself from "./ChatMyself";
 
 export default class ChatContactBar extends React.Component {
 
@@ -17,8 +18,8 @@ export default class ChatContactBar extends React.Component {
 
     _getChat(userId) {
 
-        let n1 = Math.min(parseInt(this.props.userId), parseInt(userId));
-        let n2 = Math.max(parseInt(this.props.userId), parseInt(userId));
+        let n1 = Math.min(parseInt(this.props.myself.id), parseInt(userId));
+        let n2 = Math.max(parseInt(this.props.myself.id), parseInt(userId));
 
         return n1 + "_" + n2;
     }
@@ -27,10 +28,12 @@ export default class ChatContactBar extends React.Component {
 
         return (
             <div id="chatSideWrapper">
+
+                <ChatMyself myself={this.props.myself}/>
                 {
                     this.props.remoteUsers.map((user, index) => {
 
-                        if (user.id === this.props.userId) {
+                        if (user.id === this.props.myself.id) {
                             return;
                         }
 

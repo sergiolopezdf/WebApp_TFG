@@ -49,6 +49,7 @@ class App extends React.Component {
         this._hideChat = this._hideChat.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
         this._removeAlerts = this._removeAlerts.bind(this);
+        this._newAlert = this._newAlert.bind(this);
         this._submitNew = this._submitNew.bind(this);
 
         openConnection(this.props.myself.id);
@@ -128,7 +129,18 @@ class App extends React.Component {
 
     _removeAlerts() {
         this.props.dispatch(deleteAlerts());
+        console.log(this.props.store.getState());
     }
+
+    _newAlert(msg) {
+
+        this.props.dispatch(newAlert(msg));
+
+        // await new Promise(setTimeout(5000));
+
+    }
+
+
 
     _submitNew(data) {
 
@@ -154,7 +166,8 @@ class App extends React.Component {
 
         };
 
-        this.props.dispatch(newAlert("Your new has been saved"));
+        this._newAlert("Your new has been saved");
+
 
     }
 
@@ -170,10 +183,6 @@ class App extends React.Component {
 
                     <div id="contentWrapper">
 
-                        {this.props.alertMessages &&
-                        <Alerts alertMessages={this.props.alertMessages} removeAlerts={this._removeAlerts}/>}
-
-
                         {this.props.modules.chat &&
                         <ChatMain send={this._sendMessage} author={this.props.myself.id}
                                   currentChat={this.props.currentChat}
@@ -188,6 +197,8 @@ class App extends React.Component {
                             <Route exact={true} path={'/'} render={() => {
                                 return (
                                     <div className="mainWrapper">
+                                        {this.props.alertMessages &&
+                                        <Alerts alertMessages={this.props.alertMessages}/>}
                                         <Index/>
                                     </div>
                                 );
@@ -197,6 +208,8 @@ class App extends React.Component {
                             <Route exact={true} path={'/news'} render={() => {
                                 return (
                                     <div className="mainWrapper">
+                                        {this.props.alertMessages &&
+                                        <Alerts alertMessages={this.props.alertMessages}/>}
                                         <NewsBar/>
                                         <News getNews={this._getNews} news={this.props.news}/>
                                     </div>
@@ -207,6 +220,17 @@ class App extends React.Component {
                             <Route exact={true} path={'/users'} render={() => {
                                 return (
                                     <div className="mainWrapper">
+                                        {this.props.alertMessages &&
+                                        <Alerts alertMessages={this.props.alertMessages}/>}
+                                        <UsersManagement remoteUsers={this.props.remoteUsers}/>
+                                    </div>
+                                );
+                            }}/>
+                            <Route exact={true} path={'/new_user'} render={() => {
+                                return (
+                                    <div className="mainWrapper">
+                                        {this.props.alertMessages &&
+                                        <Alerts alertMessages={this.props.alertMessages}/>}
                                         <UsersManagement remoteUsers={this.props.remoteUsers}/>
                                     </div>
                                 );
@@ -215,6 +239,18 @@ class App extends React.Component {
                             <Route exact={true} path={'/management'} render={() => {
                                 return (
                                     <div className="mainWrapper">
+                                        {this.props.alertMessages &&
+                                        <Alerts alertMessages={this.props.alertMessages}/>}
+                                        <Management myself={this.props.myself}/>
+                                    </div>
+                                );
+                            }}/>
+
+                            <Route exact={true} path={'/update_password'} render={() => {
+                                return (
+                                    <div className="mainWrapper">
+                                        {this.props.alertMessages &&
+                                        <Alerts alertMessages={this.props.alertMessages}/>}
                                         <Management myself={this.props.myself}/>
                                     </div>
                                 );
@@ -223,6 +259,8 @@ class App extends React.Component {
                             <Route exact={true} path={'/publish_new'} render={() => {
                                 return (
                                     <div className="mainWrapper">
+                                        {this.props.alertMessages &&
+                                        <Alerts alertMessages={this.props.alertMessages}/>}
                                         <NewsBar/>
                                         <PublishNews submitNew={this._submitNew} userId={this.props.myself.id}/>
                                     </div>
@@ -231,7 +269,7 @@ class App extends React.Component {
 
                         </Switch>
 
-                        <ChatContactBar userId={this.props.myself.id} remoteUsers={this.props.remoteUsers}
+                        <ChatContactBar myself={this.props.myself} remoteUsers={this.props.remoteUsers}
                                         openNewChat={this._openNewChat}
                                         remoteUsersTyping={this.props.remoteUsersTyping}/>
                     </div>
