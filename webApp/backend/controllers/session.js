@@ -38,7 +38,6 @@ export async function login(req, res, next) {
 
     if (user) {
         req.session.user = user;
-        console.log(req.session);
         res.redirect('/');
         return;
     }

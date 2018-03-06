@@ -26,7 +26,12 @@ function receivedMessage(callback) {
     socket.on('chat message', msg => {
         callback(msg);
     });
+}
 
+function receivedNotification(callback) {
+    socket.on('new unread msg', chatId => {
+        callback(chatId);
+    });
 }
 
 function newUserOnline(callback) {
@@ -36,7 +41,6 @@ function newUserOnline(callback) {
 }
 
 function newUserOffline(callback) {
-    console.log("entro");
     socket.on('newUserOffline', userId => {
         callback(userId);
     });
@@ -71,5 +75,6 @@ export {
     remoteUserIsTyping,
     newUserOnline,
     newUserOffline,
+    receivedNotification,
 };
 

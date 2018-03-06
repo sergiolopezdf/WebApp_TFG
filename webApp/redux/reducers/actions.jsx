@@ -7,6 +7,20 @@ export function newMessage(msg) {
     };
 }
 
+export function newNotification(chatId) {
+    return {
+        type: 'NEW_NOTIFICATION',
+        chatId: chatId,
+    };
+}
+
+export function cleanNotifications(chatId) {
+    return {
+        type: 'CLEAN_NOTIFICATIONS',
+        chatId: chatId,
+    };
+}
+
 export function setChatHistory(fullChat, room) {
     return {
         type: 'UPDATE_CHAT_HISTORY',

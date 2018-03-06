@@ -2,6 +2,7 @@ import {combineReducers} from 'redux';
 
 let initialState = {
     chat: {},
+    chatNotifications: {},
     modules: {
         chat: false,
     },
@@ -14,7 +15,7 @@ let initialState = {
         chat: null,
     },
     news: null,
-    alertMessages: null
+    alertMessages: null,
 };
 
 function chatUpdate(state = initialState.chat, action) {
@@ -43,6 +44,37 @@ function chatUpdate(state = initialState.chat, action) {
     }
 }
 
+function chatNotification(state = initialState.chatNotifications, action) {
+    switch (action.type) {
+        case 'NEW_NOTIFICATION':
+            let newNotification = JSON.parse(JSON.stringify(state));
+
+            if (newNotification[action.chatId] === undefined) {
+                newNotification[action.chatId] = 1;
+            } else {
+                newNotification[action.chatId]++;
+            }
+
+            return newNotification;
+
+        default:
+            return state;
+
+    }
+
+    switch (action.type) {
+        case 'CLEAN_NOTIFICATIONS':
+            let newNotification = JSON.parse(JSON.stringify(state));
+
+            newNotification[action.chatId] = 0;
+
+            return newNotification;
+
+        default:
+            return state;
+
+    }
+}
 
 function setRemoteUsers(state = initialState.remoteUsers, action) {
     switch (action.type) {
@@ -90,7 +122,6 @@ function alertManager(state = initialState.alertMessages, action) {
 
     }
 
-
 }
 
 function setNews(state = initialState.news, action) {
@@ -136,8 +167,8 @@ function setCurrentChat(state = initialState.currentChat, action) {
 
             newState = {
                 chatId: action.chatId,
-                username: action.username
-            }
+                username: action.username,
+            };
             return newState;
 
         default:
@@ -188,6 +219,7 @@ function remoteUsersTyping(state = initialState.remoteUsersTyping, action) {
 
 let GlobalState = combineReducers({
     chat: chatUpdate,
+    chatNotifications: chatNotification,
     modules: renderModules,
     myself: setUser,
     currentChat: setCurrentChat,
@@ -195,7 +227,7 @@ let GlobalState = combineReducers({
     remoteUsers: setRemoteUsers,
     remoteUsersTyping: remoteUsersTyping,
     news: setNews,
-    alertMessages: alertManager
+    alertMessages: alertManager,
 });
 
 export default GlobalState;

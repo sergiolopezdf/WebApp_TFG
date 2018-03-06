@@ -11,8 +11,9 @@ import UsersManagement from "./management/UsersManagement";
 import Alerts from "./Alerts";
 import Index from "./Index";
 import {
+    cleanNotifications,
     deleteAlerts, newAlert,
-    newMessage,
+    newMessage, newNotification,
     setChatHistory,
     setCurrentChat,
     setNews, setNewUserOffline, setNewUserOnline,
@@ -32,7 +33,7 @@ import {
     sendMessage,
     userIsTyping,
     newUserOnline,
-    newUserOffline,
+    newUserOffline, receivedNotification,
 } from "../chatClient";
 import Header from "./Header";
 
@@ -41,7 +42,7 @@ class App extends React.Component {
     constructor(props) {
         super(props);
 
-        console.log(this.props.store.getState());
+        //console.log(this.props.store.getState());
 
         this._sendMessage = this._sendMessage.bind(this);
         this._openNewChat = this._openNewChat.bind(this);
@@ -56,7 +57,10 @@ class App extends React.Component {
 
         receivedMessage((msg) => {
             this.props.dispatch(newMessage(msg));
+        });
 
+        receivedNotification((chatId) => {
+            this.props.dispatch(newNotification(chatId));
         });
 
         remoteUserIsTyping(details => {
@@ -107,8 +111,7 @@ class App extends React.Component {
 
         this.props.dispatch(setCurrentChat(room, user.username));
         this.props.dispatch(showChat(true));
-
-        // console.log(this.props.store.getState());
+        //this.props.dispatch(cleanNotifications(room));
 
     }
 
@@ -172,6 +175,7 @@ class App extends React.Component {
     }
 
     render() {
+
 
         return (
 
@@ -271,6 +275,7 @@ class App extends React.Component {
 
                         <ChatContactBar myself={this.props.myself} remoteUsers={this.props.remoteUsers}
                                         openNewChat={this._openNewChat}
+                                        chatNotifications={this.props.chatNotifications}
                                         remoteUsersTyping={this.props.remoteUsersTyping}/>
                     </div>
 
@@ -285,6 +290,7 @@ class App extends React.Component {
 function mapStateToProps(state) {
     return {
         chat: state.chat,
+        chatNotifications: state.chatNotifications,
         modules: state.modules,
         myself: state.myself,
         currentChat: state.currentChat,

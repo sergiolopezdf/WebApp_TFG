@@ -21,7 +21,7 @@ export default class ChatContactBar extends React.Component {
         let n1 = Math.min(parseInt(this.props.myself.id), parseInt(userId));
         let n2 = Math.max(parseInt(this.props.myself.id), parseInt(userId));
 
-        return n1 + "_" + n2;
+        return "" + n1 + "_" + n2;
     }
 
     render() {
@@ -43,7 +43,9 @@ export default class ChatContactBar extends React.Component {
                                                 key={index} openNewChat={this._openNewChat}/>;
                         }
 
-                        return <ChatContact user={user} key={index} openNewChat={this._openNewChat}/>;
+                        return <ChatContact user={user}
+                                            notifications={this.props.chatNotifications[this._getChat(user.id)]}
+                                            key={index} openNewChat={this._openNewChat}/>;
 
                     })
                 }

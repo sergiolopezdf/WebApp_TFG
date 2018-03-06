@@ -9,11 +9,6 @@ import {newUser, updatePassword} from "../controllers/management";
 
 let router = express.Router();
 
-//router.use(loginRequired);
-
-
-
-
 router.post('/login', login);
 
 router.post('/update_password', loginRequired, updatePassword, main);

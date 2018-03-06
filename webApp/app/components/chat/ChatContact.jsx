@@ -14,6 +14,15 @@ export default class ChatContactBar extends React.Component {
         this.props.openNewChat(this.props.user);
     }
 
+    _getChat(userId) {
+
+        let n1 = Math.min(parseInt(this.props.myself.id), parseInt(userId));
+        let n2 = Math.max(parseInt(this.props.myself.id), parseInt(userId));
+
+        return "" + n1 + "_" + n2;
+    }
+
+
     render() {
         return (
             <div id="contact" onClick={this._openNewChat}>
@@ -21,8 +30,11 @@ export default class ChatContactBar extends React.Component {
                 <div id="contactStatus">
                     {this.props.typing && <span className="typing">typing...</span>}
 
+                    {this.props.notifications > 0 && <span>{this.props.chatNotifications}</span>}
+
                     {this.props.user.online ? <span className="online contactStatus"/> :
                         <span className="offline contactStatus"/>}
+
 
                 </div>
             </div>
