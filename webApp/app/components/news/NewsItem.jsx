@@ -9,8 +9,6 @@ export default class NewsItem extends React.Component {
 
     render() {
 
-        console.log(this.props.new)
-
         return (
 
             <div className="new">
