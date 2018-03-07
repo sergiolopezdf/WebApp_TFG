@@ -57,18 +57,12 @@ function chatNotification(state = initialState.chatNotifications, action) {
 
             return newNotification;
 
-        default:
-            return state;
-
-    }
-
-    switch (action.type) {
         case 'CLEAN_NOTIFICATIONS':
-            let newNotification = JSON.parse(JSON.stringify(state));
+            let newNotification2 = JSON.parse(JSON.stringify(state));
 
-            newNotification[action.chatId] = 0;
+            newNotification2[action.chatId] = 0;
 
-            return newNotification;
+            return newNotification2;
 
         default:
             return state;

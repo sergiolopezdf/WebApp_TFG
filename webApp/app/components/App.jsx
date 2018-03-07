@@ -111,7 +111,8 @@ class App extends React.Component {
 
         this.props.dispatch(setCurrentChat(room, user.username));
         this.props.dispatch(showChat(true));
-        //this.props.dispatch(cleanNotifications(room));
+
+        this.props.dispatch(cleanNotifications(room));
 
     }
 

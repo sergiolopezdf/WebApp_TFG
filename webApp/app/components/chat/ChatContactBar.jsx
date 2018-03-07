@@ -16,12 +16,12 @@ export default class ChatContactBar extends React.Component {
         this.props.openNewChat(user);
     }
 
-    _getChat(userId) {
+    _getChatId(userId) {
 
         let n1 = Math.min(parseInt(this.props.myself.id), parseInt(userId));
         let n2 = Math.max(parseInt(this.props.myself.id), parseInt(userId));
 
-        return "" + n1 + "_" + n2;
+        return n1 + "_" + n2;
     }
 
     render() {
@@ -33,18 +33,25 @@ export default class ChatContactBar extends React.Component {
                 {
                     this.props.remoteUsers.map((user, index) => {
 
+                        let chatId = this._getChatId(user.id);
+
+                        let chatNotifications = this.props.chatNotifications[chatId];
+
+                        //console.log(chatNotifications);
+
                         if (user.id === this.props.myself.id) {
                             return;
                         }
 
-                        if (this.props.remoteUsersTyping[this._getChat(user.id)] !== undefined) {
+                        if (this.props.remoteUsersTyping[chatId]) {
                             return <ChatContact user={user}
-                                                typing={this.props.remoteUsersTyping[this._getChat(user.id)].typing}
-                                                key={index} openNewChat={this._openNewChat}/>;
+                                                typing={this.props.remoteUsersTyping[chatId].typing}
+                                                key={index} openNewChat={this._openNewChat}
+                                                chatNotifications={chatNotifications}/>;
                         }
 
                         return <ChatContact user={user}
-                                            notifications={this.props.chatNotifications[this._getChat(user.id)]}
+                                            chatNotifications={chatNotifications}
                                             key={index} openNewChat={this._openNewChat}/>;
 
                     })
