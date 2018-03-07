@@ -15,7 +15,7 @@ import {
     deleteAlerts, newAlert,
     newMessage, newNotification,
     setChatHistory,
-    setCurrentChat,
+    setCurrentChat, setInitialNotifications,
     setNews, setNewUserOffline, setNewUserOnline,
     setRemoteUsers,
     setRemoteUsersTyping,
@@ -33,7 +33,7 @@ import {
     sendMessage,
     userIsTyping,
     newUserOnline,
-    newUserOffline, receivedNotification,
+    newUserOffline, receivedNotification, removeNotifications, getInitialNotifications,
 } from "../chatClient";
 import Header from "./Header";
 
@@ -75,6 +75,12 @@ class App extends React.Component {
             this.props.dispatch(setNewUserOffline(userId));
         });
 
+        getInitialNotifications(notifications => {
+            notifications.map((element, index) => {
+                this.props.dispatch(setInitialNotifications(element.chat, element.nMessages));
+            });
+        });
+
     }
 
     componentDidMount() {
@@ -105,14 +111,17 @@ class App extends React.Component {
 
         let room = n1 + "_" + n2;
 
-        openChat(room, fullHistory => {
-            this.props.dispatch(setChatHistory(fullHistory, room));
-        });
+        if (!this.props.chat[room]) {
+            openChat(room, fullHistory => {
+                this.props.dispatch(setChatHistory(fullHistory, room));
+            });
+        }
 
         this.props.dispatch(setCurrentChat(room, user.username));
         this.props.dispatch(showChat(true));
 
         this.props.dispatch(cleanNotifications(room));
+        removeNotifications(room);
 
     }
 
@@ -144,8 +153,6 @@ class App extends React.Component {
 
     }
 
-
-
     _submitNew(data) {
 
         //console.log(data);
@@ -172,11 +179,9 @@ class App extends React.Component {
 
         this._newAlert("Your new has been saved");
 
-
     }
 
     render() {
-
 
         return (
 

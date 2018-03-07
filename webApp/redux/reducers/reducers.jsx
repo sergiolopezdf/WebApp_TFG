@@ -64,6 +64,13 @@ function chatNotification(state = initialState.chatNotifications, action) {
 
             return newNotification2;
 
+        case 'SET_INITIAL_NOTIFICATIONS':
+            let newNotification3 = JSON.parse(JSON.stringify(state));
+            newNotification3[action.chatId] = action.nMsgs;
+            return newNotification3;
+
+
+
         default:
             return state;
 

@@ -27,6 +27,17 @@ io.on('connection', function(socket) {
                 user.save();
             });
 
+        models.UnreadMessages.findAll({
+            where: {
+                authorId: {
+                    $ne: socket.userId,
+                },
+            },
+
+        }).then(notifications => {
+            socket.emit('get initial notifications', notifications);
+        });
+
         socket.broadcast.emit('newUserOnline', userId);
 
     });
@@ -120,6 +131,26 @@ io.on('connection', function(socket) {
 
         socket.broadcast.to(room).emit('chat message', msg);
 
+    });
+});
+
+//Remove notifications function
+io.on('connection', function(socket) {
+
+    socket.on('remove notifications', function(room) {
+
+        models.UnreadMessages.findOne({
+            where: {
+                chat: room,
+                authorId: {
+                    $ne: socket.userId,
+                },
+            },
+
+        }).then(row => {
+            row.nMessages = 0;
+            row.save();
+        });
     });
 });
 

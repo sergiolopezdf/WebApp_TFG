@@ -14,6 +14,15 @@ export function newNotification(chatId) {
     };
 }
 
+export function setInitialNotifications(chatId, nMsgs) {
+    return {
+        type: 'SET_INITIAL_NOTIFICATIONS',
+        chatId: chatId,
+        nMsgs: nMsgs,
+    };
+
+}
+
 export function cleanNotifications(chatId) {
     return {
         type: 'CLEAN_NOTIFICATIONS',

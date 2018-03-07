@@ -34,6 +34,10 @@ function receivedNotification(callback) {
     });
 }
 
+function removeNotifications(chatId) {
+    socket.emit('remove notifications', chatId);
+}
+
 function newUserOnline(callback) {
     socket.on('newUserOnline', userId => {
         callback(userId);
@@ -66,6 +70,14 @@ function remoteUserIsTyping(callback) {
 
 }
 
+function getInitialNotifications(callback) {
+
+    socket.on('get initial notifications', notifications => {
+        callback(notifications);
+    });
+
+}
+
 export {
     openConnection,
     openChat,
@@ -76,5 +88,7 @@ export {
     newUserOnline,
     newUserOffline,
     receivedNotification,
+    removeNotifications,
+    getInitialNotifications,
 };
 
