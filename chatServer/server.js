@@ -35,7 +35,11 @@ io.on('connection', function(socket) {
             },
 
         }).then(notifications => {
-            socket.emit('get initial notifications', notifications);
+
+            if (notifications) {
+                socket.emit('get initial notifications', notifications);
+            }
+
         });
 
         socket.broadcast.emit('newUserOnline', userId);
@@ -148,7 +152,7 @@ io.on('connection', function(socket) {
             },
 
         }).then(row => {
-            row.nMessages = 0;
+            row.destroy();
             row.save();
         });
     });
