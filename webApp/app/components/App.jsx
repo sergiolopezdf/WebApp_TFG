@@ -90,13 +90,13 @@ class App extends React.Component {
     }
 
     _getNews() {
-        fetch('http://localhost:5000/api/news?access_token=bb')
+
+        fetch('http://localhost:5000/api/news')
             .then((response) => response.json())
 
             .then((parsedResponse) => {
 
                 let news = parsedResponse.reverse();
-
                 this.props.dispatch(setNews(news));
             })
             .catch((error) => {
@@ -142,7 +142,7 @@ class App extends React.Component {
 
     _removeAlerts() {
         this.props.dispatch(deleteAlerts());
-        console.log(this.props.store.getState());
+        //console.log(this.props.store.getState());
     }
 
     _newAlert(msg) {
@@ -216,12 +216,16 @@ class App extends React.Component {
 
 
                             <Route exact={true} path={'/news'} render={() => {
+
+                                this._getNews();
+
                                 return (
                                     <div className="mainWrapper">
                                         {this.props.alertMessages &&
                                         <Alerts alertMessages={this.props.alertMessages}/>}
                                         <NewsBar/>
-                                        <News getNews={this._getNews} news={this.props.news}/>
+                                        <News remoteUsers={this.props.remoteUsers} getNews={this._getNews}
+                                              news={this.props.news}/>
                                     </div>
                                 );
                             }}/>
