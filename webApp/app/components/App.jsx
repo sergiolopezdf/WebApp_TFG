@@ -91,7 +91,7 @@ class App extends React.Component {
 
     _getNews() {
 
-        fetch('http://localhost:5000/api/news')
+        fetch('http://37.222.145.149:5000/api/news')
             .then((response) => response.json())
 
             .then((parsedResponse) => {
@@ -157,7 +157,7 @@ class App extends React.Component {
 
         //console.log(data);
 
-        let url = "http://localhost:5000/api/news?access_token=bb";
+        let url = "http://37.222.145.149:5000/api/news?access_token=bb";
 
         // HTTP request
         let req = new XMLHttpRequest();

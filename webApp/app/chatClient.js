@@ -1,6 +1,6 @@
 import io from 'socket.io-client';
 
-let socket = io('http://localhost:4000/chat');
+let socket = io('http://37.222.145.149:4000/chat');
 
 function openChat(room, callback) {
 
