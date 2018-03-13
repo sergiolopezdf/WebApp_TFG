@@ -1,8 +1,31 @@
 let ffmpeg = require('fluent-ffmpeg');
 
+let fs = require('fs');
+
 export function process(videoName, format) {
 
     let pathToVideo = 'videos/' + videoName + '.' + format;
+
+    let pathStreams = 'streams/' + videoName;
+
+    if (fs.existsSync(pathStreams)) {
+        return;
+    }
+
+    fs.mkdir(pathStreams);
+
+    let playlist = "#EXTM3U\n" +
+        "#EXT-X-VERSION:3\n" +
+        "#EXT-X-STREAM-INF:BANDWIDTH=800000,RESOLUTION=640x360\n" +
+        videoName + "_360.m3u8\n" +
+        "#EXT-X-STREAM-INF:BANDWIDTH=1400000,RESOLUTION=842x480\n" +
+        videoName + "_480.m3u8\n" +
+        "#EXT-X-STREAM-INF:BANDWIDTH=2800000,RESOLUTION=1280x720\n" +
+        videoName + "_720.m3u8\n" +
+        "#EXT-X-STREAM-INF:BANDWIDTH=5000000,RESOLUTION=1920x1080\n" +
+        videoName + "_1080.m3u8";
+
+    fs.writeFile(pathStreams + "/playlist.m3u8", playlist);
 
     let resolution360p = [
         '-vf scale=w=640:h=360:force_original_aspect_ratio=decrease',
@@ -82,20 +105,21 @@ export function process(videoName, format) {
         //'-hls_segment_filename ' + videoName + '_1080p_%03d.ts ' + videoName + '_1080p.m3u8'
     ];
 
-    ffmpegProcess(resolution360p, pathToVideo, videoName, '360');
-    ffmpegProcess(resolution480p, pathToVideo, videoName, '480');
-    ffmpegProcess(resolution720p, pathToVideo, videoName, '720');
-    ffmpegProcess(resolution1080p, pathToVideo, videoName, '1080');
+    ffmpegProcess(resolution360p, pathToVideo, pathStreams, videoName, '360');
+    ffmpegProcess(resolution480p, pathToVideo, pathStreams, videoName, '480');
+    ffmpegProcess(resolution720p, pathToVideo, pathStreams, videoName, '720');
+    ffmpegProcess(resolution1080p, pathToVideo, pathStreams, videoName, '1080');
 
 }
 
-function ffmpegProcess(options, pathToVideo, videoName, resolution) {
+function ffmpegProcess(options, pathToVideo, pathStreams, videoName, resolution) {
+
+    let output = pathStreams + '/' + videoName + '_' + resolution + '.m3u8';
 
     ffmpeg(pathToVideo).addOptions(options).on('end', function() {
         console.log('file has been converted succesfully');
     }).on('error', function(err) {
         console.log('an error happened: ' + err.message);
-    }).output('streams/' + videoName + '/' + videoName + '_' + resolution +
-        '.m3u8').run();
+    }).output(output).run();
 
 }
