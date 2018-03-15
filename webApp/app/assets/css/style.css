@@ -54,7 +54,7 @@ div.bodyWrapper {
 
 div#headerWrapper {
     background-color: #000;
-    height: 10vh;
+    height: 70px;
     color: #FFF;
     display: flex;
     align-content: center;
@@ -267,6 +267,20 @@ a#logout:hover {
 a#logout i {
     font-size: 15px;
 }
+
+/*************************************/
+/*VideoPlayer*/
+/*************************************/
+div#playerWrapper {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+
+
+
+
+
 
 /*************************************/
 /*ChatMain*/
