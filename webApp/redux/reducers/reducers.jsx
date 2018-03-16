@@ -16,6 +16,8 @@ let initialState = {
     },
     news: null,
     alertMessages: null,
+    availableVideos: {},
+    currentVideo: null,
 };
 
 function chatUpdate(state = initialState.chat, action) {
@@ -151,6 +153,18 @@ function renderModules(state = initialState.modules, action) {
     }
 }
 
+function setCurrentVideo(state = initialState.currentVideo, action) {
+    switch (action.type) {
+        case 'SET_CURRENT_VIDEO':
+            let newState = JSON.parse(JSON.stringify(state));
+            newState = action.video;
+            return newState;
+        default:
+            return state;
+
+    }
+}
+
 function setUser(state = initialState.myself, action) {
     switch (action.type) {
         case 'SET_USER':
@@ -194,6 +208,20 @@ function isUserTyping(state = initialState.userTyping, action) {
     }
 }
 
+function setAvailableVideos(state = initialState.availableVideos, action) {
+    switch (action.type) {
+        case 'SET_AVAILABLE_VIDEOS':
+
+            let newState = JSON.parse(JSON.stringify(state));
+            newState = action.videos;
+            return newState;
+
+        default:
+            return state;
+
+    }
+}
+
 function remoteUsersTyping(state = initialState.remoteUsersTyping, action) {
 
     switch (action.type) {
@@ -229,6 +257,8 @@ let GlobalState = combineReducers({
     remoteUsersTyping: remoteUsersTyping,
     news: setNews,
     alertMessages: alertManager,
+    availableVideos: setAvailableVideos,
+    currentVideo: setCurrentVideo,
 });
 
 export default GlobalState;

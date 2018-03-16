@@ -277,11 +277,33 @@ div#playerWrapper {
     justify-content: center;
 }
 
+div#videoSelector {
+    margin-top: 5vh;
+    margin-left: 3vw;
+    margin-right: 3vw;
+    padding-top: 5vh;
+    border-top: thin solid #CCCCCC;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 
+}
 
+div.videoImg {
+    background: #CCCCCC;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20vh;
+    max-height: 120px;
+}
 
+div.videoPreview {
+    width: 21%;
+    padding: 2%;
+    /*border: thin solid #CCCCCC;*/
 
-
+}
 /*************************************/
 /*ChatMain*/
 /*************************************/

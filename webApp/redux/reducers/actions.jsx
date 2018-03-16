@@ -102,6 +102,21 @@ export function setNews(news) {
 
 }
 
+export function setAvailableVideos(videos) {
+    return {
+        type: 'SET_AVAILABLE_VIDEOS',
+        videos: videos,
+    };
+}
+
+export function setCurrentVideo(video) {
+    return {
+        type: 'SET_CURRENT_VIDEO',
+        video: video,
+    };
+
+}
+
 export function deleteAlerts() {
     return {
         type: 'DELETE_ALERTS',

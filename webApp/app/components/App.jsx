@@ -21,6 +21,8 @@ import {
     setRemoteUsersTyping,
     showChat,
     userTyping,
+    setAvailableVideos,
+    setCurrentVideo,
 } from "../../redux/reducers/actions";
 
 import {Route, Switch, BrowserRouter as Router} from 'react-router-dom';
@@ -53,6 +55,7 @@ class App extends React.Component {
         this._removeAlerts = this._removeAlerts.bind(this);
         this._newAlert = this._newAlert.bind(this);
         this._submitNew = this._submitNew.bind(this);
+        this._setCurrentVideo = this._setCurrentVideo.bind(this);
 
         openConnection(this.props.myself.id);
 
@@ -82,6 +85,18 @@ class App extends React.Component {
             });
         });
 
+        this.props.dispatch(setAvailableVideos([
+                {
+                    id: 1,
+                    name: "lbl",
+                },
+                {
+                    id: 2,
+                    name: "lbl2",
+                },
+            ],
+        ));
+
     }
 
     componentDidMount() {
@@ -103,6 +118,11 @@ class App extends React.Component {
             .catch((error) => {
                 console.log(error);
             });
+    }
+
+    _setCurrentVideo(videoId) {
+        this.props.dispatch(setCurrentVideo(videoId));
+        console.log(this.props.store.getState());
     }
 
     _openNewChat(user) {
@@ -247,7 +267,10 @@ class App extends React.Component {
                                     <div className="mainWrapper">
                                         {this.props.alertMessages &&
                                         <Alerts alertMessages={this.props.alertMessages}/>}
-                                        <Video/>
+                                        <Video availableVideos={this.props.availableVideos}
+                                               setCurrentVideo={this._setCurrentVideo}
+                                               currentVideo={this.props.currentVideo}
+                                        />
                                     </div>
                                 );
                             }}/>
@@ -322,6 +345,8 @@ function mapStateToProps(state) {
         remoteUsersTyping: state.remoteUsersTyping,
         news: state.news,
         alertMessages: state.alertMessages,
+        availableVideos: state.availableVideos,
+        currentVideo: state.currentVideo,
     };
 }
 

@@ -12,7 +12,7 @@ export default class Player extends React.Component {
 
         return (
             <div id={"playerWrapper"}>
-                <ReactHLS url={"http://localhost:8000/lbl"} height={290}/>
+                <ReactHLS url={"http://localhost:8000/" + this.props.currentVideo.name} height={290}/>
             </div>
         );
 

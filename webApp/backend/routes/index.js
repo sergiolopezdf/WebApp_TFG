@@ -7,7 +7,7 @@ import {loginRequired} from "./../controllers/session";
 import {adminRequired, login, logout} from "../controllers/session";
 import {newUser, updatePassword} from "../controllers/management";
 
-export let router = express.Router();
+let router = express.Router();
 
 router.post('/login', login);
 
@@ -24,4 +24,4 @@ router.get('/users', loginRequired, main);
 router.get('/video', loginRequired, main);
 router.get('/logout', logout);
 
-
+module.exports = router;
