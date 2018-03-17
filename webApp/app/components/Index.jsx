@@ -11,7 +11,7 @@ export default class Index extends React.Component {
 
         return (
             <div className="bodyWrapper">
-                <div className="newTitle">Welcome to WebApp</div>
+                <h1>Welcome to WebApp</h1>
             </div>
         );
 

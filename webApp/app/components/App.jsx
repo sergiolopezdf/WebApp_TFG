@@ -92,7 +92,7 @@ class App extends React.Component {
                 },
                 {
                     id: 2,
-                    name: "lbl2",
+                    name: "IMG_8641",
                 },
             ],
         ));
