@@ -25,6 +25,8 @@ import {
     setCurrentVideo,
 } from "../../redux/reducers/actions";
 
+let querystring = require('querystring');
+
 import {Route, Switch, BrowserRouter as Router} from 'react-router-dom';
 
 import {
@@ -89,10 +91,12 @@ class App extends React.Component {
                 {
                     id: 1,
                     name: "lbl",
+                    port: undefined,
                 },
                 {
                     id: 2,
-                    name: "IMG_8641",
+                    name: "v2",
+                    port: undefined,
                 },
             ],
         ));
@@ -120,9 +124,25 @@ class App extends React.Component {
             });
     }
 
-    _setCurrentVideo(videoId) {
-        this.props.dispatch(setCurrentVideo(videoId));
-        console.log(this.props.store.getState());
+    _setCurrentVideo(video) {
+
+        let params = {
+            name: video.name,
+        };
+
+        let name = querystring.stringify(params);
+
+        fetch('http://localhost:8000/play?' + name)
+            .then(response => response.json())
+
+            .then(parsedResponse => {
+                console.log(parsedResponse);
+
+                video.port = parsedResponse.port;
+
+                this.props.dispatch(setCurrentVideo(video));
+                console.log(this.props.store.getState());
+            });
     }
 
     _openNewChat(user) {

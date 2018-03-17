@@ -16,16 +16,16 @@ export default class Selector extends React.Component {
     render() {
 
         return (
-            <div id={"videoSelector"}>
 
+            <div id={"videoSelector"}>
                 {
                     this.props.availableVideos.map((video, index) => {
                         return <VideoPreview video={video}
-                                             setCurrentVideo={this._setCurrentVideo}/>;
+                                             key={index}
+                                             setCurrentVideo={this._setCurrentVideo}
+                        />;
                     })
                 }
-
-
             </div>
         );
 

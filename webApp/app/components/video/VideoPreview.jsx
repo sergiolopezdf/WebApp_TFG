@@ -16,7 +16,7 @@ export default class VideoPreview extends React.Component {
 
         return (
             <div className={"videoPreview"} onClick={this._setCurrentVideo}>
-                <div className={"videoImg"}><i class="material-icons">play_circle_outline</i></div>
+                <div className={"videoImg"}><i className="material-icons">play_circle_outline</i></div>
             </div>
         );
 
