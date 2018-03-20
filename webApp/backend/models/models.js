@@ -4,9 +4,9 @@ let Sequelize = require('sequelize');
 
 let url = process.env.DATABASE_URL || "sqlite:./../db/db.db";
 
-let sequelize = new Sequelize(url);
+export let sequelize = new Sequelize(url);
 
-let User = sequelize.define('user', {
+export let User = sequelize.define('user', {
 
     username: {
         type: Sequelize.STRING,
@@ -38,7 +38,7 @@ let User = sequelize.define('user', {
 
 });
 
-let New = sequelize.define('new', {
+export let New = sequelize.define('new', {
 
     // No author and date. It's created by default
     title: {
@@ -52,10 +52,25 @@ let New = sequelize.define('new', {
 
 });
 
+export let Video = sequelize.define('video', {
+    name: {
+        type: Sequelize.STRING,
+        validate: {notEmpty: {msg: "Name of the video must not be empty."}},
+    },
+    port: {
+        type: Sequelize.INTEGER,
+    },
+
+});
+
+
 // Exporting authorId as foreingKey. Then, importing it with the same name.
 // 'as' is just for getters and setters
 New.belongsTo(User, {foreignKey: 'authorId'});
 User.hasMany(New, {as: 'author', foreignKey: 'authorId'});
+
+Video.belongsTo(User, {foreignKey: 'userId'});
+User.hasMany(Video, {as: 'user', foreignKey: 'userId'});
 
 sequelize.sync()
     .then(() => {
@@ -78,7 +93,7 @@ sequelize.sync()
         console.log("Error while creating DB: ", err);
     });
 
-exports.New = New;
-exports.User = User;
 
-exports.sequelize = sequelize;
+
+
+

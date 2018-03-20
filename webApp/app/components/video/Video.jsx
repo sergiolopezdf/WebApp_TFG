@@ -15,13 +15,20 @@ export default class Video extends React.Component {
         this.props.setCurrentVideo(videoId);
     }
 
+    _uploadVideo(data) {
+        this.props.uploadVideo(data);
+    }
+
     render() {
+
+        console.log(this.props.currentVideo);
+
 
         return (
             <div id={"videoWrapper"}>
                 {this.props.currentVideo && <Player currentVideo={this.props.currentVideo}/>}
                 <Selector availableVideos={this.props.availableVideos} setCurrentVideo={this._setCurrentVideo}/>
-                <Uploader/>
+                <Uploader userId={this.props.userId}/>
             </div>
         );
 

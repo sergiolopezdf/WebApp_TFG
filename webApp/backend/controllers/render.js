@@ -1,6 +1,7 @@
 import {createStore} from 'redux';
 import reducers from '../../redux/reducers/reducers';
 import {User} from './../models/models';
+import {Video} from "../../../videoServer/models";
 
 export async function main(req, res, next) {
 
@@ -8,11 +9,16 @@ export async function main(req, res, next) {
         attributes: ['id', 'username', 'admin', 'name', 'createdAt', 'online'],
     });
 
+    let videos = await Video.findAll({
+        attributes: ['id', 'name', 'port'],
+    });
+
     let initialState = {
         modules: {
             main: true,
         },
         remoteUsers: users,
+        availableVideos: videos,
     };
 
 

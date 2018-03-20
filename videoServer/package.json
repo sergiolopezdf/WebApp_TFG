@@ -11,7 +11,10 @@
     "express-fileupload": "^0.4.0",
     "fluent-ffmpeg": "^2.1.2",
     "hls-server": "^1.5.0",
-    "http": "0.0.0"
+    "http": "0.0.0",
+    "querystring": "^0.2.0",
+    "sequelize": "^4.37.3",
+    "sqlite3": "^4.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

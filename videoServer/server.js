@@ -3,6 +3,7 @@ let bodyParser = require('body-parser');
 let fileUpload = require('express-fileupload');
 import {router} from "./requests";
 import {createServer} from 'http';
+import {sequelize} from "./models";
 
 // Creating router for handling video requests
 let app = express();
@@ -38,6 +39,16 @@ server.listen(port, function() {
 
 // Rendering routes
 app.use('/', router);
+
+/*sequelize
+    .authenticate()
+    .then(() => {
+        console.log('Connection has been established successfully.');
+    })
+    .catch(err => {
+        console.error('Unable to connect to the database:', err);
+    });*/
+
 
 /*
 import {process} from './ffmpegProcessing';

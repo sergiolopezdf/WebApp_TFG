@@ -87,7 +87,7 @@ class App extends React.Component {
             });
         });
 
-        this.props.dispatch(setAvailableVideos([
+        /*this.props.dispatch(setAvailableVideos([
                 {
                     id: 1,
                     name: "lbl",
@@ -99,7 +99,7 @@ class App extends React.Component {
                     port: undefined,
                 },
             ],
-        ));
+        ));*/
 
     }
 
@@ -136,8 +136,6 @@ class App extends React.Component {
             .then(response => response.json())
 
             .then(parsedResponse => {
-                console.log(parsedResponse);
-
                 video.port = parsedResponse.port;
 
                 this.props.dispatch(setCurrentVideo(video));
@@ -289,7 +287,9 @@ class App extends React.Component {
                                         <Alerts alertMessages={this.props.alertMessages}/>}
                                         <Video availableVideos={this.props.availableVideos}
                                                setCurrentVideo={this._setCurrentVideo}
+                                               userId={this.props.myself.id}
                                                currentVideo={this.props.currentVideo}
+                                               uploadVideo={this._uploadVideo}
                                         />
                                     </div>
                                 );
