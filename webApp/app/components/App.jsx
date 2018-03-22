@@ -287,7 +287,7 @@ class App extends React.Component {
                                         <Alerts alertMessages={this.props.alertMessages}/>}
                                         <Video availableVideos={this.props.availableVideos}
                                                setCurrentVideo={this._setCurrentVideo}
-                                               userId={this.props.myself.id}
+                                               user={this.props.myself}
                                                currentVideo={this.props.currentVideo}
                                                uploadVideo={this._uploadVideo}
                                         />

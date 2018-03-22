@@ -22,12 +22,12 @@ export default class Video extends React.Component {
 
         console.log(this.props.currentVideo);
 
-
         return (
             <div id={"videoWrapper"}>
                 {this.props.currentVideo && <Player currentVideo={this.props.currentVideo}/>}
-                <Selector availableVideos={this.props.availableVideos} setCurrentVideo={this._setCurrentVideo}/>
-                <Uploader userId={this.props.userId}/>
+                <Selector availableVideos={this.props.availableVideos} user={this.props.user}
+                          setCurrentVideo={this._setCurrentVideo}/>
+                <Uploader user={this.props.user}/>
             </div>
         );
 

@@ -12,7 +12,7 @@ export default class Uploader extends React.Component {
 
     render() {
         let params = {
-            user: this.props.userId,
+            user: this.props.user.id,
         };
 
         let user = querystring.stringify(params);

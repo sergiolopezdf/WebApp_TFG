@@ -12,7 +12,7 @@ export async function main(req, res, next) {
         attributes: ['id', 'name', 'port', 'status', 'createdAt'],
         include: [{
             model: User,
-            attributes: ['username'],
+            attributes: ['id', 'username'],
             required: true,
         }],
     });
@@ -53,7 +53,7 @@ export async function video(req, res, next) {
         attributes: ['id', 'name', 'port', 'status', 'createdAt'],
         include: [{
             model: User,
-            attributes: ['username'],
+            attributes: ['id', 'username'],
             required: true,
         }],
     });
@@ -73,8 +73,12 @@ export async function video(req, res, next) {
 
     if (req.query.upload === "ok") {
 
-        initialState.alertMessages = "Your video has been uploaded succesfully! It will be available soon.";
+        initialState.alertMessages = "Your video has been uploaded succesfully! It will be available soon";
 
+    }
+
+    if (req.query.delete === "ok") {
+        initialState.alertMessages = "Your video has been deleted";
     }
 
     // Create a new Redux store instance. No initial state, default

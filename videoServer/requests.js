@@ -2,6 +2,7 @@ import {Router} from 'express';
 import {process} from "./ffmpegProcessing";
 
 let fs = require('fs');
+let fse = require('fs-extra');
 let HLSServer = require('hls-server');
 import {createServer} from 'http';
 import {ports} from "./server";
@@ -35,55 +36,72 @@ router.post('/upload', (req, res) => {
 
         });
 
-        console.log(newVideo);
-
         res.redirect('http://localhost:3000/video?upload=ok');
 
     });
 });
-router.get('/play', (req, res) => {
+router.get('/play', async(req, res) => {
 
     let path = 'streams/' + req.query.name;
 
-    Video.findOne({where: {name: req.query.name}})
-        .then(video => {
-            if (video.port) {
-                console.log(req.query.name + " played on " + video.port);
-                res.send(JSON.stringify({
-                    port: video.port,
-                }));
-                return;
-            }
+    let video = await Video.findOne({where: {name: req.query.name}});
 
-            let server = createServer();
+    if (video.port) {
+        console.log(req.query.name + " played on " + video.port);
+        res.send(JSON.stringify({
+            port: video.port,
+        }));
+        return;
+    }
 
-            new HLSServer(server, {
-                path: '/play',     // Base URI to output HLS streams
-                dir: 'streams/' + req.query.name + '/playlist.m3u8'  // Directory that input files are stored
-            });
+    let server = createServer();
 
-            for (var item in ports) {
-                if (ports[item].available) {
-                    ports[item].available = false;
-                    server.listen(ports[item].port);
-                    console.log(req.query.name + " listening " + ports[item].port);
+    new HLSServer(server, {
+        path: '/play',     // Base URI to output HLS streams
+        dir: 'streams/' + req.query.name + '/playlist.m3u8'  // Directory that input files are stored
+    });
 
-                    video.port = ports[item].port;
+    for (var item in ports) {
+        if (ports[item].available) {
+            ports[item].available = false;
+            server.listen(ports[item].port);
+            console.log(req.query.name + " listening " + ports[item].port);
 
-                    video.save();
+            video.port = ports[item].port;
 
-                    res.send(JSON.stringify({
-                        port: ports[item].port,
-                    }));
+            video.save();
 
-                    return;
-                }
+            res.send(JSON.stringify({
+                port: ports[item].port,
+            }));
 
-            }
+            return;
+        }
 
-        });
+    }
 
 });
 
+router.get('/delete', async(req, res) => {
 
+    let id = parseInt(req.query.id);
 
+    let video = await Video.findOne({
+        where: {
+            id: {
+                $eq: id,
+            },
+        },
+    });
+
+    let destroyOk = await video.destroy();
+
+    fse.remove('streams/' + video.name, err => {
+
+        if (!err && destroyOk) {
+            res.redirect('http://localhost:3000/video?delete=ok');
+        }
+
+    });
+
+});
