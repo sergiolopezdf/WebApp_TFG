@@ -6,7 +6,6 @@ let HLSServer = require('hls-server');
 import {createServer} from 'http';
 import {ports} from "./server";
 import {sequelize, Video} from "./models";
-//import {server} from "./server";
 
 let querystring = require('querystring');
 

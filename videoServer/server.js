@@ -3,7 +3,6 @@ let bodyParser = require('body-parser');
 let fileUpload = require('express-fileupload');
 import {router} from "./requests";
 import {createServer} from 'http';
-import {sequelize} from "./models";
 
 // Creating router for handling video requests
 let app = express();
@@ -13,7 +12,7 @@ let port = process.env.VIDEO_SERVER_PORT || '8000';
 //Available ports for streaming
 export let ports = [];
 
-for (var i = 81; i < 91; i++) {
+for (var i = 8001; i < 8031; i++) {
     ports.push({
         port: i,
         available: true,
