@@ -5,7 +5,7 @@ let fs = require('fs');
 let HLSServer = require('hls-server');
 import {createServer} from 'http';
 import {ports} from "./server";
-import {sequelize, Video} from "./models";
+import {sequelize, Video, User} from "./models";
 
 let querystring = require('querystring');
 
@@ -28,18 +28,17 @@ router.post('/upload', (req, res) => {
 
         process(metadata[1], metadata[3]);
 
-        let newVideo = Video.build({
+        let newVideo = Video.create({
             name: metadata[1],
-            userId: req.query.user,
+            userId: parseInt(req.query.user),
             port: undefined,
 
         });
 
-        newVideo.save();
+        console.log(newVideo);
 
         res.redirect('http://localhost:3000/video?upload=ok');
 
-        return;
     });
 });
 router.get('/play', (req, res) => {
@@ -83,9 +82,6 @@ router.get('/play', (req, res) => {
             }
 
         });
-
-
-
 
 });
 

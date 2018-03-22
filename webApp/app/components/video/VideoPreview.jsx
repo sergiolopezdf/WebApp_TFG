@@ -16,6 +16,9 @@ export default class VideoPreview extends React.Component {
         return (
             <div className={"videoPreview"} onClick={this._setCurrentVideo}>
                 <div className={"videoImg"}><i className="material-icons">play_circle_outline</i></div>
+                <div className={""}>{this.props.video.name}</div>
+                <div className={"smallTextAuthorWrapper"}><span
+                    className={"smallTextAuthor"}>Uploaded by:</span> {this.props.video.user.username}</div>
             </div>
         );
 

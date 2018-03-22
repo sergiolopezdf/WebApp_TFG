@@ -60,6 +60,10 @@ export let Video = sequelize.define('video', {
     port: {
         type: Sequelize.INTEGER,
     },
+    status: {
+        type: Sequelize.STRING,
+    },
+
 
 });
 

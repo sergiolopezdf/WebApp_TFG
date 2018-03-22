@@ -15,7 +15,8 @@ export default class NewsItem extends React.Component {
 
                 <h1>{this.props.new.title}</h1>
 
-                <div className="newAuthorWrapper"><span className="newAuthor">Author: </span>{this.props.new.authorId}
+                <div className="smallTextAuthorWrapper"><span
+                    className="smallTextAuthor">Author: </span>{this.props.new.authorId}
                 </div>
                 <p>{this.props.new.content}</p>
 

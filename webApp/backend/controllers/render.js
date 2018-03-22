@@ -1,7 +1,6 @@
 import {createStore} from 'redux';
 import reducers from '../../redux/reducers/reducers';
-import {User} from './../models/models';
-import {Video} from "../../../videoServer/models";
+import {User, Video} from './../models/models';
 
 export async function main(req, res, next) {
 
@@ -10,8 +9,14 @@ export async function main(req, res, next) {
     });
 
     let videos = await Video.findAll({
-        attributes: ['id', 'name', 'port'],
+        attributes: ['id', 'name', 'port', 'status', 'createdAt'],
+        include: [{
+            model: User,
+            attributes: ['username'],
+            required: true,
+        }],
     });
+
 
     let initialState = {
         modules: {
@@ -20,8 +25,6 @@ export async function main(req, res, next) {
         remoteUsers: users,
         availableVideos: videos,
     };
-
-
 
     if (req.session) {
         initialState.myself = req.session.user;
@@ -47,7 +50,12 @@ export async function video(req, res, next) {
     });
 
     let videos = await Video.findAll({
-        attributes: ['id', 'name', 'port'],
+        attributes: ['id', 'name', 'port', 'status', 'createdAt'],
+        include: [{
+            model: User,
+            attributes: ['username'],
+            required: true,
+        }],
     });
 
     let initialState = {
