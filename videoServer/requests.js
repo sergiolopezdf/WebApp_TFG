@@ -23,7 +23,6 @@ router.post('/upload', (req, res) => {
             console.log(err);
             return;
         }
-        res.status(200).send('File Uploaded');
 
         let metadata = file.name.match(/(\w+)(.)(\w+)/);
 
@@ -37,6 +36,8 @@ router.post('/upload', (req, res) => {
         });
 
         newVideo.save();
+
+        res.redirect('http://localhost:3000/video?upload=ok');
 
         return;
     });

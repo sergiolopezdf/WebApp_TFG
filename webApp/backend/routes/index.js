@@ -2,7 +2,7 @@ import express from 'express';
 import React from 'react';
 import {renderToString} from 'react-dom/server';
 
-import {main} from "../controllers/render";
+import {main, video} from "../controllers/render";
 import {loginRequired} from "./../controllers/session";
 import {adminRequired, login, logout} from "../controllers/session";
 import {newUser, updatePassword} from "../controllers/management";
@@ -21,7 +21,7 @@ router.get('/news', loginRequired, main);
 router.get('/publish_new', loginRequired, main);
 router.get('/management', loginRequired, main);
 router.get('/users', loginRequired, main);
-router.get('/video', loginRequired, main);
+router.get('/video', loginRequired, video);
 router.get('/logout', logout);
 
 module.exports = router;
