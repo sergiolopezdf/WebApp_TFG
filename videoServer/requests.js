@@ -12,12 +12,24 @@ let querystring = require('querystring');
 
 export let router = Router();
 
-router.post('/upload', (req, res) => {
+router.post('/upload', async(req, res) => {
     if (!req.files) {
         return res.status(400).send('No files were uploaded.');
     }
 
     let file = req.files.fileToUpload;
+
+    let metadata = file.name.match(/(\w+)(.)(\w+)/);
+
+    let newVideo = await Video.create({
+        name: metadata[1],
+        userId: parseInt(req.query.user),
+        status: "processing",
+        port: undefined,
+
+    });
+
+    res.redirect('http://localhost:3000/video?upload=ok');
 
     file.mv('videos/' + file.name, (err) => {
         if (err) {
@@ -25,20 +37,22 @@ router.post('/upload', (req, res) => {
             return;
         }
 
-        let metadata = file.name.match(/(\w+)(.)(\w+)/);
+        process(metadata[1], metadata[3], newVideo.id);
 
-        process(metadata[1], metadata[3]);
+        Video.findOne({
+            where: {
+                id: {
+                    $eq: newVideo.id,
+                },
+            },
+        }).then(video => {
+            video.status = "ready";
 
-        let newVideo = Video.create({
-            name: metadata[1],
-            userId: parseInt(req.query.user),
-            port: undefined,
-
+            video.save();
         });
 
-        res.redirect('http://localhost:3000/video?upload=ok');
-
     });
+
 });
 router.get('/play', async(req, res) => {
 

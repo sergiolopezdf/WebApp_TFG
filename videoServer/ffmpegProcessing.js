@@ -2,11 +2,11 @@ let ffmpeg = require('fluent-ffmpeg');
 
 let fs = require('fs');
 
-export function process(videoName, format) {
+export function process(videoName, format, id) {
 
     let pathToVideo = 'videos/' + videoName + '.' + format;
 
-    let pathStreams = 'streams/' + videoName;
+    let pathStreams = 'streams/' + id + "_" + videoName;
 
     if (fs.existsSync(pathStreams)) {
         return;
@@ -105,19 +105,25 @@ export function process(videoName, format) {
         //'-hls_segment_filename ' + videoName + '_1080p_%03d.ts ' + videoName + '_1080p.m3u8'
     ];
 
-    ffmpegProcess(resolution360p, pathToVideo, pathStreams, videoName, '360');
-    ffmpegProcess(resolution480p, pathToVideo, pathStreams, videoName, '480');
-    ffmpegProcess(resolution720p, pathToVideo, pathStreams, videoName, '720');
-    ffmpegProcess(resolution1080p, pathToVideo, pathStreams, videoName, '1080');
+    ffmpegProcess(resolution360p, pathToVideo, pathStreams, videoName, '360', false);
+    ffmpegProcess(resolution480p, pathToVideo, pathStreams, videoName, '480', false);
+    ffmpegProcess(resolution720p, pathToVideo, pathStreams, videoName, '720', false);
+    ffmpegProcess(resolution1080p, pathToVideo, pathStreams, videoName, '1080', true);
 
 }
 
-function ffmpegProcess(options, pathToVideo, pathStreams, videoName, resolution) {
+function ffmpegProcess(options, pathToVideo, pathStreams, videoName, resolution, last) {
 
     let output = pathStreams + '/' + videoName + '_' + resolution + '.m3u8';
 
     ffmpeg(pathToVideo).addOptions(options).on('end', function() {
         console.log('file has been converted succesfully');
+
+        if (last) {
+            fs.unlink(pathToVideo);
+        }
+
+
     }).on('error', function(err) {
         console.log('an error happened: ' + err.message);
     }).output(output).run();
