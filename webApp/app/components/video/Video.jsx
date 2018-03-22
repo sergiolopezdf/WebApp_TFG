@@ -1,5 +1,4 @@
 import React from 'react';
-import './../assets/css/style.css';
 import Player from "./Player";
 import Selector from "./Selector";
 import Uploader from "./Uploader";

@@ -1,5 +1,5 @@
 import React from 'react';
-import '../assets/css/style.css';
+import '../assets/scss/style.sass';
 import {connect} from 'react-redux';
 import ChatContactBar from './chat/ChatContactBar';
 import ChatMain from './chat/ChatMain';

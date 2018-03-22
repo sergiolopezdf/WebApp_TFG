@@ -1,5 +1,4 @@
 import React from 'react';
-import './../assets/css/style.css';
 
 export default class ChatMessage extends React.Component {
     render() {

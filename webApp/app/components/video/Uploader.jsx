@@ -1,6 +1,4 @@
 import React from 'react';
-import './../assets/css/style.css';
-import $ from 'jquery';
 
 let querystring = require('querystring');
 
@@ -23,7 +21,8 @@ export default class Uploader extends React.Component {
             <div id={"uploadSection"}>
 
                 <h1>Upload a new video</h1>
-                <form encType="multipart/form-data" method={"post"} action={"http://localhost:8000/upload?" + user}>
+                <form encType="multipart/form-data" method={"post"}
+                      action={"http://37.222.145.149:8000/upload?" + user}>
                     <input type={"file"} name={"fileToUpload"}/>
                     <button id="newButton" action="submit">Submit</button>
                 </form>

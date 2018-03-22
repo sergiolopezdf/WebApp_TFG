@@ -1,5 +1,4 @@
 import React from 'react';
-import './../assets/css/style.css';
 import VideoPreview from "./VideoPreview";
 
 export default class Selector extends React.Component {

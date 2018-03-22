@@ -1,5 +1,4 @@
 import React from 'react';
-import './../assets/css/style.css';
 import ReactHLS from 'react-hls';
 
 
@@ -13,7 +12,7 @@ export default class Player extends React.Component {
 
         console.log(this.props.currentVideo);
 
-        let url = "http://localhost:" + this.props.currentVideo.port + "/play";
+        let url = "http://37.222.145.149:" + this.props.currentVideo.port + "/play";
         console.log(url);
 
         return (

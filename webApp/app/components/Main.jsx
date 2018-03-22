@@ -1,5 +1,4 @@
 import React from 'react';
-import './../assets/css/style.css';
 import News from "./news/News";
 import NewsBar from "./news/NewsBar";
 import PublishNews from "./news/PublishNews";
