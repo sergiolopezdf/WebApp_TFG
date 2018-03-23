@@ -54,6 +54,7 @@ class App extends React.Component {
         this._userTyping = this._userTyping.bind(this);
         this._hideChat = this._hideChat.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
+        this.componentDidUpdate = this.componentDidUpdate.bind(this);
         this._removeAlerts = this._removeAlerts.bind(this);
         this._newAlert = this._newAlert.bind(this);
         this._submitNew = this._submitNew.bind(this);
@@ -89,10 +90,33 @@ class App extends React.Component {
 
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         if (this.props.modules.news) {
             this._getNews();
         }
+
+        if (this.props.alertMessages) {
+            if (await this._alertTimer()) {
+                this.props.dispatch(deleteAlerts());
+            }
+        }
+    }
+
+    async componentDidUpdate() {
+        if (this.props.alertMessages) {
+            if (await this._alertTimer()) {
+                this.props.dispatch(deleteAlerts());
+            }
+        }
+
+    }
+
+    _alertTimer() {
+        return new Promise(resolve => {
+            setTimeout(() => {
+                resolve(true);
+            }, 3000);
+        });
     }
 
     async _getNews() {
@@ -119,6 +143,7 @@ class App extends React.Component {
 
         this.props.dispatch(setCurrentVideo(video));
     }
+
     _openNewChat(user) {
 
         let n1 = Math.min(parseInt(this.props.myself.id), parseInt(user.id));
@@ -164,7 +189,7 @@ class App extends React.Component {
 
         this.props.dispatch(newAlert(msg));
 
-        // await new Promise(setTimeout(5000));
+        //
 
     }
 
@@ -193,6 +218,9 @@ class App extends React.Component {
         };
 
         this._newAlert("Your new has been saved");
+        console.log(this.props.store.getState());
+
+
 
     }
 
