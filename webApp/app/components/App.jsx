@@ -87,20 +87,6 @@ class App extends React.Component {
             });
         });
 
-        /*this.props.dispatch(setAvailableVideos([
-                {
-                    id: 1,
-                    name: "lbl",
-                    port: undefined,
-                },
-                {
-                    id: 2,
-                    name: "v2",
-                    port: undefined,
-                },
-            ],
-        ));*/
-
     }
 
     componentDidMount() {
@@ -109,22 +95,17 @@ class App extends React.Component {
         }
     }
 
-    _getNews() {
+    async _getNews() {
 
-        fetch('http://localhost:5000/api/news')
-            .then((response) => response.json())
+        let news = await fetch('http://localhost:5000/api/news');
 
-            .then((parsedResponse) => {
+        let parsedNews = await news.json();
 
-                let news = parsedResponse.reverse();
-                this.props.dispatch(setNews(news));
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        this.props.dispatch(setNews(parsedNews.reverse()));
+
     }
 
-    _setCurrentVideo(video) {
+    async _setCurrentVideo(video) {
 
         let params = {
             id: video.id,
@@ -132,17 +113,12 @@ class App extends React.Component {
 
         let id = querystring.stringify(params);
 
-        fetch('http://localhost:8000/play?' + id)
-            .then(response => response.json())
+        let getPort = await fetch('http://localhost:8000/play?' + id);
 
-            .then(parsedResponse => {
-                video.port = parsedResponse.port;
+        video.port = (await getPort.json()).port;
 
-                this.props.dispatch(setCurrentVideo(video));
-                console.log(this.props.store.getState());
-            });
+        this.props.dispatch(setCurrentVideo(video));
     }
-
     _openNewChat(user) {
 
         let n1 = Math.min(parseInt(this.props.myself.id), parseInt(user.id));
