@@ -127,12 +127,12 @@ class App extends React.Component {
     _setCurrentVideo(video) {
 
         let params = {
-            name: video.name,
+            id: video.id,
         };
 
-        let name = querystring.stringify(params);
+        let id = querystring.stringify(params);
 
-        fetch('http://localhost:8000/play?' + name)
+        fetch('http://localhost:8000/play?' + id)
             .then(response => response.json())
 
             .then(parsedResponse => {

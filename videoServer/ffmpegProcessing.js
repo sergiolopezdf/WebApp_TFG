@@ -2,11 +2,11 @@ let ffmpeg = require('fluent-ffmpeg');
 
 let fs = require('fs');
 
-export function process(videoName, format, id) {
+export async function process(videoName, format, id) {
 
     let pathToVideo = 'videos/' + videoName + '.' + format;
 
-    let pathStreams = 'streams/' + id + "_" + videoName;
+    let pathStreams = 'streams/' + id;
 
     if (fs.existsSync(pathStreams)) {
         return;
@@ -17,13 +17,13 @@ export function process(videoName, format, id) {
     let playlist = "#EXTM3U\n" +
         "#EXT-X-VERSION:3\n" +
         "#EXT-X-STREAM-INF:BANDWIDTH=800000,RESOLUTION=640x360\n" +
-        videoName + "_360.m3u8\n" +
+        id + "_360.m3u8\n" +
         "#EXT-X-STREAM-INF:BANDWIDTH=1400000,RESOLUTION=842x480\n" +
-        videoName + "_480.m3u8\n" +
+        id + "_480.m3u8\n" +
         "#EXT-X-STREAM-INF:BANDWIDTH=2800000,RESOLUTION=1280x720\n" +
-        videoName + "_720.m3u8\n" +
+        id + "_720.m3u8\n" +
         "#EXT-X-STREAM-INF:BANDWIDTH=5000000,RESOLUTION=1920x1080\n" +
-        videoName + "_1080.m3u8";
+        id + "_1080.m3u8";
 
     fs.writeFile(pathStreams + "/playlist.m3u8", playlist);
 
@@ -105,27 +105,27 @@ export function process(videoName, format, id) {
         //'-hls_segment_filename ' + videoName + '_1080p_%03d.ts ' + videoName + '_1080p.m3u8'
     ];
 
-    ffmpegProcess(resolution360p, pathToVideo, pathStreams, videoName, '360', false);
-    ffmpegProcess(resolution480p, pathToVideo, pathStreams, videoName, '480', false);
-    ffmpegProcess(resolution720p, pathToVideo, pathStreams, videoName, '720', false);
-    ffmpegProcess(resolution1080p, pathToVideo, pathStreams, videoName, '1080', true);
+    await ffmpegProcess(resolution360p, pathToVideo, pathStreams, id, '360');
+    await ffmpegProcess(resolution480p, pathToVideo, pathStreams, id, '480');
+    await ffmpegProcess(resolution720p, pathToVideo, pathStreams, id, '720');
+    return await ffmpegProcess(resolution1080p, pathToVideo, pathStreams, id, '1080');
 
 }
 
-function ffmpegProcess(options, pathToVideo, pathStreams, videoName, resolution, last) {
+function ffmpegProcess(options, pathToVideo, pathStreams, id, resolution) {
 
-    let output = pathStreams + '/' + videoName + '_' + resolution + '.m3u8';
+    let output = pathStreams + '/' + id + '_' + resolution + '.m3u8';
 
-    ffmpeg(pathToVideo).addOptions(options).on('end', function() {
-        console.log('file has been converted succesfully');
+    return new Promise((resolve) => {
+        ffmpeg(pathToVideo).addOptions(options).on('end', function() {
+            console.log('file has been converted succesfully');
+            resolve(true);
 
-        if (last) {
-            fs.unlink(pathToVideo);
-        }
+        }).on('error', function(err) {
+            console.log('an error happened: ' + err.message);
+            resolve(false);
 
-
-    }).on('error', function(err) {
-        console.log('an error happened: ' + err.message);
-    }).output(output).run();
+        }).output(output).run();
+    });
 
 }

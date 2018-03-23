@@ -19,7 +19,9 @@ router.post('/upload', async(req, res) => {
 
     let file = req.files.fileToUpload;
 
-    let metadata = file.name.match(/(\w+)(.)(\w+)/);
+    let metadata = file.name.match(/(.+)(\.)(\w+)/);
+
+    //console.log(metadata)
 
     let newVideo = await Video.create({
         name: metadata[1],
@@ -31,34 +33,40 @@ router.post('/upload', async(req, res) => {
 
     res.redirect('http://localhost:3000/video?upload=ok');
 
-    file.mv('videos/' + file.name, (err) => {
+    file.mv('videos/' + file.name, async(err) => {
         if (err) {
             console.log(err);
             return;
         }
 
-        process(metadata[1], metadata[3], newVideo.id);
+        let processOk = await process(metadata[1], metadata[3], newVideo.id);
 
-        Video.findOne({
-            where: {
-                id: {
-                    $eq: newVideo.id,
+        if (processOk) {
+            Video.findOne({
+                where: {
+                    id: {
+                        $eq: newVideo.id,
+                    },
                 },
-            },
-        }).then(video => {
-            video.status = "ready";
+            }).then(video => {
+                video.status = "ready";
 
-            video.save();
-        });
+                video.save();
+
+                fs.unlink('videos/' + file.name);
+            });
+        }
+
+
+
 
     });
-
 });
 router.get('/play', async(req, res) => {
 
-    let path = 'streams/' + req.query.name;
+    let path = 'streams/' + req.query.id;
 
-    let video = await Video.findOne({where: {name: req.query.name}});
+    let video = await Video.findOne({where: {id: req.query.id}});
 
     if (video.port) {
         console.log(video.name + " played on " + video.port);
@@ -70,7 +78,7 @@ router.get('/play', async(req, res) => {
 
     let server = createServer();
 
-    let streaming = 'streams/' + video.id + "_" + video.name + '/playlist.m3u8';
+    let streaming = 'streams/' + video.id + '/playlist.m3u8';
     console.log(streaming);
 
     new HLSServer(server, {
@@ -82,7 +90,7 @@ router.get('/play', async(req, res) => {
         if (ports[item].available) {
             ports[item].available = false;
             server.listen(ports[item].port);
-            console.log(req.query.name + " listening " + ports[item].port);
+            console.log(video.name + " listening " + ports[item].port);
 
             video.port = ports[item].port;
 
@@ -113,7 +121,7 @@ router.get('/delete', async(req, res) => {
 
     let destroyOk = await video.destroy();
 
-    fse.remove('streams/' + video.id + "_" + video.name, err => {
+    fse.remove('streams/' + video.id, err => {
 
         if (!err && destroyOk) {
             res.redirect('http://localhost:3000/video?delete=ok');

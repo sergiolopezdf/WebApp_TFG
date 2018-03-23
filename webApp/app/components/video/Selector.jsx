@@ -19,11 +19,15 @@ export default class Selector extends React.Component {
             <div id={"videoSelector"}>
                 {
                     this.props.availableVideos.map((video, index) => {
-                        return <VideoPreview video={video}
-                                             key={index}
-                                             user={this.props.user}
-                                             setCurrentVideo={this._setCurrentVideo}
-                        />;
+
+                        if (video.status === "ready") {
+                            return <VideoPreview video={video}
+                                                 key={index}
+                                                 user={this.props.user}
+                                                 setCurrentVideo={this._setCurrentVideo}
+                            />;
+                        }
+
                     })
                 }
             </div>
