@@ -61,7 +61,7 @@ router.get('/play', async(req, res) => {
     let video = await Video.findOne({where: {name: req.query.name}});
 
     if (video.port) {
-        console.log(req.query.name + " played on " + video.port);
+        console.log(video.name + " played on " + video.port);
         res.send(JSON.stringify({
             port: video.port,
         }));
@@ -70,9 +70,12 @@ router.get('/play', async(req, res) => {
 
     let server = createServer();
 
+    let streaming = 'streams/' + video.id + "_" + video.name + '/playlist.m3u8';
+    console.log(streaming);
+
     new HLSServer(server, {
         path: '/play',     // Base URI to output HLS streams
-        dir: 'streams/' + req.query.name + '/playlist.m3u8'  // Directory that input files are stored
+        dir: streaming // Directory that input files are stored
     });
 
     for (var item in ports) {
@@ -110,7 +113,7 @@ router.get('/delete', async(req, res) => {
 
     let destroyOk = await video.destroy();
 
-    fse.remove('streams/' + video.name, err => {
+    fse.remove('streams/' + video.id + "_" + video.name, err => {
 
         if (!err && destroyOk) {
             res.redirect('http://localhost:3000/video?delete=ok');
