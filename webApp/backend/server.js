@@ -1,3 +1,5 @@
+import {User} from "./models/models";
+
 let express = require('express');
 let path = require('path');
 let favicon = require('serve-favicon');
@@ -8,7 +10,6 @@ let index = require('./routes/index');
 import webpack from 'webpack';
 import config from '../webpack.config.js';
 import session from 'express-session';
-import {User, sequelize} from './models/models';
 
 // Useful vars
 const compiler = webpack(config);
@@ -33,16 +34,15 @@ app.use(cookieParser());
 app.use(session({
     secret: "webapp",
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
 }));
-
 
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Rendering routes
 app.use('/', index);
 
-app.use(function (req, res, next) {
+app.use(function(req, res, next) {
     res.locals.session = req.session;
     next();
 
@@ -66,10 +66,8 @@ sequelize
     });
 */
 
-
-
 // error handler
-app.use(function (err, req, res, next) {
+app.use(function(err, req, res, next) {
     // set locals, only providing error in development
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};

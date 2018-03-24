@@ -35,6 +35,10 @@ export let User = sequelize.define('user', {
         type: Sequelize.BOOLEAN,
         validate: {notEmpty: {msg: "User online must not be empty."}},
     },
+    token: {
+        type: Sequelize.STRING,
+        validate: {notEmpty: {msg: "Token must not be empty."}},
+    },
 
 });
 
@@ -86,6 +90,7 @@ sequelize.sync()
             password: "admin",
             online: "false",
             admin: true,
+            token: "123456",
         });
 
         newUser.save()
