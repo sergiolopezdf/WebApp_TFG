@@ -1,5 +1,4 @@
 import React from 'react';
-import './../../assets/css/style.css';
 
 export default class Management extends React.Component {
 
@@ -10,7 +9,7 @@ export default class Management extends React.Component {
     render() {
         return (
             <div className="bodyWrapper">
-                <span className="newTitle">Personal data management</span>
+                <h1>Personal data management</h1>
 
                 <table class={"users"}>
                     <tr>

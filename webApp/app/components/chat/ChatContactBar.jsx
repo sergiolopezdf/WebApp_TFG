@@ -1,5 +1,4 @@
 import React from 'react';
-import '../../assets/css/style.css';
 import ChatContact from './ChatContact';
 import ChatMyself from "./ChatMyself";
 

@@ -36,7 +36,7 @@ const config = {
       beautify: false
     }),
     new webpack.DefinePlugin({ 'process.env': { NODE_ENV: JSON.stringify('production') } }),
-    new ExtractTextPlugin({ filename: './styles/style.css', disable: false, allChunks: true }),
+      new ExtractTextPlugin({filename: './styles/style.sass', disable: false, allChunks: true}),
     new CopyWebpackPlugin([{ from: './vendors', to: 'vendors' }]),
   ],
 
@@ -73,7 +73,7 @@ const config = {
           test: /\.css$/,
           use: [
               "style-loader",
-              "css-loader",
+              "scss-loader",
           ],
       },
       {
@@ -81,7 +81,7 @@ const config = {
           exclude: /(node_modules|bower_components)/,
           use: [
               'style-loader',
-              'css-loader',
+              'scss-loader',
               { loader: 'sass-loader', options: { sourceMap: true } },
           ],
       },
@@ -91,7 +91,7 @@ const config = {
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: [
-            'css-loader',
+            'scss-loader',
             { loader: 'sass-loader', query: { sourceMap: false } },
           ],
           publicPath: '../'

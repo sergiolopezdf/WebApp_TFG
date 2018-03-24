@@ -1,5 +1,4 @@
 import React from 'react';
-import './../assets/css/style.css';
 
 export default class Index extends React.Component {
 
@@ -11,7 +10,7 @@ export default class Index extends React.Component {
 
         return (
             <div className="bodyWrapper">
-                <div className="newTitle">Welcome to WebApp</div>
+                <h1>Welcome to WebApp</h1>
             </div>
         );
 

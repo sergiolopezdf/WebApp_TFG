@@ -1,5 +1,4 @@
 import React from 'react';
-import './../assets/css/style.css';
 import $ from 'jquery';
 
 export default class ChatWindowMessage extends React.Component {

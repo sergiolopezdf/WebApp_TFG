@@ -1,6 +1,6 @@
 import {createStore} from 'redux';
 import reducers from '../../redux/reducers/reducers';
-import {User} from './../models/models';
+import {User, Video} from './../models/models';
 
 export async function main(req, res, next) {
 
@@ -8,14 +8,23 @@ export async function main(req, res, next) {
         attributes: ['id', 'username', 'admin', 'name', 'createdAt', 'online'],
     });
 
+    let videos = await Video.findAll({
+        attributes: ['id', 'name', 'port', 'status', 'createdAt'],
+        include: [{
+            model: User,
+            attributes: ['id', 'username'],
+            required: true,
+        }],
+    });
+
+
     let initialState = {
         modules: {
             main: true,
         },
         remoteUsers: users,
+        availableVideos: videos,
     };
-
-
 
     if (req.session) {
         initialState.myself = req.session.user;
@@ -34,25 +43,45 @@ export async function main(req, res, next) {
     });
 }
 
-/*
-export async function news(req, res, next) {
+export async function video(req, res, next) {
 
     let users = await User.findAll({
         attributes: ['id', 'username', 'admin', 'name', 'createdAt', 'online'],
     });
 
+    let videos = await Video.findAll({
+        attributes: ['id', 'name', 'port', 'status', 'createdAt'],
+        include: [{
+            model: User,
+            attributes: ['id', 'username'],
+            required: true,
+        }],
+    });
+
     let initialState = {
-        myself: req.session.user,
-        alertMessages: req.session.alert,
-        remoteUsers: users,
         modules: {
-            news: true,
+            main: true,
         },
+        remoteUsers: users,
+        availableVideos: videos,
     };
 
-    req.session.alert = null;
+    if (req.session) {
+        initialState.myself = req.session.user;
+        req.session.alert = null;
+    }
 
-    // Create a new Redux store instance
+    if (req.query.upload === "ok") {
+
+        initialState.alertMessages = "Your video has been uploaded succesfully! It will be available soon";
+
+    }
+
+    if (req.query.delete === "ok") {
+        initialState.alertMessages = "Your video has been deleted";
+    }
+
+    // Create a new Redux store instance. No initial state, default
     let store = createStore(reducers, initialState);
 
     // Grab the initial state from our Redux store
@@ -63,92 +92,4 @@ export async function news(req, res, next) {
     });
 
 }
-*/
 
-/*export async function management(req, res, next) {
-
-    let users = await User.findAll({
-        attributes: ['id', 'username', 'admin', 'name', 'createdAt', 'online'],
-    });
-
-    let initialState = {
-        myself: req.session.user,
-        alertMessages: req.session.alert,
-        remoteUsers: users,
-        modules: {
-            management: true,
-        },
-    };
-
-    req.session.alert = null;
-
-    // Create a new Redux store instance
-    let store = createStore(reducers, initialState);
-
-    // Grab the initial state from our Redux store
-    let preloadedState = store.getState();
-
-    res.status(200).render('../views/index.ejs', {
-        script: JSON.stringify(preloadedState),
-    });
-
-}*/
-
-/*export async function users(req, res, next) {
-
-    let users = await User.findAll({
-        attributes: ['id', 'username', 'admin', 'name', 'createdAt', 'online'],
-    });
-    let initialState = {
-        myself: req.session.user,
-        remoteUsers: users,
-        alertMessages: req.session.alert,
-        modules: {
-            users: true,
-        },
-    };
-
-    req.session.alert = null;
-
-    // Create a new Redux store instance
-    let store = createStore(reducers, initialState);
-
-    // Grab the initial state from our Redux store
-    let preloadedState = store.getState();
-
-    res.status(200).render('../views/index.ejs', {
-        script: JSON.stringify(preloadedState),
-    });
-
-}*/
-
-/*
-export async function publishNews(req, res, next) {
-
-    let users = await User.findAll({
-        attributes: ['id', 'username', 'admin', 'name', 'createdAt', 'online'],
-    });
-
-    let initialState = {
-        myself: req.session.user,
-        alertMessages: req.session.alert,
-        remoteUsers: users,
-        modules: {
-            publishNew: true,
-        },
-    };
-
-    req.session.alert = null;
-
-    // Create a new Redux store instance
-    let store = createStore(reducers, initialState);
-
-    // Grab the initial state from our Redux store
-    let preloadedState = store.getState();
-
-    res.status(200).render('../views/index.ejs', {
-        script: JSON.stringify(preloadedState),
-    });
-
-}
-*/

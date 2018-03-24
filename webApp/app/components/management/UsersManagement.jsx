@@ -1,5 +1,4 @@
 import React from 'react';
-import './../../assets/css/style.css';
 
 export default class UsersManagement extends React.Component {
 
@@ -10,7 +9,7 @@ export default class UsersManagement extends React.Component {
     render() {
         return (
             <div className="bodyWrapper">
-                <span className="newTitle">Create new user </span>
+                <h1>Create new user </h1>
 
                 <form action={'/new_user'} method={"post"}>
 
@@ -37,7 +36,7 @@ export default class UsersManagement extends React.Component {
 
                 </form>
 
-                <span className="newTitle">Edit existing user </span>
+                <h1>Edit existing user </h1>
 
                 <table class={"users"}>
 

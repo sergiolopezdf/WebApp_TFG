@@ -1,0 +1,455 @@
+@import url('https://fonts.googleapis.com/css?family=Catamaran')
+@import url('https://fonts.googleapis.com/css?family=Dosis')
+
+//Variables
+$bodyFont: 'Catamaran', sans-serif
+$titleFont: 'Dosis', sans-serif
+
+//Colors
+$blue: rgba(82, 159, 255, 0.98)
+$greenAlert: rgba(132, 235, 59, 0.73)
+$redAlert: rgba(230, 0, 5, 0.65)
+$opacyBlack: rgba(0, 0, 0, 0.7)
+$grey: #CCCCCC
+$chatSideGrey: rgba(227, 225, 230, 0.49)
+
+body
+  font-family: $bodyFont
+
+/*************************************/
+/*General purpose styles*/
+/*************************************/
+
+.smallTextAuthor
+  color: $blue
+
+.smallTextAuthorWrapper
+  font-size: 10px
+
+div#wrapper
+  width: 100%
+  margin-left: 0
+  margin-right: 0
+  margin-top: 0
+  margin-bottom: 0
+  display: flex
+  flex: 1
+  flex-direction: column
+  max-width: 100vw
+
+div#contentWrapper
+  display: flex
+  flex-direction: row
+
+div.mainWrapper
+  margin: 0
+  flex: 5
+  padding-top: 2vh
+
+div.bodyWrapper
+  display: flex
+  align-items: flex-start
+  flex-direction: column
+  padding-left: 4vw
+  padding-right: 4vw
+
+#alert
+  margin-left: 4vw
+  margin-right: 4vw
+  margin-top: 1vh
+  margin-bottom: 1vh
+  padding: 1vh
+  background: $greenAlert
+  border-radius: 5px
+
+h1
+  color: $blue
+  font-size: 30px
+
+/*************************************/
+/*NavBar*/
+/*************************************/
+
+div#headerWrapper
+  background-color: #000
+  height: 70px
+  color: #FFF
+  display: flex
+  align-content: center
+  padding-top: 1vh
+  padding-bottom: 1vh
+  font-family: $titleFont
+
+div#navBar
+  flex: 12
+  display: flex
+  align-items: center
+  justify-content: space-around
+  border-left: thin solid #FFFFFF
+  padding-right: 3vh
+  padding-left: 3vh
+
+div#navBarItem a
+  color: #FFFFFF
+  text-decoration: none
+
+div#title
+  color: #FFFFFF
+  flex: 4
+  display: flex
+  align-items: center
+  justify-content: center
+  font-size: 35px
+
+div#title a
+  color: #FFFFFF
+  text-decoration: none
+
+/*************************************/
+/*Form*/
+/*************************************/
+.styledInput
+  outline: none
+  resize: none
+  border: none
+  border-top: thin dotted $grey
+  border-bottom: thin dotted $grey
+
+/*************************************/
+/*UserMgmt*/
+/*************************************/
+
+table.users
+  width: 100%
+
+/*************************************/
+/*NewsBar*/
+/*************************************/
+
+div#newsBar
+  display: flex
+  margin-top: 1vh
+  align-items: center
+  justify-content: center
+
+div#newsBarItem
+  padding: 3vh
+  color: #FFFFFF
+  border-right: thin solid #FFFFFF
+
+div#newsBarItem:last-child
+  border: none
+
+div#newsBarOptions
+  background: $blue
+  display: flex
+  flex-direction: row
+  border-radius: 7px
+
+div#newsBarItem a
+  color: #FFFFFF
+  text-decoration: none
+
+/*************************************/
+/*News*/
+/*************************************/
+
+div.new
+  width: 100%
+  margin-bottom: 4vh
+  border-bottom: thin solid $grey
+
+.newTitle
+  color: $blue
+  font-size: 30px
+
+
+
+button#newButton
+  background: $blue
+  color: #FFFFFF
+  border-radius: 8px
+  outline: none
+  border: none
+  cursor: pointer
+  margin-top: 10px
+  padding: 15px
+
+input#title
+  width: 100%
+  outline: none
+  resize: none
+  border: none
+  border-top: thin dotted $grey
+  border-bottom: thin dotted $grey
+
+textarea#content
+  width: 100%
+  resize: none
+  border: none
+  outline: none
+  height: 50%
+  border-top: thin dotted $grey
+  border-bottom: thin dotted $grey
+
+/*************************************/
+/*ChatSide*/
+/*************************************/
+
+div#chatSideWrapper
+  height: 100vh
+  flex: 1
+  margin: 0
+  padding: 0.7%
+  background-color: $chatSideGrey
+
+#contactStatus .online
+  background-color: $greenAlert
+
+#contactStatus .offline
+  background-color: $redAlert
+
+#contact
+  display: flex
+  flex-direction: row
+  margin-bottom: 1vh
+  cursor: pointer
+
+#contactName
+  font-size: 13px
+  flex: 10
+
+#contactStatus
+  flex: 1
+
+.contactStatus
+  border-radius: 25px
+  height: 10px
+  width: 10px
+  display: inline-block
+  margin-top: 4px
+
+#myselfContact
+  display: flex
+  flex-direction: row
+  margin-bottom: 1vh
+  border-bottom: thin solid #000000
+
+a#logout
+  color: #000000
+
+a#logout:hover
+  color: $blue
+
+a#logout i
+  font-size: 15px
+
+/*************************************/
+/*VideoPlayer*/
+/*************************************/
+div#playerWrapper
+  display: flex
+  align-content: center
+  justify-content: center
+
+div#videoSelector
+  margin-top: 5vh
+  margin-left: 3vw
+  margin-right: 3vw
+  padding-top: 5vh
+  border-top: thin solid $grey
+  display: flex
+  flex-direction: row
+  justify-content: center
+
+.uploadForm
+  display: flex
+  flex-direction: column
+
+div#uploadSection
+  margin-top: 5vh
+  margin-left: 3vw
+  margin-right: 3vw
+  padding-top: 5vh
+  border-top: thin solid $grey
+  display: flex
+  flex-direction: row
+  justify-content: flex-start
+
+div.videoImg
+  background: $grey
+  display: flex
+  justify-content: center
+  align-items: center
+  height: 20vh
+  max-height: 120px
+
+div.videoPreview
+  width: 21%
+  padding: 2%
+/*border: thin solid #CCCCCC;*/
+
+
+/*************************************/
+/*ChatMain*/
+/*************************************/
+
+
+div#chatMainWrapper
+  padding-left: 11.5vw
+  padding-right: 11.5vw
+  padding-top: 10vh
+  padding-bottom: 10vh
+  max-height: 100vh
+  background: $opacyBlack
+  position: absolute
+
+div#chatWindow
+  background: #FFFFFF
+  border-radius: 5px
+  height: 80vh
+  width: 58vw
+  box-shadow: 0 0 5px #FFFFFF
+  display: flex
+  flex-direction: column
+  padding-left: 1vw
+  padding-right: 1vw
+
+div#chatHeader
+  flex: 1
+  border-bottom: 1px solid $grey
+  align-items: center
+  justify-content: flex-start
+  display: flex
+  padding-top: 1vh
+  padding-bottom: 1vh
+
+div#chatBody
+  flex: 8
+  display: flex
+  flex-direction: column-reverse
+  padding-left: 1vw
+  padding-right: 1vw
+  overflow-y: auto
+  overflow-x: hidden
+  padding-top: 2vh
+  padding-bottom: 3vh
+
+#receivedMessageWrapper
+  padding-top: 2vh
+  display: block
+
+#sentMessageWrapper
+  text-align: right
+  padding-top: 2vh
+  display: block
+  width: 100%
+
+.receivedMessage
+  color: #FFFFFF
+  background: $greenAlert
+  padding-left: 0.5vw
+  padding-right: 0.5vw
+  padding-top: 0.5vh
+  padding-bottom: 0.5vh
+  border-radius: 8px
+  font-size: 13px
+
+.sentMessage
+  color: #FFFFFF
+  background: $blue
+  padding-left: 0.5vw
+  padding-right: 0.5vw
+  padding-top: 0.5vh
+  padding-bottom: 0.5vh
+  border-radius: 8px
+  font-size: 13px
+
+.chatHeaderTitle
+  font-size: 15px
+
+.chatHeaderName
+  color: $blue
+
+div#chatWindowMessageBox
+  flex: 2
+  border-top: 1px solid $grey
+  padding-top: 1vh
+  padding-bottom: 1vh
+  display: flex
+  flex-direction: row
+
+#msg
+  border: none
+  flex: 8
+  margin-right: 1vw
+  outline: none
+  font-size: 13px
+  overflow-y: auto
+  overflow-x: hidden
+  resize: none
+
+.button, .button:focus
+  flex: 1
+  display: flex
+  align-items: center
+  justify-content: center
+  background: $blue
+  color: #FFFFFF
+  border-radius: 8px
+  outline: none
+  border: none
+  cursor: pointer
+
+.button:hover
+  background: $opacyBlack
+
+.typing
+  font-size: 11px
+  color: $grey
+  text-align: right
+
+/*************************************/
+/*Spinner*/
+/*************************************/
+
+
+.spinner
+  width: 40px
+  height: 40px
+
+  position: relative
+  margin: 100px auto
+
+.double-bounce1, .double-bounce2
+  width: 100%
+  height: 100%
+  border-radius: 50%
+  background-color: #333
+  opacity: 0.6
+  position: absolute
+  top: 0
+  left: 0
+
+  -webkit-animation: sk-bounce 2.0s infinite ease-in-out
+  animation: sk-bounce 2.0s infinite ease-in-out
+
+.double-bounce2
+  -webkit-animation-delay: -1.0s
+  animation-delay: -1.0s
+
+@-webkit-keyframes sk-bounce
+  0%, 100%
+    -webkit-transform: scale(0.0)
+  50%
+    -webkit-transform: scale(1.0)
+
+@keyframes sk-bounce
+  0%, 100%
+    transform: scale(0.0)
+    -webkit-transform: scale(0.0)
+  50%
+    transform: scale(1.0)
+    -webkit-transform: scale(1.0)
+
+

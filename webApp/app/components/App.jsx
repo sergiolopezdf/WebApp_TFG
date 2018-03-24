@@ -1,5 +1,5 @@
 import React from 'react';
-import '../assets/css/style.css';
+import '../assets/scss/style.sass';
 import {connect} from 'react-redux';
 import ChatContactBar from './chat/ChatContactBar';
 import ChatMain from './chat/ChatMain';
@@ -21,7 +21,11 @@ import {
     setRemoteUsersTyping,
     showChat,
     userTyping,
+    setAvailableVideos,
+    setCurrentVideo,
 } from "../../redux/reducers/actions";
+
+let querystring = require('querystring');
 
 import {Route, Switch, BrowserRouter as Router} from 'react-router-dom';
 
@@ -36,6 +40,7 @@ import {
     newUserOffline, receivedNotification, removeNotifications, getInitialNotifications,
 } from "../chatClient";
 import Header from "./Header";
+import Video from "./video/Video";
 
 class App extends React.Component {
 
@@ -49,9 +54,11 @@ class App extends React.Component {
         this._userTyping = this._userTyping.bind(this);
         this._hideChat = this._hideChat.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
+        this.componentDidUpdate = this.componentDidUpdate.bind(this);
         this._removeAlerts = this._removeAlerts.bind(this);
         this._newAlert = this._newAlert.bind(this);
         this._submitNew = this._submitNew.bind(this);
+        this._setCurrentVideo = this._setCurrentVideo.bind(this);
 
         openConnection(this.props.myself.id);
 
@@ -83,25 +90,58 @@ class App extends React.Component {
 
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         if (this.props.modules.news) {
             this._getNews();
         }
+
+        if (this.props.alertMessages) {
+            if (await this._alertTimer()) {
+                this.props.dispatch(deleteAlerts());
+            }
+        }
     }
 
-    _getNews() {
+    async componentDidUpdate() {
+        if (this.props.alertMessages) {
+            if (await this._alertTimer()) {
+                this.props.dispatch(deleteAlerts());
+            }
+        }
 
-        fetch('http://localhost:5000/api/news')
-            .then((response) => response.json())
+    }
 
-            .then((parsedResponse) => {
+    _alertTimer() {
+        return new Promise(resolve => {
+            setTimeout(() => {
+                resolve(true);
+            }, 3000);
+        });
+    }
 
-                let news = parsedResponse.reverse();
-                this.props.dispatch(setNews(news));
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+    async _getNews() {
+
+        let news = await fetch('http://localhost:5000/api/news');
+
+        let parsedNews = await news.json();
+
+        this.props.dispatch(setNews(parsedNews.reverse()));
+
+    }
+
+    async _setCurrentVideo(video) {
+
+        let params = {
+            id: video.id,
+        };
+
+        let id = querystring.stringify(params);
+
+        let getPort = await fetch('http://localhost:8000/play?' + id);
+
+        video.port = (await getPort.json()).port;
+
+        this.props.dispatch(setCurrentVideo(video));
     }
 
     _openNewChat(user) {
@@ -149,7 +189,7 @@ class App extends React.Component {
 
         this.props.dispatch(newAlert(msg));
 
-        // await new Promise(setTimeout(5000));
+        //
 
     }
 
@@ -178,6 +218,9 @@ class App extends React.Component {
         };
 
         this._newAlert("Your new has been saved");
+        console.log(this.props.store.getState());
+
+
 
     }
 
@@ -240,6 +283,23 @@ class App extends React.Component {
                                     </div>
                                 );
                             }}/>
+
+                            <Route exact={true} path={'/video'} render={() => {
+                                return (
+                                    <div className="mainWrapper">
+                                        {this.props.alertMessages &&
+                                        <Alerts alertMessages={this.props.alertMessages}/>}
+                                        <Video availableVideos={this.props.availableVideos}
+                                               setCurrentVideo={this._setCurrentVideo}
+                                               user={this.props.myself}
+                                               currentVideo={this.props.currentVideo}
+                                               uploadVideo={this._uploadVideo}
+                                        />
+                                    </div>
+                                );
+                            }}/>
+
+
                             <Route exact={true} path={'/new_user'} render={() => {
                                 return (
                                     <div className="mainWrapper">
@@ -309,6 +369,8 @@ function mapStateToProps(state) {
         remoteUsersTyping: state.remoteUsersTyping,
         news: state.news,
         alertMessages: state.alertMessages,
+        availableVideos: state.availableVideos,
+        currentVideo: state.currentVideo,
     };
 }
 

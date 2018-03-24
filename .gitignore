@@ -3,3 +3,8 @@ newsServer/node_modules
 chatServer/chats
 webApp/node_modules
 .idea
+videoServer/node_modules
+videoServer/.idea
+videoServer/streams
+videoServer/videos
+videoServer/client.html
