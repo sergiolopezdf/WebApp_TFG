@@ -21,7 +21,6 @@ import {
     setRemoteUsersTyping,
     showChat,
     userTyping,
-    setAvailableVideos,
     setCurrentVideo,
 } from "../../redux/reducers/actions";
 
@@ -59,6 +58,7 @@ class App extends React.Component {
         this._newAlert = this._newAlert.bind(this);
         this._submitNew = this._submitNew.bind(this);
         this._setCurrentVideo = this._setCurrentVideo.bind(this);
+        this._setNews = this._setNews.bind(this);
 
         openConnection(this.props.myself.id);
 
@@ -91,9 +91,6 @@ class App extends React.Component {
     }
 
     async componentDidMount() {
-        if (this.props.modules.news) {
-            this._getNews();
-        }
 
         if (this.props.alertMessages) {
             if (await this._alertTimer()) {
@@ -119,13 +116,9 @@ class App extends React.Component {
         });
     }
 
-    async _getNews() {
+    _setNews(news) {
 
-        let news = await fetch('http://localhost:5000/api/news');
-
-        let parsedNews = await news.json();
-
-        this.props.dispatch(setNews(parsedNews.reverse()));
+        this.props.dispatch(setNews(news.reverse()));
 
     }
 
@@ -189,15 +182,24 @@ class App extends React.Component {
 
         this.props.dispatch(newAlert(msg));
 
-        //
-
     }
 
-    _submitNew(data) {
+    async _submitNew(data) {
 
-        //console.log(data);
+        let post = await fetch('http://localhost:5000/api/publishpost', {
+            method: 'post',
+            body: JSON.stringify(data),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+        });
 
-        let url = "http://localhost:5000/api/news?access_token=bb";
+        if (post.ok) {
+            this._newAlert("Your new has been saved");
+        }
+
+        /*let url = "http://localhost:5000/api/publishpost";
 
         // HTTP request
         let req = new XMLHttpRequest();
@@ -218,7 +220,7 @@ class App extends React.Component {
         };
 
         this._newAlert("Your new has been saved");
-        console.log(this.props.store.getState());
+        console.log(this.props.store.getState());*/
 
 
 
@@ -260,14 +262,12 @@ class App extends React.Component {
 
                             <Route exact={true} path={'/news'} render={() => {
 
-                                this._getNews();
-
                                 return (
                                     <div className="mainWrapper">
                                         {this.props.alertMessages &&
                                         <Alerts alertMessages={this.props.alertMessages}/>}
                                         <NewsBar/>
-                                        <News remoteUsers={this.props.remoteUsers} getNews={this._getNews}
+                                        <News remoteUsers={this.props.remoteUsers} setNews={this._setNews}
                                               news={this.props.news}/>
                                     </div>
                                 );

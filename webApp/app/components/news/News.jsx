@@ -5,6 +5,17 @@ export default class News extends React.Component {
 
     constructor(props) {
         super(props);
+
+        this.componentDidMount = this.componentDidMount.bind(this);
+    }
+
+    async componentDidMount() {
+        let news = await fetch('http://localhost:5000/api/getposts');
+
+        let parsedNews = await news.json();
+
+        this.props.setNews(parsedNews);
+
     }
 
     render() {
@@ -15,7 +26,7 @@ export default class News extends React.Component {
                     <div className="double-bounce1"></div>
                     <div className="double-bounce2"></div>
                 </div>
-            )
+            );
         }
 
         let news = this.props.news;
