@@ -126,6 +126,7 @@ class App extends React.Component {
 
         let params = {
             id: video.id,
+            access_token: this.props.myself.token,
         };
 
         let id = querystring.stringify(params);

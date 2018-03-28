@@ -24,7 +24,7 @@ export default class Video extends React.Component {
 
         return (
             <div id={"videoWrapper"}>
-                {this.props.currentVideo && <Player currentVideo={this.props.currentVideo}/>}
+                {this.props.currentVideo && <Player user={this.props.user} currentVideo={this.props.currentVideo}/>}
                 <Selector availableVideos={this.props.availableVideos} user={this.props.user}
                           setCurrentVideo={this._setCurrentVideo}/>
                 <Uploader user={this.props.user}/>
