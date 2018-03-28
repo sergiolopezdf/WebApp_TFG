@@ -186,7 +186,13 @@ class App extends React.Component {
 
     async _submitNew(data) {
 
-        let post = await fetch('http://localhost:5000/api/publishpost', {
+        let params = {
+            access_token: this.props.myself.token,
+        };
+
+        let token = querystring.stringify(params);
+
+        let post = await fetch('http://localhost:5000/api/publishpost?' + token, {
             method: 'post',
             body: JSON.stringify(data),
             headers: {
@@ -267,8 +273,8 @@ class App extends React.Component {
                                         {this.props.alertMessages &&
                                         <Alerts alertMessages={this.props.alertMessages}/>}
                                         <NewsBar/>
-                                        <News remoteUsers={this.props.remoteUsers} setNews={this._setNews}
-                                              news={this.props.news}/>
+                                        <News setNews={this._setNews}
+                                              news={this.props.news} myself={this.props.myself}/>
                                     </div>
                                 );
                             }}/>

@@ -1,6 +1,8 @@
 import React from 'react';
 import NewsItem from "./NewsItem";
 
+let querystring = require('querystring');
+
 export default class News extends React.Component {
 
     constructor(props) {
@@ -10,7 +12,13 @@ export default class News extends React.Component {
     }
 
     async componentDidMount() {
-        let news = await fetch('http://localhost:5000/api/getposts');
+        let params = {
+            access_token: this.props.myself.token,
+        };
+
+        let token = querystring.stringify(params);
+
+        let news = await fetch('http://localhost:5000/api/getposts?' + token);
 
         let parsedNews = await news.json();
 

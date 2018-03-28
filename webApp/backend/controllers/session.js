@@ -47,17 +47,6 @@ export async function login(req, res, next) {
     });
 }
 
-export function tokenCheck(req, res, next) {
-
-    passport.authenticate('bearer', {session: false});
-
-}
-
-export function tokenRender(req, res, next) {
-    console.log("holi2");
-    res.json({username: req.user.username});
-}
-
 export async function logout(req, res, next) {
 
     if (req.session.user) {
@@ -88,6 +77,7 @@ async function _authenticateUser(username, password) {
             online: true,
             createdAt: user.createdAt,
             admin: user.admin,
+            token: user.token,
         };
     }
     return null;
