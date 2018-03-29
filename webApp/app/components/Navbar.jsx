@@ -10,15 +10,15 @@ export default class Navbar extends React.Component {
     render() {
 
         return (
-            <div id="navBar">
-                <NavbarItem link={"News"} title={"News"}/>
+            <nav>
+                <NavbarItem link={"Forum"} title={"Forum"}/>
                 <NavbarItem link={"Video"} title={"Video"}/>
-                <NavbarItem link={"Management"} title={"Management"}/>
-                {
+                <NavbarItem link={"Settings"} title={"Settings"}/>
+                {/*{
                     this.props.myself.admin && <NavbarItem link={"Users"} title={"Users"}/>
-                }
+                }*/}
 
-            </div>
+            </nav>
         );
 
     }

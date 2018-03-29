@@ -33,9 +33,9 @@ router.post('/new_user', loginRequired, adminRequired, newUser, main);
 
 /* GET */
 router.get('/', loginRequired, main);
-router.get('/news', loginRequired, main);
+router.get('/forum', loginRequired, main);
 router.get('/publish_new', loginRequired, main);
-router.get('/management', loginRequired, main);
+router.get('/settings', loginRequired, main);
 router.get('/users', loginRequired, main);
 router.get('/video', loginRequired, video);
 router.get('/logout', logout);

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class UsersManagement extends React.Component {
+export default class AdminSettings extends React.Component {
 
     constructor(props) {
         super(props);
@@ -8,9 +8,8 @@ export default class UsersManagement extends React.Component {
 
     render() {
         return (
-            <div className="bodyWrapper">
-                <h1>Create new user </h1>
-
+            <div>
+                <h2>Create new user</h2>
                 <form action={'/new_user'} method={"post"}>
 
                     <table class={"users"}>
@@ -36,7 +35,7 @@ export default class UsersManagement extends React.Component {
 
                 </form>
 
-                <h1>Edit existing user </h1>
+                <h2>Edit existing user </h2>
 
                 <table class={"users"}>
 
@@ -61,8 +60,6 @@ export default class UsersManagement extends React.Component {
                         })
                     }
                 </table>
-
-
             </div>
         );
     }

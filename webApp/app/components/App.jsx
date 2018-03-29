@@ -3,11 +3,10 @@ import '../assets/scss/style.sass';
 import {connect} from 'react-redux';
 import ChatContactBar from './chat/ChatContactBar';
 import ChatMain from './chat/ChatMain';
-import News from "./news/News";
-import NewsBar from "./news/NewsBar";
-import PublishNews from "./news/PublishNews";
-import Management from "./management/Management";
-import UsersManagement from "./management/UsersManagement";
+import Forum from "./forum/Forum";
+import ForumBar from "./forum/ForumBar";
+import PublishPost from "./forum/PublishPost";
+import Settings from "./settings/Settings";
 import Alerts from "./Alerts";
 import Index from "./Index";
 import {
@@ -267,29 +266,19 @@ class App extends React.Component {
                             }}/>
 
 
-                            <Route exact={true} path={'/news'} render={() => {
+                            <Route exact={true} path={'/forum'} render={() => {
 
                                 return (
                                     <div className="mainWrapper">
                                         {this.props.alertMessages &&
                                         <Alerts alertMessages={this.props.alertMessages}/>}
-                                        <NewsBar/>
-                                        <News setNews={this._setNews}
+                                        <ForumBar/>
+                                        <Forum setNews={this._setNews}
                                               news={this.props.news} myself={this.props.myself}/>
                                     </div>
                                 );
                             }}/>
 
-
-                            <Route exact={true} path={'/users'} render={() => {
-                                return (
-                                    <div className="mainWrapper">
-                                        {this.props.alertMessages &&
-                                        <Alerts alertMessages={this.props.alertMessages}/>}
-                                        <UsersManagement remoteUsers={this.props.remoteUsers}/>
-                                    </div>
-                                );
-                            }}/>
 
                             <Route exact={true} path={'/video'} render={() => {
                                 return (
@@ -312,17 +301,17 @@ class App extends React.Component {
                                     <div className="mainWrapper">
                                         {this.props.alertMessages &&
                                         <Alerts alertMessages={this.props.alertMessages}/>}
-                                        <UsersManagement remoteUsers={this.props.remoteUsers}/>
+                                        <Settings myself={this.props.myself} remoteUsers={this.props.remoteUsers}/>
                                     </div>
                                 );
                             }}/>
 
-                            <Route exact={true} path={'/management'} render={() => {
+                            <Route exact={true} path={'/settings'} render={() => {
                                 return (
                                     <div className="mainWrapper">
                                         {this.props.alertMessages &&
                                         <Alerts alertMessages={this.props.alertMessages}/>}
-                                        <Management myself={this.props.myself}/>
+                                        <Settings myself={this.props.myself} remoteUsers={this.props.remoteUsers}/>
                                     </div>
                                 );
                             }}/>
@@ -332,7 +321,7 @@ class App extends React.Component {
                                     <div className="mainWrapper">
                                         {this.props.alertMessages &&
                                         <Alerts alertMessages={this.props.alertMessages}/>}
-                                        <Management myself={this.props.myself}/>
+                                        <Settings myself={this.props.myself} remoteUsers={this.props.remoteUsers}/>
                                     </div>
                                 );
                             }}/>
@@ -342,8 +331,8 @@ class App extends React.Component {
                                     <div className="mainWrapper">
                                         {this.props.alertMessages &&
                                         <Alerts alertMessages={this.props.alertMessages}/>}
-                                        <NewsBar/>
-                                        <PublishNews submitNew={this._submitNew} userId={this.props.myself.id}/>
+                                        <ForumBar/>
+                                        <PublishPost submitNew={this._submitNew} userId={this.props.myself.id}/>
                                     </div>
                                 );
                             }}/>

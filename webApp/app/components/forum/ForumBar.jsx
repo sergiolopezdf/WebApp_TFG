@@ -1,7 +1,7 @@
 import React from 'react';
-import NewsBarItem from "./NewsBarItem";
+import NewsBarItem from "./ForumBarItem";
 
-export default class NewsBar extends React.Component {
+export default class ForumBar extends React.Component {
 
     constructor(props) {
         super(props);

@@ -1,9 +1,9 @@
 import React from 'react';
-import News from "./news/News";
-import NewsBar from "./news/NewsBar";
-import PublishNews from "./news/PublishNews";
-import Management from "./management/Management";
-import UsersManagement from "./management/UsersManagement";
+import News from "./forum/Forum";
+import NewsBar from "./forum/ForumBar";
+import PublishNews from "./forum/PublishPost";
+import Management from "./settings/Settings";
+import UsersManagement from "./settings/AdminSettings";
 import Alerts from "./Alerts";
 
 export default class Main extends React.Component {

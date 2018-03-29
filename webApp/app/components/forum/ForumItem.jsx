@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class NewsItem extends React.Component {
+export default class ForumItem extends React.Component {
 
     constructor(props) {
         super(props);

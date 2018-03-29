@@ -1,9 +1,9 @@
 import React from 'react';
-import NewsItem from "./NewsItem";
+import NewsItem from "./ForumItem";
 
 let querystring = require('querystring');
 
-export default class News extends React.Component {
+export default class Forum extends React.Component {
 
     constructor(props) {
         super(props);

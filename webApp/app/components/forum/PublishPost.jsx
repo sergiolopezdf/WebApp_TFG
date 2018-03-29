@@ -1,7 +1,7 @@
 import React from 'react';
 import $ from 'jquery';
 
-export default class PublishNews extends React.Component {
+export default class PublishPost extends React.Component {
 
     constructor(props) {
         super(props);
