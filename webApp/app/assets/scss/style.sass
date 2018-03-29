@@ -17,6 +17,8 @@ $white: #FFFFFF
 
 body
   font-family: $bodyFont
+  margin: 0
+  padding: 0
 
 /*************************************/
 /*General purpose styles*/
@@ -312,20 +314,17 @@ div.videoPreview
 
 
 div#chatMainWrapper
-  padding-left: 11.5vw
-  padding-right: 11.5vw
-  padding-top: 10vh
-  padding-bottom: 10vh
-  max-height: 100vh
-  background: $opacyBlack
+  float: right
   position: absolute
+  right: 19%
+  bottom: 10px
 
 div#chatWindow
   background: #FFFFFF
   border-radius: 5px
-  height: 80vh
-  width: 58vw
-  box-shadow: 0 0 5px #FFFFFF
+  height: 400px
+  width: 300px
+  box-shadow: 0 0 5px $opacyBlack
   display: flex
   flex-direction: column
   padding-left: 1vw
@@ -337,49 +336,38 @@ div#chatHeader
   align-items: center
   justify-content: flex-start
   display: flex
-  padding-top: 1vh
-  padding-bottom: 1vh
+  padding-top: 10px
+  padding-bottom: 10px
 
 div#chatBody
   flex: 8
   display: flex
   flex-direction: column-reverse
-  padding-left: 1vw
-  padding-right: 1vw
+  flex-wrap: nowrap
   overflow-y: auto
   overflow-x: hidden
-  padding-top: 2vh
-  padding-bottom: 3vh
+  padding-left: 10px
+  padding-right: 10px
+  padding-top: 15px
+  padding-bottom: 20px
 
-#receivedMessageWrapper
-  padding-top: 2vh
-  display: block
-
-#sentMessageWrapper
-  text-align: right
-  padding-top: 2vh
-  display: block
-  width: 100%
+.message
+  color: #FFFFFF
+  padding-left: 10px
+  padding-right: 10px
+  padding-top: 5px
+  padding-bottom: 5px
+  border-radius: 8px
+  font-size: 13px
+  align-self: flex-start
+  margin-bottom: 5px
 
 .receivedMessage
-  color: #FFFFFF
   background: $greenAlert
-  padding-left: 0.5vw
-  padding-right: 0.5vw
-  padding-top: 0.5vh
-  padding-bottom: 0.5vh
-  border-radius: 8px
-  font-size: 13px
 
 .sentMessage
-  color: #FFFFFF
   background: $blue
-  padding-left: 0.5vw
-  padding-right: 0.5vw
-  padding-top: 0.5vh
-  padding-bottom: 0.5vh
-  border-radius: 8px
-  font-size: 13px
+  align-self: flex-end
 
 .chatHeaderTitle
   font-size: 15px
@@ -390,8 +378,8 @@ div#chatBody
 div#chatWindowMessageBox
   flex: 2
   border-top: 1px solid $grey
-  padding-top: 1vh
-  padding-bottom: 1vh
+  padding-top: 10px
+  padding-bottom: 10px
   display: flex
   flex-direction: row
 

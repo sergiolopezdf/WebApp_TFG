@@ -5,8 +5,8 @@ export default class ChatMessage extends React.Component {
 
         if (this.props.message.author !== this.props.author) {
             return (
-                <div id="receivedMessageWrapper">
-                    <span className="receivedMessage">{this.props.message.message}</span>
+                <div className="receivedMessage message">
+                    {this.props.message.message}
                 </div>
             );
 
@@ -14,9 +14,9 @@ export default class ChatMessage extends React.Component {
 
         //SPAN!!
         return (
-                <div id="sentMessageWrapper">
-                    <span className="sentMessage">{this.props.message.message}</span>
-                </div>
+            <div className="sentMessage message">
+                {this.props.message.message}
+            </div>
         );
 
     }
