@@ -9,9 +9,7 @@ export default class ForumBarItem extends React.Component {
 
     render() {
 
-        return <div id="newsBarItem">
-            <Link to={this.props.link}>{this.props.title}</Link>
-        </div>
+        return <Link to={this.props.link}><i class="forumNavElement material-icons">{this.props.icon}</i></Link>;
 
     }
 }

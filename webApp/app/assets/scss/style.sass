@@ -20,6 +20,15 @@ body
   margin: 0
   padding: 0
 
+h1
+  margin: 0
+  margin-top: 5px
+
+h2
+  font-size: 22px
+  margin: 0
+  text-decoration: underline
+
 /*************************************/
 /*General purpose styles*/
 /*************************************/
@@ -137,32 +146,31 @@ div#title a
 /*UserMgmt*/
 /*************************************/
 
+#adminOptions
+  width: 100%
+
 table.users
   width: 100%
+  text-align: left
+
+table.users td
+  padding: 2px
 
 /*************************************/
 /*ForumBar*/
 /*************************************/
 
 div#newsBar
-  display: flex
+  float: right
+  position: absolute
+  right: 19%
   margin-top: 1vh
-  align-items: center
-  justify-content: center
 
-div#newsBarItem
-  padding: 3vh
+.forumNavElement
+  padding: 2.5vh
   color: #FFFFFF
-  border-right: thin solid #FFFFFF
-
-div#newsBarItem:last-child
-  border: none
-
-div#newsBarOptions
+  border-radius: 40px
   background: $blue
-  display: flex
-  flex-direction: row
-  border-radius: 7px
 
 div#newsBarItem a
   color: #FFFFFF
@@ -192,6 +200,16 @@ button#newButton
   cursor: pointer
   margin-top: 10px
   padding: 15px
+
+button.cancel
+  color: #FFFFFF
+  border-radius: 8px
+  outline: none
+  border: none
+  cursor: pointer
+  margin-top: 10px
+  padding: 15px
+  background: $redAlert
 
 input#title
   width: 100%
@@ -288,11 +306,16 @@ div#uploadSection
   margin-top: 5vh
   margin-left: 3vw
   margin-right: 3vw
-  padding-top: 5vh
+  padding-top: 2vh
   border-top: thin solid $grey
   display: flex
   flex-direction: row
   justify-content: flex-start
+
+form.videoUploadForm
+  display: flex
+  flex-direction: column
+  margin-top: 0
 
 div.videoImg
   background: $grey
@@ -301,10 +324,12 @@ div.videoImg
   align-items: center
   height: 20vh
   max-height: 120px
+  border-radius: 0 5px 0 5px
 
 div.videoPreview
   width: 21%
   padding: 2%
+
 /*border: thin solid #CCCCCC;*/
 
 

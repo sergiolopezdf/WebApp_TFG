@@ -331,7 +331,6 @@ class App extends React.Component {
                                     <div className="mainWrapper">
                                         {this.props.alertMessages &&
                                         <Alerts alertMessages={this.props.alertMessages}/>}
-                                        <ForumBar/>
                                         <PublishPost submitNew={this._submitNew} userId={this.props.myself.id}/>
                                     </div>
                                 );

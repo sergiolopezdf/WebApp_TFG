@@ -1,6 +1,8 @@
 import React from 'react';
 import $ from 'jquery';
 
+import {Link} from 'react-router-dom';
+
 export default class PublishPost extends React.Component {
 
     constructor(props) {
@@ -27,6 +29,9 @@ export default class PublishPost extends React.Component {
                 <span className="newTitle">Content: </span>
                 <textarea name={"Content"} id={"content"}/>
                 <button id="newButton" action="submit" onClick={this._submitNew}>Submit</button>
+                <Link to={'/forum'}>
+                    <button className="cancel">Cancel</button>
+                </Link>
             </div>
 
         );

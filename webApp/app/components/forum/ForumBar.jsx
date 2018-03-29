@@ -1,5 +1,5 @@
 import React from 'react';
-import NewsBarItem from "./ForumBarItem";
+import ForumBarItem from "./ForumBarItem";
 
 export default class ForumBar extends React.Component {
 
@@ -10,11 +10,7 @@ export default class ForumBar extends React.Component {
     render() {
 
         return <div id="newsBar">
-
-            <div id="newsBarOptions">
-                <NewsBarItem title="Show" link="news"/>
-                <NewsBarItem title="Write new" link="publish_new"/>
-            </div>
+            <ForumBarItem icon="add" link="publish_new"/>
         </div>;
 
     }
