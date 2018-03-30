@@ -16,7 +16,7 @@ let initialState = {
     },
     news: null,
     alertMessages: null,
-    availableVideos: {},
+    availableVideos: null,
     currentVideo: null,
 };
 

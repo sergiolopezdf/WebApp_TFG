@@ -20,7 +20,7 @@ import {
     setRemoteUsersTyping,
     showChat,
     userTyping,
-    setCurrentVideo,
+    setCurrentVideo, setAvailableVideos,
 } from "../../redux/reducers/actions";
 
 let querystring = require('querystring');
@@ -58,6 +58,7 @@ class App extends React.Component {
         this._submitNew = this._submitNew.bind(this);
         this._setCurrentVideo = this._setCurrentVideo.bind(this);
         this._setNews = this._setNews.bind(this);
+        this._setAvailableVideos = this._setAvailableVideos.bind(this);
 
         openConnection(this.props.myself.id);
 
@@ -179,9 +180,11 @@ class App extends React.Component {
     }
 
     _newAlert(msg) {
-
         this.props.dispatch(newAlert(msg));
+    }
 
+    _setAvailableVideos(videos) {
+        this.props.dispatch(setAvailableVideos(videos));
     }
 
     async _submitNew(data) {
@@ -204,31 +207,6 @@ class App extends React.Component {
         if (post.ok) {
             this._newAlert("Your new has been saved");
         }
-
-        /*let url = "http://localhost:5000/api/publishpost";
-
-        // HTTP request
-        let req = new XMLHttpRequest();
-
-        // True == async
-        req.open('POST', url, true);
-
-        req.setRequestHeader("Content-type", "application/json");
-
-        req.send(JSON.stringify(data));
-
-        req.onreadystatechange = function() {
-            console.log(req.status);
-            if (req.readyState == XMLHttpRequest.DONE && req.status == 200) {
-
-            }
-
-        };
-
-        this._newAlert("Your new has been saved");
-        console.log(this.props.store.getState());*/
-
-
 
     }
 
@@ -287,6 +265,7 @@ class App extends React.Component {
                                         <Alerts alertMessages={this.props.alertMessages}/>}
                                         <Video availableVideos={this.props.availableVideos}
                                                setCurrentVideo={this._setCurrentVideo}
+                                               setAvailableVideos={this._setAvailableVideos}
                                                user={this.props.myself}
                                                currentVideo={this.props.currentVideo}
                                                uploadVideo={this._uploadVideo}

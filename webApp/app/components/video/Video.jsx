@@ -8,6 +8,7 @@ export default class Video extends React.Component {
     constructor(props) {
         super(props);
         this._setCurrentVideo = this._setCurrentVideo.bind(this);
+        this._setAvailableVideos = this._setAvailableVideos.bind(this);
     }
 
     _setCurrentVideo(videoId) {
@@ -18,15 +19,18 @@ export default class Video extends React.Component {
         this.props.uploadVideo(data);
     }
 
-    render() {
+    _setAvailableVideos(videos) {
+        this.props.setAvailableVideos(videos);
+    }
 
-        console.log(this.props.currentVideo);
+    render() {
 
         return (
             <div id={"videoWrapper"}>
                 {this.props.currentVideo && <Player user={this.props.user} currentVideo={this.props.currentVideo}/>}
                 <Selector availableVideos={this.props.availableVideos} user={this.props.user}
-                          setCurrentVideo={this._setCurrentVideo}/>
+                          setCurrentVideo={this._setCurrentVideo}
+                          setAvailableVideos={this._setAvailableVideos}/>
                 <Uploader user={this.props.user}/>
             </div>
         );

@@ -8,22 +8,11 @@ export async function main(req, res, next) {
         attributes: ['id', 'username', 'admin', 'name', 'createdAt', 'online'],
     });
 
-    let videos = await Video.findAll({
-        attributes: ['id', 'name', 'port', 'status', 'createdAt'],
-        include: [{
-            model: User,
-            attributes: ['id', 'username'],
-            required: true,
-        }],
-    });
-
-
     let initialState = {
         modules: {
             main: true,
         },
         remoteUsers: users,
-        availableVideos: videos,
     };
 
     if (req.session) {
@@ -49,21 +38,11 @@ export async function video(req, res, next) {
         attributes: ['id', 'username', 'admin', 'name', 'createdAt', 'online'],
     });
 
-    let videos = await Video.findAll({
-        attributes: ['id', 'name', 'port', 'status', 'createdAt'],
-        include: [{
-            model: User,
-            attributes: ['id', 'username'],
-            required: true,
-        }],
-    });
-
     let initialState = {
         modules: {
             main: true,
         },
         remoteUsers: users,
-        availableVideos: videos,
     };
 
     if (req.session) {

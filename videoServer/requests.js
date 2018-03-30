@@ -146,3 +146,20 @@ router.get('/delete', async(req, res) => {
     });
 
 });
+
+router.get('/available_videos', async(req, res) => {
+
+    let videos = await Video.findAll({
+        attributes: ['id', 'name', 'port', 'status', 'createdAt'],
+        include: [{
+            model: User,
+            attributes: ['id', 'username'],
+            required: true,
+        }],
+    });
+
+    if (videos) {
+        res.status(200).send(videos);
+    }
+
+});
