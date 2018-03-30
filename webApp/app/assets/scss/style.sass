@@ -79,6 +79,32 @@ h1
   color: $blue
   font-size: 30px
 
+button
+  background: $blue
+  color: #FFFFFF
+  border-radius: 8px
+  outline: none
+  border: none
+  cursor: pointer
+  margin-top: 10px
+  padding: 15px
+
+button.cancel
+  background: $redAlert
+
+button.chatButton, button.chatButton:focus
+  margin-top: 0
+
+button:hover
+  background: $opacyBlack
+
+a
+  color: $blue
+  text-decoration: none
+
+a:hover
+  color: $opacyBlack
+
 /*************************************/
 /*NavBar*/
 /*************************************/
@@ -102,18 +128,18 @@ nav
   padding-right: 3vh
   padding-left: 3vh
 
-nav a
-  color: #FFFFFF
-  display: flex
-  align-items: center
-  justify-content: center
-  text-decoration: none
-  width: 100%
-  height: 100%
+  a
+    color: #FFFFFF
+    display: flex
+    align-items: center
+    justify-content: center
+    text-decoration: none
+    width: 100%
+    height: 100%
 
-nav a:hover
-  text-decoration: none
-  color: $blue
+  a:hover
+    text-decoration: none
+    color: $blue
 
 div#title
   color: #FFFFFF
@@ -123,14 +149,14 @@ div#title
   justify-content: center
   font-size: 35px
 
-div#title a
-  width: 100%
-  height: 100%
-  display: flex
-  align-items: center
-  justify-content: center
-  color: #FFFFFF
-  text-decoration: none
+  a
+    width: 100%
+    height: 100%
+    display: flex
+    align-items: center
+    justify-content: center
+    color: #FFFFFF
+    text-decoration: none
 
 /*************************************/
 /*Form*/
@@ -141,6 +167,7 @@ div#title a
   border: none
   border-top: thin dotted $grey
   border-bottom: thin dotted $grey
+
 
 /*************************************/
 /*UserMgmt*/
@@ -153,8 +180,8 @@ table.users
   width: 100%
   text-align: left
 
-table.users td
-  padding: 2px
+  td
+    padding: 2px
 
 /*************************************/
 /*ForumBar*/
@@ -185,48 +212,20 @@ div.new
   margin-bottom: 4vh
   border-bottom: thin solid $grey
 
-.newTitle
-  color: $blue
-  font-size: 30px
-
-
-
-button#newButton
-  background: $blue
-  color: #FFFFFF
-  border-radius: 8px
+%newPostForm
+  width: 100%
   outline: none
+  resize: none
   border: none
-  cursor: pointer
-  margin-top: 10px
-  padding: 15px
-
-button.cancel
-  color: #FFFFFF
-  border-radius: 8px
-  outline: none
-  border: none
-  cursor: pointer
-  margin-top: 10px
-  padding: 15px
-  background: $redAlert
+  border-top: thin dotted $grey
+  border-bottom: thin dotted $grey
 
 input#title
-  width: 100%
-  outline: none
-  resize: none
-  border: none
-  border-top: thin dotted $grey
-  border-bottom: thin dotted $grey
+  @extend %newPostForm
 
 textarea#content
-  width: 100%
-  resize: none
-  border: none
-  outline: none
+  @extend %newPostForm
   height: 50%
-  border-top: thin dotted $grey
-  border-bottom: thin dotted $grey
 
 /*************************************/
 /*ChatSide*/
@@ -289,10 +288,10 @@ div#playerWrapper
   justify-content: center
 
 div#videoSelector
-  margin-top: 5vh
-  margin-left: 3vw
-  margin-right: 3vw
-  padding-top: 5vh
+  margin-top: 20px
+  margin-left: 5px
+  margin-right: 5px
+  padding-top: 20px
   border-top: thin solid $grey
   display: flex
   flex-direction: row
@@ -418,20 +417,7 @@ div#chatWindowMessageBox
   overflow-x: hidden
   resize: none
 
-.button, .button:focus
-  flex: 1
-  display: flex
-  align-items: center
-  justify-content: center
-  background: $blue
-  color: #FFFFFF
-  border-radius: 8px
-  outline: none
-  border: none
-  cursor: pointer
 
-.button:hover
-  background: $opacyBlack
 
 .typing
   font-size: 11px

@@ -65,7 +65,7 @@ export default class ChatWindowMessage extends React.Component {
         return (
             <div id="chatWindowMessageBox">
                 <textarea id="msg" onKeyDown={this._keyDown} onKeyUp={this._keyUp}/>
-                <button action="submit" className="button" onClick={this._sendMessage}>
+                <button action="submit" className="chatButton" onClick={this._sendMessage}>
                     Send
                 </button>
 

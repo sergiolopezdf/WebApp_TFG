@@ -16,6 +16,7 @@ export default class VideoPreview extends React.Component {
     render() {
 
         let params = {
+            access_token: this.props.user.token,
             id: this.props.video.id,
         };
 
