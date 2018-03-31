@@ -37,7 +37,9 @@ export default class ChatMain extends React.Component {
 
                 <ChatWindow author={this.props.author} send={this._sendMessage} currentChat={this.props.currentChat}
                             messages={this.props.messages} userTyping={this._userTyping}
-                            remoteUsersTyping={this.props.remoteUsersTyping}/>
+                            remoteUsersTyping={this.props.remoteUsersTyping}
+                            hideChat={this._hideChat}
+                />
             </div>
         );
 

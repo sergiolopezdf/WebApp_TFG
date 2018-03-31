@@ -2,20 +2,33 @@ import React from 'react';
 
 export default class ChatWindowHeader extends React.Component {
 
+    constructor(props) {
+        super(props);
+        this._hideChat = this._hideChat.bind(this);
+    }
+
+    _hideChat() {
+        this.props.hideChat();
+    }
+
+
     render() {
 
         return (
             <div id="chatHeader">
-              <span className="chatHeaderTitle">
-                Chat with:
-                <span className="chatHeaderName"> {this.props.currentChat.username} </span>
+                <div className="chatHeaderTitle">
+                    Chat with:
+                </div>
+                <div className="chatHeaderName"> {" " + this.props.currentChat.username} </div>
 
-            </span>
+
                 {this.props.remoteUsersTyping !== undefined &&
-                <span className="typing">
-                        {this.props.remoteUsersTyping.typing && "         (typing...)"}
-                    </span>
+                <div className="typing">
+                    {this.props.remoteUsersTyping.typing && "         (typing...)"}
+                </div>
                 }
+
+                <i className="material-icons" onClick={this._hideChat}>clear</i>
             </div>
 
         );
