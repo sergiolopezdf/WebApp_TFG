@@ -65,11 +65,8 @@ div.bodyWrapper
   flex-direction: column
   @extend .box
 
-#alert
-  margin-left: 4vw
-  margin-right: 4vw
-  margin-top: 1vh
-  margin-bottom: 1vh
+.alert
+  @extend .box
   padding: 1vh
   background: $greenAlert
   border-radius: 5px
@@ -109,6 +106,12 @@ a:hover
   margin-left: 45px
   margin-right: 45px
 
+.innerBox
+  padding-top: 20px
+  padding-bottom: 20px
+  padding-left: 10px
+  padding-right: 20px
+
 /*************************************/
 /*NavBar*/
 /*************************************/
@@ -127,7 +130,6 @@ div#headerWrapper
 
 nav
   flex: 12
-
   border-left: thin solid #FFFFFF
   padding-right: 12px
   padding-left: 12px
@@ -142,6 +144,7 @@ nav
 
     li
       margin-left: 10px
+      width: 100%
 
     li:first-child
       margin-left: 0
@@ -167,7 +170,8 @@ div#title
   justify-content: center
   font-size: 35px
   padding-left: 12px
-  padding-right: 12%
+  padding-right: 12px
+  padding-right: 12px
 
   a
     width: 100%
@@ -202,6 +206,12 @@ table.users
   td
     padding: 2px
 
+#adminSettings
+  @extend .innerBox
+
+#userSettings
+  @extend .innerBox
+
 /*************************************/
 /*ForumBar*/
 /*************************************/
@@ -227,8 +237,10 @@ div#newsBarItem a
 /*************************************/
 
 div.new
-  width: 100%
-  margin-bottom: 20px
+  display: flex
+  align-self: stretch
+  flex-direction: column
+  @extend .innerBox
   border-bottom: thin solid $grey
 
 .newPostForm
@@ -302,17 +314,13 @@ a#logout i
 /*VideoPlayer*/
 /*************************************/
 
-.videoBox
-  padding-top: 20px
-  padding-bottom: 20px
-  padding-left: 10px
-  padding-right: 20px
+
 
 div#videoWrapper
   @extend .box
 
 div#playerWrapper
-  @extend .videoBox
+  @extend .innerBox
   display: flex
   flex-direction: column
   justify-items: center
@@ -328,7 +336,7 @@ div#playerWrapper:first-child
     align-self: center
 
 div#videoSelector
-  @extend .videoBox
+  @extend .innerBox
   border-top: thin solid $grey
   display: flex
   flex-direction: row
@@ -340,7 +348,7 @@ div#videoSelector
   flex-direction: column
 
 div#uploadSection
-  @extend .videoBox
+  @extend .innerBox
   border-top: thin solid $grey
   display: flex
   flex-direction: row

@@ -9,9 +9,6 @@ export async function main(req, res, next) {
     });
 
     let initialState = {
-        modules: {
-            main: true,
-        },
         remoteUsers: users,
     };
 
@@ -39,21 +36,17 @@ export async function video(req, res, next) {
     });
 
     let initialState = {
-        modules: {
-            main: true,
-        },
         remoteUsers: users,
     };
 
     if (req.session) {
         initialState.myself = req.session.user;
+        initialState.alertMessages = req.session.alert;
         req.session.alert = null;
     }
 
     if (req.query.upload === "ok") {
-
         initialState.alertMessages = "Your video has been uploaded succesfully! It will be available soon";
-
     }
 
     if (req.query.delete === "ok") {

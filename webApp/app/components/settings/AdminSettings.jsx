@@ -8,7 +8,7 @@ export default class AdminSettings extends React.Component {
 
     render() {
         return (
-            <div>
+            <div id={"adminSettings"}>
                 <h2>Create new user</h2>
                 <form action={'/new_user'} method={"post"}>
 

@@ -25,7 +25,7 @@ import {
 
 let querystring = require('querystring');
 
-import {Route, Switch, BrowserRouter as Router} from 'react-router-dom';
+import {Route, Redirect, Switch, BrowserRouter as Router} from 'react-router-dom';
 
 import {
     openChat,
@@ -206,6 +206,11 @@ class App extends React.Component {
 
         if (post.ok) {
             this._newAlert("Your new has been saved");
+
+            //Tweaakkkk!
+            <Redirect to={{
+                pathname: '/forum',
+            }}/>;
         }
 
     }
