@@ -11,13 +11,11 @@ export default class Navbar extends React.Component {
 
         return (
             <nav>
-                <NavbarItem link={"Forum"} title={"Forum"}/>
-                <NavbarItem link={"Video"} title={"Video"}/>
-                <NavbarItem link={"Settings"} title={"Settings"}/>
-                {/*{
-                    this.props.myself.admin && <NavbarItem link={"Users"} title={"Users"}/>
-                }*/}
-
+                <ul>
+                    <NavbarItem link={"Forum"} title={"Forum"}/>
+                    <NavbarItem link={"Video"} title={"Video"}/>
+                    <NavbarItem link={"Settings"} title={"Settings"}/>
+                </ul>
             </nav>
         );
 

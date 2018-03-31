@@ -13,8 +13,10 @@ export default class NavbarItem extends React.Component {
         let url = "/" + this.props.link.toLowerCase();
 
         return (
+            <li>
                 <Link to={url}>{this.props.title}</Link>
 
+            </li>
         );
 
     }
