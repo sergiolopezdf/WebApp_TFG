@@ -63,8 +63,7 @@ div.bodyWrapper
   display: flex
   align-items: flex-start
   flex-direction: column
-  padding-left: 4vw
-  padding-right: 4vw
+  @extend .box
 
 #alert
   margin-left: 4vw
@@ -104,6 +103,11 @@ a
 
 a:hover
   color: $opacyBlack
+
+.box
+  margin-top: 20px
+  margin-left: 45px
+  margin-right: 45px
 
 /*************************************/
 /*NavBar*/
@@ -168,7 +172,6 @@ div#title
   border-top: thin dotted $grey
   border-bottom: thin dotted $grey
 
-
 /*************************************/
 /*UserMgmt*/
 /*************************************/
@@ -209,10 +212,10 @@ div#newsBarItem a
 
 div.new
   width: 100%
-  margin-bottom: 4vh
+  margin-bottom: 20px
   border-bottom: thin solid $grey
 
-%newPostForm
+.newPostForm
   width: 100%
   outline: none
   resize: none
@@ -221,10 +224,10 @@ div.new
   border-bottom: thin dotted $grey
 
 input#title
-  @extend %newPostForm
+  @extend .newPostForm
 
 textarea#content
-  @extend %newPostForm
+  @extend .newPostForm
   height: 50%
 
 /*************************************/
@@ -282,30 +285,46 @@ a#logout i
 /*************************************/
 /*VideoPlayer*/
 /*************************************/
+
+.videoBox
+  padding-top: 20px
+  padding-bottom: 20px
+  padding-left: 10px
+  padding-right: 20px
+
+div#videoWrapper
+  @extend .box
+
 div#playerWrapper
+  @extend .videoBox
   display: flex
-  align-content: center
-  justify-content: center
+  flex-direction: column
+  justify-items: center
+
+div#playerWrapper:first-child
+  padding-top: 0
+
+  h1
+    align-self: flex-start
+    margin-bottom: 10px
+
+  .player-area
+    align-self: center
 
 div#videoSelector
-  margin-top: 20px
-  margin-left: 5px
-  margin-right: 5px
-  padding-top: 20px
+  @extend .videoBox
   border-top: thin solid $grey
   display: flex
   flex-direction: row
-  justify-content: center
+  flex-wrap: wrap
+  justify-content: space-around
 
 .uploadForm
   display: flex
   flex-direction: column
 
 div#uploadSection
-  margin-top: 5vh
-  margin-left: 3vw
-  margin-right: 3vw
-  padding-top: 2vh
+  @extend .videoBox
   border-top: thin solid $grey
   display: flex
   flex-direction: row
@@ -326,7 +345,7 @@ div.videoImg
   border-radius: 0 5px 0 5px
 
 div.videoPreview
-  width: 21%
+  width: 200px
   padding: 2%
 
 /*border: thin solid #CCCCCC;*/
@@ -416,8 +435,6 @@ div#chatWindowMessageBox
   overflow-y: auto
   overflow-x: hidden
   resize: none
-
-
 
 .typing
   font-size: 11px

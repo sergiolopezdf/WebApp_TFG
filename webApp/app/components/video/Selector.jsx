@@ -39,7 +39,6 @@ export default class Selector extends React.Component {
 
     }
 
-
     render() {
 
         if (!this.props.availableVideos) {
@@ -51,21 +50,17 @@ export default class Selector extends React.Component {
             );
         }
 
-
-
         return (
 
             <div id={"videoSelector"}>
                 {
                     this.props.availableVideos.map((video, index) => {
 
-                        if (video.status === "ready") {
-                            return <VideoPreview video={video}
-                                                 key={index}
-                                                 user={this.props.user}
-                                                 setCurrentVideo={this._setCurrentVideo}
-                            />;
-                        }
+                        return <VideoPreview video={video}
+                                             key={index}
+                                             user={this.props.user}
+                                             setCurrentVideo={this._setCurrentVideo}
+                        />;
 
                     })
                 }

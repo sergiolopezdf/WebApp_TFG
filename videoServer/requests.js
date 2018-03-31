@@ -156,6 +156,9 @@ router.get('/available_videos', async(req, res) => {
             attributes: ['id', 'username'],
             required: true,
         }],
+        where: {
+            status: "ready",
+        },
     });
 
     if (videos) {

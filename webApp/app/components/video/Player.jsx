@@ -23,6 +23,7 @@ export default class Player extends React.Component {
 
         return (
             <div id={"playerWrapper"}>
+                <h1>Now playing: {this.props.currentVideo.name}</h1>
                 <ReactHLS url={url} height={290}/>
             </div>
         );
