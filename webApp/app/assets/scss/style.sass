@@ -382,7 +382,7 @@ div.videoPreview
 
 div#chatMainWrapper
   float: right
-  position: absolute
+  position: fixed
   right: 19%
   bottom: 10px
 
@@ -407,8 +407,19 @@ div#chatHeader
   padding-bottom: 10px
 
   i
-    justify-self: center
+    align-self: center
     cursor: pointer
+
+  div
+    display: flex
+
+.chatHeaderTitle
+  font-size: 15px
+
+.chatHeaderName
+  color: $blue
+  justify-self: left
+  align-self: center
 
 div#chatBody
   flex: 8
@@ -440,13 +451,7 @@ div#chatBody
   background: $blue
   align-self: flex-end
 
-.chatHeaderTitle
-  font-size: 15px
 
-.chatHeaderName
-  color: $blue
-  align-self: flex-start
-  justify-self: flex-start
 
 div#chatWindowMessageBox
   flex: 2
