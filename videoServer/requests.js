@@ -139,8 +139,12 @@ router.get('/delete', async(req, res) => {
 
     fse.remove('streams/' + video.id, err => {
 
-        if (!err && destroyOk) {
-            res.redirect('http://localhost:3000/video?delete=ok');
+        if (!err) {
+            fse.remove('public/previews/' + video.id, err => {
+                if (!err && destroyOk) {
+                    res.redirect('http://localhost:3000/video?delete=ok');
+                }
+            });
         }
 
     });
@@ -165,4 +169,25 @@ router.get('/available_videos', async(req, res) => {
         res.status(200).send(videos);
     }
 
+});
+
+router.get('/preview', async(req, res) => {
+
+    let previewPath = 'public/previews/' + req.query.id + '/preview.jpg';
+
+    let options = {
+        root: __dirname,
+        headers: {
+            'x-timestamp': Date.now(),
+            'x-sent': true,
+        },
+    };
+
+    res.sendFile(previewPath, options, err => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log("Img sent successfully");
+        }
+    });
 });

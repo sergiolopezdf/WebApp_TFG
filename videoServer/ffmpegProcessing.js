@@ -8,11 +8,18 @@ export async function process(videoName, format, id) {
 
     let pathStreams = 'streams/' + id;
 
+    let pathPreview = 'public/previews/' + id;
+
     if (fs.existsSync(pathStreams)) {
         return;
     }
 
-    fs.mkdir(pathStreams);
+    fs.mkdir(pathStreams, err => {
+        console.log(err);
+    });
+    fs.mkdir(pathPreview, err => {
+        console.log(err);
+    });
 
     let playlist = "#EXTM3U\n" +
         "#EXT-X-VERSION:3\n" +
@@ -105,6 +112,12 @@ export async function process(videoName, format, id) {
         //'-hls_segment_filename ' + videoName + '_1080p_%03d.ts ' + videoName + '_1080p.m3u8'
     ];
 
+    let preview = [
+        '-ss 00:00:00.000',
+        '-vframes 1',
+    ];
+
+    await ffmpegPreview(preview, pathToVideo, pathPreview);
     await ffmpegProcess(resolution360p, pathToVideo, pathStreams, id, '360');
     await ffmpegProcess(resolution480p, pathToVideo, pathStreams, id, '480');
     await ffmpegProcess(resolution720p, pathToVideo, pathStreams, id, '720');
@@ -115,6 +128,24 @@ export async function process(videoName, format, id) {
 function ffmpegProcess(options, pathToVideo, pathStreams, id, resolution) {
 
     let output = pathStreams + '/' + id + '_' + resolution + '.m3u8';
+
+    return new Promise((resolve) => {
+        ffmpeg(pathToVideo).addOptions(options).on('end', function() {
+            console.log('file has been converted succesfully');
+            resolve(true);
+
+        }).on('error', function(err) {
+            console.log('an error happened: ' + err.message);
+            resolve(false);
+
+        }).output(output).run();
+    });
+
+}
+
+function ffmpegPreview(options, pathToVideo, pathPreview) {
+
+    let output = pathPreview + '/preview.jpg';
 
     return new Promise((resolve) => {
         ffmpeg(pathToVideo).addOptions(options).on('end', function() {

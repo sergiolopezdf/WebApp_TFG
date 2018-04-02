@@ -359,14 +359,29 @@ form.videoUploadForm
   flex-direction: column
   margin-top: 0
 
+@mixin imgPreview
+  height: 20vh
+  max-height: 120px
+  border-radius: 0 5px 0 5px
+  cursor: pointer
+
 div.videoImg
+  @include imgPreview
   background: $grey
   display: flex
   justify-content: center
   align-items: center
-  height: 20vh
-  max-height: 120px
-  border-radius: 0 5px 0 5px
+
+  img
+    @include imgPreview
+    display: flex
+
+  i:hover
+    color: $blue
+
+  i
+    position: absolute
+    color: $white
 
 div.videoPreview
   width: 200px
