@@ -12,7 +12,7 @@ export default class AdminSettings extends React.Component {
                 <h2>Create new user</h2>
                 <form action={'/new_user'} method={"post"}>
 
-                    <table class={"users"}>
+                    <table>
                         <tr>
                             <th>Name:</th>
                             <td><input name={"name"} type={"text"} className={"styledInput"}/></td>
@@ -37,7 +37,7 @@ export default class AdminSettings extends React.Component {
 
                 <h2>Edit existing user </h2>
 
-                <table class={"users"}>
+                <table>
 
                     <tr key={-1}>
                         <th>Name</th>

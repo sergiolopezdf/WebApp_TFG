@@ -37,10 +37,10 @@ router.post('/upload', async(req, res) => {
 
     let metadata = file.name.match(/(.+)(\.)(\w+)/);
 
-    //console.log(metadata)
+    let name = req.body.name;
 
     let newVideo = await Video.create({
-        name: metadata[1],
+        name: name,
         userId: req.user.id,
         status: "processing",
         port: undefined,
@@ -72,9 +72,6 @@ router.post('/upload', async(req, res) => {
                 fs.unlink('videos/' + file.name);
             });
         }
-
-
-
 
     });
 });

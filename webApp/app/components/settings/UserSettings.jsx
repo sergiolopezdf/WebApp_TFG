@@ -13,7 +13,7 @@ export default class UserSettings extends React.Component {
 
                 <form action={'/update_password'} method={"post"}>
 
-                    <table class={"users"}>
+                    <table>
                         <tr>
                             <th>Name:</th>
                             <td>{this.props.myself.name}</td>

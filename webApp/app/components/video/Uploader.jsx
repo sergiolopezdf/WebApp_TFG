@@ -25,7 +25,22 @@ export default class Uploader extends React.Component {
 
                       action={"http://localhost:8000/upload?" + user} className={"videoUploadForm"}>
                     <h1>Upload a new video</h1>
-                    <input type={"file"} name={"fileToUpload"}/>
+
+                    <table>
+                        <tr>
+                            <th>Name:</th>
+                            <td><input type={"text"} className={"styledInput"} name={"name"}/></td>
+                        </tr>
+
+                        <tr>
+                            <th>Select video:</th>
+                            <td><input type={"file"} name={"fileToUpload"}/></td>
+                        </tr>
+
+                    </table>
+
+
+
                     <button id="newButton" action="submit">Submit</button>
                 </form>
 
