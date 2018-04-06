@@ -170,7 +170,8 @@ io.on('connection', function(socket) {
     });
 });
 
+let port = process.env.CHAT_SERVER_PORT || '5000';
 //Server listening
-server.listen(4000, function() {
-    console.log('listening on *:4000');
+server.listen(port, function() {
+    console.log('listening on *:' + port);
 });
