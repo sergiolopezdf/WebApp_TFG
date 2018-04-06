@@ -1,6 +1,5 @@
 import React from 'react';
 import VideoPreview from "./VideoPreview";
-import {deleteAlerts, setAvailableVideos} from "../../../redux/reducers/actions";
 
 let querystring = require('querystring');
 
@@ -30,7 +29,7 @@ export default class Selector extends React.Component {
 
             let id = querystring.stringify(params);
 
-            let videos = await fetch('http://localhost:8000/available_videos?' + id);
+            let videos = await fetch(process.env.VIDEO_SERVER_URL + ':' + process.env.VIDEO_SERVER_PORT + '/available_videos?' + id);
 
             videos = await videos.json();
 

@@ -83,7 +83,7 @@ class App extends React.Component {
         });
 
         getInitialNotifications(notifications => {
-            notifications.map((element, index) => {
+            notifications.map((element) => {
                 this.props.dispatch(setInitialNotifications(element.chat, element.nMessages));
             });
         });
@@ -131,7 +131,7 @@ class App extends React.Component {
 
         let id = querystring.stringify(params);
 
-        let getPort = await fetch('http://localhost:8000/play?' + id);
+        let getPort = await fetch(process.env.VIDEO_SERVER_URL + ':' + process.env.VIDEO_SERVER_PORT + '/play?' + id);
 
         video.port = (await getPort.json()).port;
 
@@ -195,7 +195,7 @@ class App extends React.Component {
 
         let token = querystring.stringify(params);
 
-        let post = await fetch('http://localhost:5000/api/publishpost?' + token, {
+        let post = await fetch(process.env.FORUM_SERVER_URL + ':' + process.env.FORUM_SERVER_PORT + '/api/publishpost?' + token, {
             method: 'post',
             body: JSON.stringify(data),
             headers: {
@@ -257,7 +257,7 @@ class App extends React.Component {
                                         <Alerts alertMessages={this.props.alertMessages}/>}
                                         <ForumBar/>
                                         <Forum setNews={this._setNews}
-                                              news={this.props.news} myself={this.props.myself}/>
+                                               news={this.props.news} myself={this.props.myself}/>
                                     </div>
                                 );
                             }}/>

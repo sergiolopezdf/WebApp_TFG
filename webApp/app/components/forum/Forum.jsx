@@ -18,7 +18,7 @@ export default class Forum extends React.Component {
 
         let token = querystring.stringify(params);
 
-        let news = await fetch('http://localhost:5000/api/getposts?' + token);
+        let news = await fetch(process.env.FORUM_SERVER_URL + ':' + process.env.FORUM_SERVER_PORT + '/api/getposts?' + token);
 
         let parsedNews = await news.json();
 

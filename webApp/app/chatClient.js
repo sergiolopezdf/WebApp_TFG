@@ -1,6 +1,6 @@
 import io from 'socket.io-client';
 
-let socket = io('http://localhost:4000/chat');
+let socket = io(process.env.CHAT_SERVER_URL + ':' + process.env.CHAT_SERVER_PORT + '/chat');
 
 function openChat(room, callback) {
 

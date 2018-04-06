@@ -23,7 +23,8 @@ export default class Uploader extends React.Component {
 
                 <form encType="multipart/form-data" method={"post"}
 
-                      action={"http://localhost:8000/upload?" + user} className={"videoUploadForm"}>
+                      action={process.env.VIDEO_SERVER_URL + ':' + process.env.VIDEO_SERVER_PORT + "/upload?" + user}
+                      className={"videoUploadForm"}>
                     <h1>Upload a new video</h1>
 
                     <table>

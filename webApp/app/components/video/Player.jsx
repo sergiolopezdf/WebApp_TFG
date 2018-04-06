@@ -3,7 +3,6 @@ import ReactHLS from 'react-hls';
 
 let querystring = require('querystring');
 
-
 export default class Player extends React.Component {
 
     constructor(props) {
@@ -18,8 +17,7 @@ export default class Player extends React.Component {
 
         let user = querystring.stringify(params);
 
-        let url = "http://localhost:" + this.props.currentVideo.port + "/play?" + user;
-        console.log(url);
+        let url = process.env.VIDEO_SERVER_URL + ":" + this.props.currentVideo.port + "/play?" + user;
 
         return (
             <div id={"playerWrapper"}>
