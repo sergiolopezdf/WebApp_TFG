@@ -26,6 +26,7 @@ export async function main(req, res, next) {
 
     res.status(200).render('../views/index.ejs', {
         script: JSON.stringify(preloadedState),
+
     });
 }
 

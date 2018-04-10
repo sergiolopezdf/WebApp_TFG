@@ -2,7 +2,9 @@ import {digestPassword} from '../crypto';
 
 let Sequelize = require('sequelize');
 
+//It works both in deployment and in development stage.
 let url = process.env.DATABASE_URL || "sqlite:./../db/db.db";
+//let url = "postgres://webapp:webapp@10.1.1.2:5432/webapp"
 
 export let sequelize = new Sequelize(url);
 

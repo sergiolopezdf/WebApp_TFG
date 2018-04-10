@@ -10,14 +10,18 @@ import config from '../webpack.config.js';
 import session from 'express-session';
 
 // Useful vars
-const compiler = webpack(config);
 let app = express();
 
 // Webpack config
-app.use(require('webpack-dev-middleware')(compiler, {
-    noInfo: true,
-    publicPath: config.output.publicPath,
-}));
+let production = process.env.PRODUCTION;
+let compiler = webpack(config);
+if (!production) {
+    app.use(require('webpack-dev-middleware')(compiler, {
+        noInfo: true,
+        publicPath: config.output.publicPath,
+    }));
+}
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
