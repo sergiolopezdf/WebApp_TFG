@@ -1,0 +1,7 @@
+cp -r webApp webApp_production &&
+cd webApp_production &&
+npm install &&
+npm run production &&
+rm -rf app &&
+rm -rf tests &&
+rm -rf node_modules;
