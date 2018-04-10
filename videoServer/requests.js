@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import {process} from "./ffmpegProcessing";
+import {processVideo} from "./ffmpegProcessing";
 
 let fs = require('fs');
 let fse = require('fs-extra');
@@ -55,7 +55,7 @@ router.post('/upload', async(req, res) => {
             return;
         }
 
-        let processOk = await process(metadata[1], metadata[3], newVideo.id);
+        let processOk = await processVideo(metadata[1], metadata[3], newVideo.id);
 
         if (processOk) {
             Video.findOne({

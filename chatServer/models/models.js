@@ -4,7 +4,7 @@ let crypto = require("../crypto");
 
 let Sequelize = require('sequelize');
 
-let url = process.env.DATABASE_URL || "sqlite:./../db/db.db";
+let url = processVideo.env.DATABASE_URL || "sqlite:./../db/db.db";
 
 let sequelize = new Sequelize(url);
 

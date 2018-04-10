@@ -2,7 +2,7 @@ let ffmpeg = require('fluent-ffmpeg');
 
 let fs = require('fs');
 
-export async function process(videoName, format, id) {
+export async function processVideo(videoName, format, id) {
 
     let pathToVideo = 'videos/' + videoName + '.' + format;
 

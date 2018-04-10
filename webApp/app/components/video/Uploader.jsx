@@ -9,7 +9,6 @@ export default class Uploader extends React.Component {
 
     }
 
-
     render() {
         let params = {
             access_token: this.props.user.token,
@@ -23,7 +22,7 @@ export default class Uploader extends React.Component {
 
                 <form encType="multipart/form-data" method={"post"}
 
-                      action={process.env.VIDEO_SERVER_URL + ':' + process.env.VIDEO_SERVER_PORT + "/upload?" + user}
+                      action={"http://" + this.props.videoServer.url + ':' + this.props.videoServer.port + "/upload?" + user}
                       className={"videoUploadForm"}>
                     <h1>Upload a new video</h1>
 
@@ -39,7 +38,6 @@ export default class Uploader extends React.Component {
                         </tr>
 
                     </table>
-
 
 
                     <button id="newButton" action="submit">Submit</button>

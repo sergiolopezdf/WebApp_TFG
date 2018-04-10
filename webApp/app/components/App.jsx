@@ -131,7 +131,7 @@ class App extends React.Component {
 
         let id = querystring.stringify(params);
 
-        let getPort = await fetch(process.env.VIDEO_SERVER_URL + ':' + process.env.VIDEO_SERVER_PORT + '/play?' + id);
+        let getPort = await fetch("http://" + this.props.videoServer.url + ':' + this.props.videoServer.port + '/play?' + id);
 
         video.port = (await getPort.json()).port;
 
@@ -195,7 +195,7 @@ class App extends React.Component {
 
         let token = querystring.stringify(params);
 
-        let post = await fetch(process.env.FORUM_SERVER_URL + ':' + process.env.FORUM_SERVER_PORT + '/api/publishpost?' + token, {
+        let post = await fetch("http://" + this.props.forumServer.url + ':' + this.props.forumServer.port + '/api/publishpost?' + token, {
             method: 'post',
             body: JSON.stringify(data),
             headers: {
@@ -257,6 +257,7 @@ class App extends React.Component {
                                         <Alerts alertMessages={this.props.alertMessages}/>}
                                         <ForumBar/>
                                         <Forum setNews={this._setNews}
+                                               forumServer={this.props.forumServer}
                                                news={this.props.news} myself={this.props.myself}/>
                                     </div>
                                 );
@@ -269,6 +270,7 @@ class App extends React.Component {
                                         {this.props.alertMessages &&
                                         <Alerts alertMessages={this.props.alertMessages}/>}
                                         <Video availableVideos={this.props.availableVideos}
+                                               videoServer={this.props.videoServer}
                                                setCurrentVideo={this._setCurrentVideo}
                                                setAvailableVideos={this._setAvailableVideos}
                                                user={this.props.myself}
@@ -350,6 +352,9 @@ function mapStateToProps(state) {
         alertMessages: state.alertMessages,
         availableVideos: state.availableVideos,
         currentVideo: state.currentVideo,
+        videoServer: state.videoServer,
+        chatServer: state.chatServer,
+        forumServer: state.forumServer,
     };
 }
 

@@ -29,7 +29,7 @@ export default class Selector extends React.Component {
 
             let id = querystring.stringify(params);
 
-            let videos = await fetch(process.env.VIDEO_SERVER_URL + ':' + process.env.VIDEO_SERVER_PORT + '/available_videos?' + id);
+            let videos = await fetch("http://" + this.props.videoServer.url + ':' + this.props.videoServer.port + '/available_videos?' + id);
 
             videos = await videos.json();
 
@@ -56,6 +56,7 @@ export default class Selector extends React.Component {
                     this.props.availableVideos.map((video, index) => {
 
                         return <VideoPreview video={video}
+                                             videoServer={this.props.videoServer}
                                              key={index}
                                              user={this.props.user}
                                              setCurrentVideo={this._setCurrentVideo}

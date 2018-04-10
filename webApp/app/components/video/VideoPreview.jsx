@@ -26,7 +26,7 @@ export default class VideoPreview extends React.Component {
             <div className={"videoPreview"} onClick={this._setCurrentVideo}>
                 <div className={"videoImg"}>
                     <img
-                        src={process.env.VIDEO_SERVER_URL + ':' + process.env.VIDEO_SERVER_PORT + "/preview?" + params}/>
+                        src={"http://" + this.props.videoServer.url + ':' + this.props.videoServer.port + "/preview?" + params}/>
                     <i className="material-icons">play_circle_outline</i>
                 </div>
                 <div className={""}>{this.props.video.name}</div>
@@ -34,7 +34,7 @@ export default class VideoPreview extends React.Component {
                     className={"smallTextAuthor"}>Uploaded by:</span> {this.props.video.user.username}</div>
                 {this.props.user.admin &&
                 <div className={"smallTextAuthorWrapper"}><a
-                    href={process.env.VIDEO_SERVER_URL + ':' + process.env.VIDEO_SERVER_PORT + "/delete?" + params}> Delete</a>
+                    href={"http://" + this.props.videoServer.url + ':' + this.props.videoServer.port + "/delete?" + params}> Delete</a>
                 </div>}
 
 

@@ -17,7 +17,7 @@ export default class Player extends React.Component {
 
         let user = querystring.stringify(params);
 
-        let url = process.env.VIDEO_SERVER_URL + ":" + this.props.currentVideo.port + "/play?" + user;
+        let url = "http://" + this.props.videoServer.url + ':' + this.props.videoServer.port + "/play?" + user;
 
         return (
             <div id={"playerWrapper"}>

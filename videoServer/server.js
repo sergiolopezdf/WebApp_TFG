@@ -50,7 +50,7 @@ app.use('/', router);
 
 
 /*
-import {process} from './ffmpegProcessing';
+import {processVideo} from './ffmpegProcessing';
 
-process('lbl', 'MOV');
+processVideo('lbl', 'MOV');
 */

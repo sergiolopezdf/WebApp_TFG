@@ -18,6 +18,9 @@ let initialState = {
     alertMessages: null,
     availableVideos: null,
     currentVideo: null,
+    forumServer: null,
+    chatServer: null,
+    videoServer: null,
 };
 
 function chatUpdate(state = initialState.chat, action) {
@@ -246,6 +249,21 @@ function remoteUsersTyping(state = initialState.remoteUsersTyping, action) {
 
 }
 
+function setVideoServer(state = initialState.videoServer, action) {
+    return state;
+
+}
+
+function setChatServer(state = initialState.chatServer, action) {
+    return state;
+}
+
+function setForumServer(state = initialState.forumServer, action) {
+    return state;
+
+}
+
+
 let GlobalState = combineReducers({
     chat: chatUpdate,
     chatNotifications: chatNotification,
@@ -259,6 +277,9 @@ let GlobalState = combineReducers({
     alertMessages: alertManager,
     availableVideos: setAvailableVideos,
     currentVideo: setCurrentVideo,
+    chatServer: setChatServer,
+    forumServer: setForumServer,
+    videoServer: setVideoServer,
 });
 
 export default GlobalState;

@@ -1,4 +1,4 @@
-import {digestPassword} from "../webApp/backend/crypto";
+import {digestPassword} from "./crypto";
 
 let Sequelize = require('sequelize');
 

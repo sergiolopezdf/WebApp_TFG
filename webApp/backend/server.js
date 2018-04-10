@@ -12,6 +12,19 @@ import session from 'express-session';
 // Useful vars
 let app = express();
 
+// Setting up ENV vars
+export let urls = {
+    videoServerURL: process.env.VIDEO_SERVER_URL || "localhost",
+    forumServerURL: process.env.FORUM_SERVER_URL || "localhost",
+    chatServerURL: process.env.CHAT_SERVER_URL || "localhost",
+};
+
+export let ports = {
+    videoServerPort: process.env.VIDEO_SERVER_PORT || 8000,
+    chatServerPort: process.env.CHAT_SERVER_PORT || 4000,
+    forumServerPort: process.env.FORUM_SERVER_PORT || 5000,
+};
+
 // Webpack config
 let production = process.env.PRODUCTION;
 let compiler = webpack(config);
@@ -21,7 +34,6 @@ if (!production) {
         publicPath: config.output.publicPath,
     }));
 }
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

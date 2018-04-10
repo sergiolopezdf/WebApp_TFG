@@ -1,6 +1,8 @@
 import {createStore} from 'redux';
 import reducers from '../../redux/reducers/reducers';
-import {User, Video} from './../models/models';
+import {User} from './../models/models';
+import {urls} from "../server";
+import {ports} from "../server";
 
 export async function main(req, res, next) {
 
@@ -10,6 +12,19 @@ export async function main(req, res, next) {
 
     let initialState = {
         remoteUsers: users,
+        videoServer: {
+            url: urls.videoServerURL,
+            port: ports.videoServerPort,
+        },
+
+        forumServer: {
+            url: urls.forumServerURL,
+            port: ports.forumServerPort,
+        },
+        chatServer: {
+            url: urls.chatServerURL,
+            port: ports.chatServerPort,
+        },
     };
 
     if (req.session) {
@@ -38,6 +53,20 @@ export async function video(req, res, next) {
 
     let initialState = {
         remoteUsers: users,
+        videoServer: {
+            url: urls.videoServerURL,
+            port: ports.videoServerPort,
+        },
+
+        forumServer: {
+            url: urls.forumServerURL,
+            port: ports.forumServerPort,
+        },
+        chatServer: {
+            url: urls.chatServerURL,
+            port: ports.chatServerPort,
+        },
+
     };
 
     if (req.session) {

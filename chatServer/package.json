@@ -8,6 +8,8 @@
   "dependencies": {
     "crypto-js": "^3.1.9-1",
     "express": "~4.15.5",
+    "pg": "^7.4.1",
+    "pg-hstore": "^2.3.2",
     "sequelize": "^4.35.1",
     "socket.io": "^2.0.4",
     "sqlite3": "^3.1.13"
