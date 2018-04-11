@@ -4,7 +4,7 @@ let crypto = require("../crypto");
 
 let Sequelize = require('sequelize');
 
-let url = processVideo.env.DATABASE_URL || "sqlite:./../db/db.db";
+let url = process.env.DATABASE_URL || "sqlite:./../db/db.db";
 
 let sequelize = new Sequelize(url);
 
@@ -86,6 +86,16 @@ function selectChatTable(chatId) {
 
 UnreadMessages.belongsTo(User, {foreignKey: 'authorId'});
 User.hasMany(UnreadMessages, {as: 'author', foreignKey: 'authorId'});
+
+sequelize.sync()
+    .then(() => {
+        console.log("DB has been updated");
+
+    })
+    .catch((err) => {
+        console.log("Error while creating DB: ", err);
+    });
+
 
 exports.User = User;
 exports.UnreadMessages = UnreadMessages;

@@ -1,6 +1,13 @@
 import io from 'socket.io-client';
 
-let socket = io(process.env.CHAT_SERVER_URL + ':' + process.env.CHAT_SERVER_PORT + '/chat');
+// let socket = io(process.env.CHAT_SERVER_URL + ':' + process.env.CHAT_SERVER_PORT + '/chat');
+let socket = null;
+
+function setSocket(chatServerURL, chatServerPort) {
+    socket = io(chatServerURL + ':' + chatServerPort + '/chat');
+}
+
+
 
 function openChat(room, callback) {
 
@@ -90,5 +97,6 @@ export {
     receivedNotification,
     removeNotifications,
     getInitialNotifications,
+    setSocket,
 };
 

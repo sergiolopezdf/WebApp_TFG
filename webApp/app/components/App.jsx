@@ -35,7 +35,7 @@ import {
     sendMessage,
     userIsTyping,
     newUserOnline,
-    newUserOffline, receivedNotification, removeNotifications, getInitialNotifications,
+    newUserOffline, receivedNotification, removeNotifications, getInitialNotifications, setSocket,
 } from "../chatClient";
 import Header from "./Header";
 import Video from "./video/Video";
@@ -44,8 +44,6 @@ class App extends React.Component {
 
     constructor(props) {
         super(props);
-
-        //console.log(this.props.store.getState());
 
         this._sendMessage = this._sendMessage.bind(this);
         this._openNewChat = this._openNewChat.bind(this);
@@ -59,6 +57,8 @@ class App extends React.Component {
         this._setCurrentVideo = this._setCurrentVideo.bind(this);
         this._setNews = this._setNews.bind(this);
         this._setAvailableVideos = this._setAvailableVideos.bind(this);
+
+        setSocket(this.props.chatServer.url, this.props.chatServer.port);
 
         openConnection(this.props.myself.id);
 

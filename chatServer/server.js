@@ -153,7 +153,6 @@ io.on('connection', function(socket) {
 
         }).then(row => {
             row.destroy();
-            row.save();
         });
     });
 });
@@ -170,7 +169,7 @@ io.on('connection', function(socket) {
     });
 });
 
-let port = processVideo.env.CHAT_SERVER_PORT || '4000';
+let port = process.env.PORT || '4000';
 //Server listening
 server.listen(port, function() {
     console.log('listening on *:' + port);
