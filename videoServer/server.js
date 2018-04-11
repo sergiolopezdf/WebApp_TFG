@@ -39,18 +39,3 @@ server.listen(port, function() {
 // Rendering routes
 app.use('/', router);
 
-/*sequelize
-    .authenticate()
-    .then(() => {
-        console.log('Connection has been established successfully.');
-    })
-    .catch(err => {
-        console.error('Unable to connect to the database:', err);
-    });*/
-
-
-/*
-import {processVideo} from './ffmpegProcessing';
-
-processVideo('lbl', 'MOV');
-*/
