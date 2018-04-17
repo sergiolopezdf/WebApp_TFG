@@ -7,12 +7,22 @@ export default class VideoPreview extends React.Component {
     constructor(props) {
         super(props);
         this._setCurrentVideo = this._setCurrentVideo.bind(this);
+        this._deleteVideo = this._deleteVideo.bind(this);
     }
 
     _setCurrentVideo() {
         this.props.setCurrentVideo(this.props.video);
     }
 
+    _deleteVideo() {
+        let params = {
+            access_token: this.props.user.token,
+            id: this.props.video.id,
+        };
+
+        this.props.deleteVideo(params);
+
+    }
     render() {
 
         let params = {
@@ -33,8 +43,12 @@ export default class VideoPreview extends React.Component {
                 <div className={"smallTextAuthorWrapper"}><span
                     className={"smallTextAuthor"}>Uploaded by:</span> {this.props.video.user.username}</div>
                 {this.props.user.admin &&
-                <div className={"smallTextAuthorWrapper"}><a
-                    href={"http://" + this.props.videoServer.url + ':' + this.props.videoServer.port + "/delete?" + params}> Delete</a>
+                <div className={"smallTextAuthorWrapper"}>
+                    <div role={"link"} onClick={this._deleteVideo}>
+                        Delete
+                    </div>
+
+
                 </div>}
 
 

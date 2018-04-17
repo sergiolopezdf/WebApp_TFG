@@ -37,7 +37,7 @@ router.post('/upload', async(req, res) => {
 
     let metadata = file.name.match(/(.+)(\.)(\w+)/);
 
-    let name = req.body.name;
+    let name = req.sanitize(req.body.name);
 
     let newVideo = await Video.create({
         name: name,
@@ -47,8 +47,10 @@ router.post('/upload', async(req, res) => {
 
     });
 
-    res.redirect('http://' + process.env.WEBAPP_SERVER_URL + ':' + process.env.WEBAPP_SERVER_PORT
-        + '/video?upload=ok');
+    // res.redirect('http://' + process.env.WEBAPP_SERVER_URL + ':' + process.env.WEBAPP_SERVER_PORT
+    //     + '/video?upload=ok');
+
+    res.status(200).send();
 
     file.mv('videos/' + file.name, async(err) => {
         if (err) {
@@ -137,8 +139,9 @@ router.get('/delete', async(req, res) => {
         if (!err) {
             fse.remove('public/previews/' + video.id, err => {
                 if (!err && destroyOk) {
-                    res.redirect('http://' + process.env.WEBAPP_SERVER_URL + ':' + process.env.WEBAPP_SERVER_PORT
-                        + '/video?delete=ok');
+                    /*res.redirect('http://' + process.env.WEBAPP_SERVER_URL + ':' + process.env.WEBAPP_SERVER_PORT
+                        + '/video?delete=ok');*/
+                    res.status(200).send();
                 }
             });
         }

@@ -12,9 +12,9 @@ export default class Navbar extends React.Component {
         return (
             <nav>
                 <ul>
-                    <NavbarItem link={"Forum"} title={"Forum"}/>
-                    <NavbarItem link={"Video"} title={"Video"}/>
-                    <NavbarItem link={"Settings"} title={"Settings"}/>
+                    <NavbarItem link={"Forum"} title={"Forum"} iconName={"forum"}/>
+                    <NavbarItem link={"Video"} title={"Video"} iconName={"video_library"}/>
+                    <NavbarItem link={"Settings"} title={"Settings"} iconName={"settings"}/>
                 </ul>
             </nav>
         );

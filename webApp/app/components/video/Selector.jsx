@@ -10,6 +10,7 @@ export default class Selector extends React.Component {
         this._setCurrentVideo = this._setCurrentVideo.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
         this._setAvailableVideos = this._setAvailableVideos.bind(this);
+        this._deleteVideo = this._deleteVideo.bind(this);
     }
 
     _setCurrentVideo(videoId) {
@@ -19,6 +20,12 @@ export default class Selector extends React.Component {
     _setAvailableVideos(videos) {
         this.props.setAvailableVideos(videos);
     }
+
+    _deleteVideo(params) {
+        this.props.deleteVideo(params);
+    }
+
+
 
     async componentDidMount() {
 
@@ -58,6 +65,7 @@ export default class Selector extends React.Component {
                         return <VideoPreview video={video}
                                              videoServer={this.props.videoServer}
                                              key={index}
+                                             deleteVideo={this._deleteVideo}
                                              user={this.props.user}
                                              setCurrentVideo={this._setCurrentVideo}
                         />;

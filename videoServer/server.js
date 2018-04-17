@@ -1,6 +1,7 @@
 let express = require('express');
 let bodyParser = require('body-parser');
 let fileUpload = require('express-fileupload');
+let expressSanitizer = require('express-sanitizer');
 import {router} from "./requests";
 import {createServer} from 'http';
 
@@ -30,6 +31,7 @@ app.use(fileUpload());
 //QueryURL
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
+app.use(expressSanitizer());
 
 //Router listening
 server.listen(port, function() {

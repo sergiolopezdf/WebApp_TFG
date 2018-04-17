@@ -1,4 +1,5 @@
 import React from 'react';
+import $ from 'jquery';
 
 let querystring = require('querystring');
 
@@ -6,8 +7,20 @@ export default class Uploader extends React.Component {
 
     constructor(props) {
         super(props);
+        this._uploadVideo = this._uploadVideo.bind(this);
 
     }
+
+    _uploadVideo() {
+        let form = new FormData();
+        let file = document.querySelector('input[type="file"]').files[0];
+        let name = $(".styledInput").val();
+        form.append("fileToUpload", file);
+        form.append("name", name);
+
+        this.props.uploadVideo(form);
+    }
+
 
     render() {
         let params = {
@@ -20,10 +33,7 @@ export default class Uploader extends React.Component {
             <div id={"uploadSection"}>
 
 
-                <form encType="multipart/form-data" method={"post"}
-
-                      action={"http://" + this.props.videoServer.url + ':' + this.props.videoServer.port + "/upload?" + user}
-                      className={"videoUploadForm"}>
+                <div className={"videoUploadForm"}>
                     <h1>Upload a new video</h1>
 
                     <table>
@@ -40,8 +50,8 @@ export default class Uploader extends React.Component {
                     </table>
 
 
-                    <button id="newButton" action="submit">Submit</button>
-                </form>
+                    <button id="newButton" action="submit" onClick={this._uploadVideo}>Submit</button>
+                </div>
 
 
             </div>

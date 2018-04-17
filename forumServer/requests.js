@@ -48,9 +48,9 @@ router.post('/api/publishpost', async(req, res) => {
     let post = req.body;
 
     let newPost = await New.create({
-        authorId: post.authorId,
-        title: post.title,
-        content: post.content,
+        authorId: req.sanitize(post.authorId),
+        title: req.sanitize(post.title),
+        content: req.sanitize(post.content),
     });
 
     if (newPost) {

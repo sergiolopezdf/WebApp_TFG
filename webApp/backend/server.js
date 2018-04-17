@@ -5,6 +5,7 @@ let logger = require('morgan');
 let cookieParser = require('cookie-parser');
 let bodyParser = require('body-parser');
 let index = require('./routes/index');
+let expressSanitizer = require('express-sanitizer');
 import webpack from 'webpack';
 import config from '../webpack.config.js';
 import session from 'express-session';
@@ -44,6 +45,7 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
+app.use(expressSanitizer());
 app.use(cookieParser());
 app.use(session({
     secret: "webapp",

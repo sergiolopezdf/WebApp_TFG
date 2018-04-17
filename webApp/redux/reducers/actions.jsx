@@ -130,3 +130,11 @@ export function newAlert(msg) {
     }
 
 }
+
+export function setUploadingVideo(uploading) {
+    return {
+        type: 'SET_UPLOADING_VIDEO',
+        uploading: uploading,
+    };
+
+}

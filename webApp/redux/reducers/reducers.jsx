@@ -6,6 +6,7 @@ let initialState = {
     modules: {
         chat: false,
     },
+    uploadingVideo: false,
     currentChat: null,
     myself: null,
     remoteUsers: null,
@@ -142,6 +143,20 @@ function setNews(state = initialState.news, action) {
     }
 
 }
+
+function setUploadingVideo(state = initialState.uploadingVideo, action) {
+    switch (action.type) {
+        case 'SET_UPLOADING_VIDEO':
+            let newState = JSON.parse(JSON.stringify(state));
+            newState = action.uploading;
+            return newState;
+        default:
+            return state;
+
+    }
+
+}
+
 
 function renderModules(state = initialState.modules, action) {
     switch (action.type) {
@@ -280,6 +295,7 @@ let GlobalState = combineReducers({
     chatServer: setChatServer,
     forumServer: setForumServer,
     videoServer: setVideoServer,
+    uploadingVideo: setUploadingVideo,
 });
 
 export default GlobalState;

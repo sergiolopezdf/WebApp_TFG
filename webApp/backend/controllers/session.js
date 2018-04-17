@@ -29,8 +29,8 @@ export async function adminRequired(req, res, next) {
 export async function login(req, res, next) {
 
     // Render login page
-    let username = req.body.username;
-    let password = req.body.password;
+    let username = req.sanitize(req.body.username);
+    let password = req.sanitize(req.body.password);
 
     password = digestPassword(password);
 

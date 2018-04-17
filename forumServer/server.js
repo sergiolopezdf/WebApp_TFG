@@ -1,5 +1,6 @@
 let express = require('express');
 let bodyParser = require('body-parser');
+let expressSanitizer = require('express-sanitizer');
 import {router} from "./requests";
 import {createServer} from 'http';
 
@@ -14,6 +15,7 @@ app.set('port', port);
 //QueryURL
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
+app.use(expressSanitizer());
 
 //Router listening
 server.listen(port, function() {

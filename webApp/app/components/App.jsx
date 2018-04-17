@@ -11,34 +11,43 @@ import Alerts from "./Alerts";
 import Index from "./Index";
 import {
     cleanNotifications,
-    deleteAlerts, newAlert,
-    newMessage, newNotification,
+    deleteAlerts,
+    newAlert,
+    newMessage,
+    newNotification,
+    setAvailableVideos,
     setChatHistory,
-    setCurrentChat, setInitialNotifications,
-    setNews, setNewUserOffline, setNewUserOnline,
+    setCurrentChat,
+    setCurrentVideo,
+    setInitialNotifications,
+    setNews,
+    setNewUserOffline,
+    setNewUserOnline,
     setRemoteUsers,
-    setRemoteUsersTyping,
+    setRemoteUsersTyping, setUploadingVideo,
     showChat,
     userTyping,
-    setCurrentVideo, setAvailableVideos,
 } from "../../redux/reducers/actions";
-
-let querystring = require('querystring');
-
-import {Route, Redirect, Switch, BrowserRouter as Router} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
 import {
+    getInitialNotifications,
+    newUserOffline,
+    newUserOnline,
     openChat,
     openConnection,
     receivedMessage,
+    receivedNotification,
     remoteUserIsTyping,
+    removeNotifications,
     sendMessage,
+    setSocket,
     userIsTyping,
-    newUserOnline,
-    newUserOffline, receivedNotification, removeNotifications, getInitialNotifications, setSocket,
 } from "../chatClient";
 import Header from "./Header";
 import Video from "./video/Video";
+
+let querystring = require('querystring');
 
 class App extends React.Component {
 
@@ -57,6 +66,8 @@ class App extends React.Component {
         this._setCurrentVideo = this._setCurrentVideo.bind(this);
         this._setNews = this._setNews.bind(this);
         this._setAvailableVideos = this._setAvailableVideos.bind(this);
+        this._deleteVideo = this._deleteVideo.bind(this);
+        this._uploadVideo = this._uploadVideo.bind(this);
 
         setSocket(this.props.chatServer.url, this.props.chatServer.port);
 
@@ -117,9 +128,7 @@ class App extends React.Component {
     }
 
     _setNews(news) {
-
         this.props.dispatch(setNews(news.reverse()));
-
     }
 
     async _setCurrentVideo(video) {
@@ -136,6 +145,57 @@ class App extends React.Component {
         video.port = (await getPort.json()).port;
 
         this.props.dispatch(setCurrentVideo(video));
+    }
+
+    async _deleteVideo(params) {
+
+        params = querystring.stringify(params);
+
+        let deleteOk = await fetch("http://" + this.props.videoServer.url + ':' +
+            this.props.videoServer.port + "/delete?" + params);
+
+        if (deleteOk) {
+            this._newAlert("Video deleted");
+
+        } else {
+            this._newAlert("Error while deleting the video. Try again");
+        }
+
+        let id = {
+            access_token: this.props.myself.token,
+        };
+
+    }
+
+    async _uploadVideo(form) {
+
+        let params = {
+            access_token: this.props.myself.token,
+        };
+
+        let user = querystring.stringify(params);
+
+        this.props.dispatch(setUploadingVideo(true));
+
+        let uploadOk = await fetch("http://" + this.props.videoServer.url + ':'
+            + this.props.videoServer.port + "/upload?" + user, {
+
+            method: "POST",
+            headers: {
+                "Accept": "application/json",
+            },
+            body: form,
+
+        });
+
+        if (uploadOk) {
+            this._newAlert("Your video has been uploaded. It will be available soon!");
+            this.props.dispatch(setUploadingVideo(false));
+        } else {
+            this._newAlert("Error while uploading. Try again");
+            this.props.dispatch(setUploadingVideo(false));
+        }
+
     }
 
     _openNewChat(user) {
@@ -205,12 +265,9 @@ class App extends React.Component {
         });
 
         if (post.ok) {
+
             this._newAlert("Your new has been saved");
 
-            //Tweaakkkk!
-            <Redirect to={{
-                pathname: '/forum',
-            }}/>;
         }
 
     }
@@ -271,6 +328,9 @@ class App extends React.Component {
                                         <Alerts alertMessages={this.props.alertMessages}/>}
                                         <Video availableVideos={this.props.availableVideos}
                                                videoServer={this.props.videoServer}
+                                               deleteVideo={this._deleteVideo}
+                                               uploadVideo={this._uploadVideo}
+                                               uploadingVideo={this.props.uploadingVideo}
                                                setCurrentVideo={this._setCurrentVideo}
                                                setAvailableVideos={this._setAvailableVideos}
                                                user={this.props.myself}
@@ -324,6 +384,7 @@ class App extends React.Component {
 
                         </Switch>
 
+
                         <ChatContactBar myself={this.props.myself} remoteUsers={this.props.remoteUsers}
                                         openNewChat={this._openNewChat}
                                         chatNotifications={this.props.chatNotifications}
@@ -355,6 +416,7 @@ function mapStateToProps(state) {
         videoServer: state.videoServer,
         chatServer: state.chatServer,
         forumServer: state.forumServer,
+        uploadingVideo: state.uploadingVideo,
     };
 }
 
