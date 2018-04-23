@@ -17,6 +17,8 @@ for (var i = 8001; i < 8031; i++) {
     ports.push({
         port: i,
         available: true,
+        server: null,
+        listeners: 0
     });
 }
 

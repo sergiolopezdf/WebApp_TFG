@@ -8,10 +8,12 @@ export default class VideoPreview extends React.Component {
         super(props);
         this._setCurrentVideo = this._setCurrentVideo.bind(this);
         this._deleteVideo = this._deleteVideo.bind(this);
+        this._cancelSubscriptionFromCurrentVideo = this._cancelSubscriptionFromCurrentVideo.bind(this);
     }
 
     _setCurrentVideo() {
         this.props.setCurrentVideo(this.props.video);
+        this._cancelSubscriptionFromCurrentVideo();
     }
 
     _deleteVideo() {
@@ -23,6 +25,12 @@ export default class VideoPreview extends React.Component {
         this.props.deleteVideo(params);
 
     }
+
+
+    _cancelSubscriptionFromCurrentVideo() {
+        this.props.cancelSubscriptionFromCurrentVideo();
+    }
+
     render() {
 
         let params = {

@@ -87,7 +87,14 @@ router.get('/play', async(req, res) => {
         res.send(JSON.stringify({
             port: video.port,
         }));
-        return;
+
+        for (let item in ports) {
+            if (ports[item].port === video.port) {
+                ports[item].listeners++;
+                return;
+            }
+        }
+
     }
 
     let server = createServer();
@@ -99,9 +106,11 @@ router.get('/play', async(req, res) => {
         dir: streaming // Directory that input files are stored
     });
 
-    for (var item in ports) {
+    for (let item in ports) {
         if (ports[item].available) {
             ports[item].available = false;
+            ports[item].server = server;
+            ports[item].listeners = 1;
 
             server.listen(ports[item].port);
 
@@ -117,6 +126,51 @@ router.get('/play', async(req, res) => {
         }
 
     }
+
+});
+
+router.get('/destroy', async(req, res) => {
+
+    let port = req.query.port;
+
+    for (let item in ports) {
+
+        if ("" + ports[item].port === port) {
+
+            ports[item].listeners--;
+
+            if (ports[item].listeners === 0) {
+
+                let video = await Video.findOne({where: {id: req.query.id}});
+
+                video.port = null;
+
+                video.save();
+
+                console.log(video.port);
+
+                ports[item].server.close(() => {
+                    console.log("Server down");
+                })
+                ports[item].server = null;
+                ports[item].available = true;
+
+                console.log(ports[item])
+
+
+
+
+            }
+
+            return;
+        }
+    }
+
+
+
+
+
+
 
 });
 

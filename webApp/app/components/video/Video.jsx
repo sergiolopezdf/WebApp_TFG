@@ -11,7 +11,9 @@ export default class Video extends React.Component {
         this._setAvailableVideos = this._setAvailableVideos.bind(this);
         this._deleteVideo = this._deleteVideo.bind(this);
         this._uploadVideo = this._uploadVideo.bind(this);
+        this._cancelSubscriptionFromCurrentVideo = this._cancelSubscriptionFromCurrentVideo.bind(this);
     }
+
 
     _setCurrentVideo(videoId) {
         this.props.setCurrentVideo(videoId);
@@ -31,6 +33,10 @@ export default class Video extends React.Component {
         this.props.deleteVideo(params);
     }
 
+    _cancelSubscriptionFromCurrentVideo() {
+        this.props.cancelSubscriptionFromCurrentVideo();
+    }
+
     render() {
 
         return (
@@ -41,6 +47,7 @@ export default class Video extends React.Component {
                           deleteVideo={this._deleteVideo}
                           setCurrentVideo={this._setCurrentVideo}
                           setAvailableVideos={this._setAvailableVideos}
+                          cancelSubscriptionFromCurrentVideo={this._cancelSubscriptionFromCurrentVideo}
                           videoServer={this.props.videoServer}
                 />
                 {

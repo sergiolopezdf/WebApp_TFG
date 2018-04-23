@@ -11,6 +11,7 @@ export default class Selector extends React.Component {
         this.componentDidMount = this.componentDidMount.bind(this);
         this._setAvailableVideos = this._setAvailableVideos.bind(this);
         this._deleteVideo = this._deleteVideo.bind(this);
+        this._cancelSubscriptionFromCurrentVideo = this._cancelSubscriptionFromCurrentVideo.bind(this);
     }
 
     _setCurrentVideo(videoId) {
@@ -25,7 +26,9 @@ export default class Selector extends React.Component {
         this.props.deleteVideo(params);
     }
 
-
+    _cancelSubscriptionFromCurrentVideo() {
+        this.props.cancelSubscriptionFromCurrentVideo();
+    }
 
     async componentDidMount() {
 
@@ -68,6 +71,7 @@ export default class Selector extends React.Component {
                                              deleteVideo={this._deleteVideo}
                                              user={this.props.user}
                                              setCurrentVideo={this._setCurrentVideo}
+                                             cancelSubscriptionFromCurrentVideo={this._cancelSubscriptionFromCurrentVideo}
                         />;
 
                     })

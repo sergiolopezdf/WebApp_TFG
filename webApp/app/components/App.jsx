@@ -24,7 +24,8 @@ import {
     setNewUserOffline,
     setNewUserOnline,
     setRemoteUsers,
-    setRemoteUsersTyping, setUploadingVideo,
+    setRemoteUsersTyping,
+    setUploadingVideo,
     showChat,
     userTyping,
 } from "../../redux/reducers/actions";
@@ -68,6 +69,7 @@ class App extends React.Component {
         this._setAvailableVideos = this._setAvailableVideos.bind(this);
         this._deleteVideo = this._deleteVideo.bind(this);
         this._uploadVideo = this._uploadVideo.bind(this);
+        this._cancelSubscriptionFromCurrentVideo = this._cancelSubscriptionFromCurrentVideo.bind(this);
 
         setSocket(this.props.chatServer.url, this.props.chatServer.port);
 
@@ -108,6 +110,7 @@ class App extends React.Component {
                 this.props.dispatch(deleteAlerts());
             }
         }
+
     }
 
     async componentDidUpdate() {
@@ -145,6 +148,20 @@ class App extends React.Component {
         video.port = (await getPort.json()).port;
 
         this.props.dispatch(setCurrentVideo(video));
+    }
+
+    async _cancelSubscriptionFromCurrentVideo() {
+
+        if (this.props.currentVideo) {
+            let params = {
+                port: this.props.currentVideo.port,
+                access_token: this.props.myself.token,
+                id: this.props.currentVideo.id,
+            };
+            let id = querystring.stringify(params);
+
+            await fetch("http://" + this.props.videoServer.url + ':' + this.props.videoServer.port + '/destroy?' + id);
+        }
     }
 
     async _deleteVideo(params) {
@@ -329,13 +346,13 @@ class App extends React.Component {
                                         <Video availableVideos={this.props.availableVideos}
                                                videoServer={this.props.videoServer}
                                                deleteVideo={this._deleteVideo}
-                                               uploadVideo={this._uploadVideo}
                                                uploadingVideo={this.props.uploadingVideo}
                                                setCurrentVideo={this._setCurrentVideo}
                                                setAvailableVideos={this._setAvailableVideos}
                                                user={this.props.myself}
                                                currentVideo={this.props.currentVideo}
                                                uploadVideo={this._uploadVideo}
+                                               cancelSubscriptionFromCurrentVideo={this._cancelSubscriptionFromCurrentVideo}
                                         />
                                     </div>
                                 );
