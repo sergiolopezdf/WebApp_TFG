@@ -6,6 +6,7 @@ let cookieParser = require('cookie-parser');
 let bodyParser = require('body-parser');
 let index = require('./routes/index');
 let expressSanitizer = require('express-sanitizer');
+let SequelizeStore = require('connect-session-sequelize')(session.Store);
 import webpack from 'webpack';
 import config from '../webpack.config.js';
 import session from 'express-session';
@@ -47,10 +48,24 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(expressSanitizer());
 app.use(cookieParser());
+
+//Store sessions in DB
+
+import {sequelize} from "./models/models";
+
+let sessionStore = new SequelizeStore({
+    db: sequelize,
+    table: "session",
+    checkExpirationInterval: 15 * 60 * 1000, // The interval at which to cleanup expired sessions in milliseconds. (15 minutes)
+    expiration: 4 * 60 * 60 * 1000,  // The maximum age (in milliseconds) of a valid session. (4 hours)
+});
+
+
 app.use(session({
     secret: "webapp",
+    store: sessionStore,
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: true,
 }));
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -64,23 +79,7 @@ app.use(function(req, res, next) {
 
 });
 
-// catch 404 and forward to error handler
-/* app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});*/
-/*
 
-sequelize
-    .authenticate()
-    .then(() => {
-        console.log('Connection has been established successfully.');
-    })
-    .catch(err => {
-        console.error('Unable to connect to the database:', err);
-    });
-*/
 
 // error handler
 app.use(function(err, req, res, next) {

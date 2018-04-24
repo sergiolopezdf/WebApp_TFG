@@ -70,9 +70,20 @@ export let Video = sequelize.define('video', {
         type: Sequelize.STRING,
     },
 
-
 });
 
+export let Session = sequelize.define('session', {
+    sid: {
+        type: Sequelize.STRING,
+        primaryKey: true,
+    },
+    expires: {
+        type: Sequelize.DATE,
+    },
+    data: {
+        type: Sequelize.STRING(50000),
+    },
+});
 
 // Exporting authorId as foreingKey. Then, importing it with the same name.
 // 'as' is just for getters and setters
