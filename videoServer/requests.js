@@ -4,6 +4,8 @@ import {createServer} from 'http';
 import {ports} from "./server";
 import {User, Video} from "./models";
 
+let express = require('express');
+
 let fs = require('fs');
 let fse = require('fs-extra');
 let HLSServer = require('hls-server');
@@ -97,6 +99,7 @@ router.get('/play', async(req, res) => {
 
     }
 
+
     let server = createServer();
 
     let streaming = 'streams/' + video.id + '/playlist.m3u8';
@@ -113,6 +116,9 @@ router.get('/play', async(req, res) => {
             ports[item].listeners = 1;
 
             server.listen(ports[item].port);
+            server.on('request', (req, res) => {
+                res.setHeader('Access-Control-Allow-Origin', '*');
+            });
 
             video.port = ports[item].port;
 
