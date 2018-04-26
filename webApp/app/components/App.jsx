@@ -224,9 +224,11 @@ class App extends React.Component {
 
         if (!this.props.chat[room]) {
             openChat(room, fullHistory => {
-                this.props.dispatch(setChatHistory(fullHistory, room));
+                this.props.dispatch(setChatHistory(fullHistory.reverse(), room));
             });
         }
+
+        //console.log(this.props.store.getState());
 
         this.props.dispatch(setCurrentChat(room, user.username));
         this.props.dispatch(showChat(true));

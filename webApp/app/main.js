@@ -1,5 +1,3 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
 import {AppContainer} from 'react-hot-loader';
 import {hydrate} from 'react-dom';
 import {createStore} from 'redux';
@@ -15,12 +13,11 @@ const preloadedState = window.initialReduxState;
 // Allow the passed state to be garbage-collected
 delete window.initialReduxState;
 
-console.log(preloadedState);
+//console.log(preloadedState);
 // Create Redux store with initial state
-const store = createStore(reducers, preloadedState);
+let store = createStore(reducers, preloadedState);
 
-hydrate(
-    <AppContainer>
+hydrate( < AppContainer >
         <Provider store={store}>
             <App store={store}/>
         </Provider>

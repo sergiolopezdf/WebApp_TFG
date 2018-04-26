@@ -15,6 +15,7 @@ export function newNotification(chatId) {
 }
 
 export function setInitialNotifications(chatId, nMsgs) {
+
     return {
         type: 'SET_INITIAL_NOTIFICATIONS',
         chatId: chatId,
