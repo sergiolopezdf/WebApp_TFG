@@ -35,6 +35,14 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(expressSanitizer());
 
+//Allowing CORS
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
+
 //Router listening
 server.listen(port, function() {
     console.log('Video server listening for requests on: ' + port);
