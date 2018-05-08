@@ -22,14 +22,7 @@ router.get('/forum', loginRequired, main);
 router.get('/publish_new', loginRequired, main);
 router.get('/settings', loginRequired, main);
 router.get('/users', loginRequired, main);
-router.get('/video', loginRequired, video);
+router.get('/video', loginRequired, main);
 router.get('/logout', logout);
-
-/* Token Auth */
-router.get('/tokenAuth', passport.authenticate('bearer', {session: false}), function(req, res) {
-
-    res.json({username: req.user.username});
-
-});
 
 module.exports = router;
