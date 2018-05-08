@@ -7,21 +7,6 @@ import {adminRequired, login, logout, tokenCheck, tokenRender} from "../controll
 import {newUser, updatePassword} from "../controllers/management";
 import {User} from "../models/models";
 
-/* Passport */
-let passport = require('passport');
-let BearerStrategy = require('passport-http-bearer').Strategy;
-
-passport.use(new BearerStrategy(
-    async function(token, done) {
-        let user = await User.findOne({where: {token: token}});
-
-        if (!user) {
-            return done(null, false);
-        }
-
-        return done(null, user, {scope: 'all'});
-    },
-));
 
 let router = express.Router();
 
