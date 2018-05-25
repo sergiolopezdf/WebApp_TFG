@@ -25,9 +25,9 @@ https://github.com/sergiolopezdf/boilerplate-react-redux-express
 1. Clone the entire repository
 2. Get into the directory: `cd WebApp_TFG`
 3. Create an empty folder called db: `mkdir db`. This is where the SQLite database will be placed
-3. Get into each server folder and run `npm install`. Wait until each installation finishes
-4. Run `npm start` on each server folder. You will need to do this at least four times if you want to boot the entire app. Otherwise, the app will be working but it will not be able to access to those servers you have not started
-5. After running `npm start` on the 'webApp', a browser window should open automatically. If it does not, you can access manually at `http://localhost:3000`
+4. Get into each server folder and run `npm install`. Wait until each installation finishes
+5. Run `npm start` on each server folder. You will need to do this at least four times if you want to boot the entire app. Otherwise, the app will be working but it will not be able to access to those servers you have not started
+6. After running `npm start` on the 'webApp', a browser window should open automatically. If it does not, you can access manually at `http://localhost:3000`
 
 ## Deployment configuration
 An example on how to deploy this app can be bound here:
