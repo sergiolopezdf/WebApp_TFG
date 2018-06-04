@@ -44,13 +44,16 @@ export default class Uploader extends React.Component {
 
                         <tr>
                             <th>Select video:</th>
-                            <td><input type={"file"} name={"fileToUpload"}/></td>
+                            <td>
+                                <input type={"file"} id={"videoUploadInput"} name={"fileToUpload"}/>
+
+                            </td>
                         </tr>
 
                     </table>
 
 
-                    <button id="newButton" action="submit" onClick={this._uploadVideo}>Submit</button>
+                    <button action="submit" onClick={this._uploadVideo}>Submit</button>
                 </div>
 
 

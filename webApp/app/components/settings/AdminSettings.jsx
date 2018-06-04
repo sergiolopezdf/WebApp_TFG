@@ -35,7 +35,7 @@ export default class AdminSettings extends React.Component {
 
                 </form>
 
-                <h2>Edit existing user </h2>
+                <h2>Existing users</h2>
 
                 <table>
 

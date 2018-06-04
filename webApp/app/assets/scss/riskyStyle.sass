@@ -17,16 +17,12 @@ body
   font-family: $bodyFont
   margin: 0
   padding: 0
-  background: $white
-  color: $black
+  background: $black
+  color: $white
 
 input
-  background: inherit
-  color: inherit
-
-video
   background: $black
-  color: $green
+  color: $white
 
 div
   background: inherit
@@ -92,7 +88,6 @@ div.bodyWrapper
   padding: 1vh
   background: $darkGreen
   border-radius: 5px
-  color: $white
 
 h1
   color: $green
@@ -121,7 +116,7 @@ button.chatButton, button.chatButton:focus
   margin-top: 0
 
 button:hover
-  background: $clearGrey
+  background: $green
 
 a
   color: $green
@@ -146,7 +141,7 @@ a:hover
 /*************************************/
 
 div#headerWrapper
-  background-color: $black
+  background-color: $green
   height: 8%
   min-height: 60px
   max-height: 120px
@@ -193,7 +188,7 @@ nav
 
     a:hover
       text-decoration: none
-      color: $green
+      color: $clearGrey
 
 div#title
   color: $white
@@ -215,9 +210,6 @@ div#title
     color: $white
     text-decoration: none
 
-  a:hover
-    color: $green
-
 /*************************************/
 /*Form*/
 /*************************************/
@@ -225,8 +217,8 @@ div#title
   outline: none
   resize: none
   border: none
-  border-top: thin dotted $clearGrey
-  border-bottom: thin dotted $clearGrey
+  border-top: thin dotted $darkGrey
+  border-bottom: thin dotted $darkGrey
 
 /*************************************/
 /*UserMgmt*/
@@ -280,15 +272,15 @@ div.new
   align-self: stretch
   flex-direction: column
   @extend .innerBox
-  border-bottom: thin solid $clearGrey
+  border-bottom: thin solid $darkGreen
 
 .newPostForm
   width: 100%
   outline: none
   resize: none
   border: none
-  border-top: thin dotted $clearGrey
-  border-bottom: thin dotted $clearGrey
+  border-top: thin dotted $darkGreen
+  border-bottom: thin dotted $darkGreen
 
 input#title
   @extend .newPostForm
@@ -306,8 +298,7 @@ div#chatSideWrapper
   flex: 1
   margin: 0
   padding: 10px
-  background-color: $clearGrey
-  color: $white
+  background-color: $darkGrey
 
 #contactStatus .online
   background-color: $green
@@ -318,12 +309,8 @@ div#chatSideWrapper
 #contact
   display: flex
   flex-direction: row
-  padding: 5px
+  margin-bottom: 1vh
   cursor: pointer
-  border-radius: 4px
-
-#contact:hover
-  background: $green
 
 #contactName
   font-size: 13px
@@ -342,15 +329,14 @@ div#chatSideWrapper
 #myselfContact
   display: flex
   flex-direction: row
-  padding: 5px
-  border-bottom: thin solid $white
-  margin-bottom: 5px
+  margin-bottom: 1vh
+  border-bottom: thin solid $darkGreen
 
 a#logout
   color: $green
 
 a#logout:hover
-  color: $black
+  color: $clearGrey
 
 a#logout i
   font-size: 15px
@@ -382,7 +368,7 @@ div#playerWrapper:first-child
 
 div#videoSelector
   @extend .innerBox
-  border-top: thin solid $clearGrey
+  border-top: thin solid $darkGreen
   display: flex
   flex-direction: row
   flex-wrap: wrap
@@ -394,7 +380,7 @@ div#videoSelector
 
 div#uploadSection
   @extend .innerBox
-  border-top: thin solid $clearGrey
+  border-top: thin solid $darkGreen
   display: flex
   flex-direction: row
   justify-content: center
@@ -448,11 +434,11 @@ div#chatMainWrapper
   bottom: 10px
 
 div#chatWindow
-  background: $white
+  background: $darkGrey
   border-radius: 5px
   height: 400px
   width: 300px
-  box-shadow: 0 0 5px $darkGrey
+  //box-shadow: 0 0 5px $darkGreen
   display: flex
   flex-direction: column
   padding-left: 1vw
@@ -460,7 +446,7 @@ div#chatWindow
 
 div#chatHeader
   flex: 1
-  border-bottom: 1px solid $clearGrey
+  border-bottom: 1px solid $darkGreen
   align-items: center
   justify-content: space-between
   display: flex
@@ -512,11 +498,9 @@ div#chatBody
   background: $green
   align-self: flex-end
 
-
-
 div#chatWindowMessageBox
   flex: 2
-  border-top: 1px solid $clearGrey
+  border-top: 1px solid $darkGreen
   padding-top: 10px
   padding-bottom: 10px
   display: flex

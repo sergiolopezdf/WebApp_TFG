@@ -33,7 +33,15 @@ export default class Main extends React.Component {
             <div className="mainWrapper">
                 {this.props.modules.main &&
                 <div className="bodyWrapper">
-                    <div className="newTitle">Welcome to WebApp</div>
+                    <div className="newTitle">WebApp: a pilot test for a platform to distribute corporative multimedia
+                        content
+                    </div>
+                    <div>
+                        This platform contains servers for video, chat, forum and a client to manage all of these
+                        resources. It is based on a microservices architecture.
+                        Each server is a different service that runs individually.
+                    </div>
+
                 </div>}
 
 
