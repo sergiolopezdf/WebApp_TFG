@@ -114,6 +114,7 @@ class App extends React.Component {
     }
 
     async componentDidUpdate() {
+
         if (this.props.alertMessages) {
             if (await this._alertTimer()) {
                 this.props.dispatch(deleteAlerts());
@@ -217,24 +218,33 @@ class App extends React.Component {
 
     _openNewChat(user) {
 
+
         let n1 = Math.min(parseInt(this.props.myself.id), parseInt(user.id));
         let n2 = Math.max(parseInt(this.props.myself.id), parseInt(user.id));
 
         let room = n1 + "_" + n2;
 
+
         if (!this.props.chat[room]) {
+
             openChat(room, fullHistory => {
+
+                if (fullHistory.length < 1) {
+                    return;
+                }
+
                 this.props.dispatch(setChatHistory(fullHistory.reverse(), room));
+
             });
         }
-
-        //console.log(this.props.store.getState());
 
         this.props.dispatch(setCurrentChat(room, user.username));
         this.props.dispatch(showChat(true));
 
         this.props.dispatch(cleanNotifications(room));
         removeNotifications(room);
+
+        //console.log(this.props.store.getState());
 
     }
 

@@ -10,6 +10,7 @@ export default class ChatMain extends React.Component {
         this._sendMessage = this._sendMessage.bind(this);
         this._hideChat = this._hideChat.bind(this);
         this._userTyping = this._userTyping.bind(this);
+        this.componentDidUpdate = this.componentDidUpdate.bind(this);
     }
 
     _sendMessage(msg) {
@@ -22,6 +23,10 @@ export default class ChatMain extends React.Component {
 
     _hideChat() {
         this.props.hideChat();
+    }
+
+    componentDidUpdate() {
+
     }
 
     render() {

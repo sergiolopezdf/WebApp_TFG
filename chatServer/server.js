@@ -82,6 +82,7 @@ io.on('connection', function(socket) {
 
         chat.findAll()
             .then((msgs) => {
+
                 socket.emit('getHistory', msgs);
             });
 
@@ -152,7 +153,10 @@ io.on('connection', function(socket) {
             },
 
         }).then(row => {
-            row.destroy();
+            if (row !== null) {
+                row.destroy();
+            }
+
         });
     });
 });

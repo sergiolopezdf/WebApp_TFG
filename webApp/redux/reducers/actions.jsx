@@ -32,6 +32,7 @@ export function cleanNotifications(chatId) {
 }
 
 export function setChatHistory(fullChat, room) {
+
     return {
         type: 'UPDATE_CHAT_HISTORY',
         chatMsgs: fullChat,

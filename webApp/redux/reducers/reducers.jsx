@@ -38,6 +38,7 @@ function chatUpdate(state = initialState.chat, action) {
             return newChat;
 
         case 'UPDATE_CHAT_HISTORY':
+
             let chatUpdate = JSON.parse(JSON.stringify(state));
 
             chatUpdate[action.chatId] = action.chatMsgs;
