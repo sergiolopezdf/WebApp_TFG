@@ -111,6 +111,9 @@ h1
 button
   @extend .styledButton
 
+.longButton
+  width: 100%
+
 #videoUploadInput::-webkit-file-upload-button
   @extend .styledButton
 
@@ -225,6 +228,7 @@ div#title
   outline: none
   resize: none
   border: none
+  width: 50%
   border-top: thin dotted $clearGrey
   border-bottom: thin dotted $clearGrey
 
@@ -239,18 +243,18 @@ table
   width: 100%
   text-align: left
 
-  td
-    padding: 10px
-
-  th
-    text-align: center
+  td, th
+    padding-left: 10px
+    padding-right: 10px
+    text-align: left
 
 #adminSettings
-  @extend .innerBox
+  //@extend .innerBox
+  width: 30%
 
 #userSettings
-  @extend .innerBox
-
+  //@extend .innerBox
+  width: 30%
 /*************************************/
 /*ForumBar*/
 /*************************************/
@@ -399,10 +403,36 @@ div#uploadSection
   flex-direction: row
   justify-content: center
 
-form.videoUploadForm
+.settingsForm
   display: flex
   flex-direction: column
   margin-top: 0
+
+  div
+    display: flex
+    flex-direction: row
+    align-items: flex-start
+    justify-content: space-between
+
+    button
+      width: 100%
+
+.videoUploadForm
+  display: flex
+  flex-direction: column
+  margin-top: 0
+
+  div
+    display: flex
+    flex-direction: row
+    align-items: center
+    justify-content: space-between
+
+    input[type=file]
+      margin-left: 15px
+      margin-top: -5px
+      background: none
+      width: 190px
 
 @mixin imgPreview
   height: 10%

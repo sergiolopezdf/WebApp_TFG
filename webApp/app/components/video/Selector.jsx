@@ -62,6 +62,7 @@ export default class Selector extends React.Component {
         return (
 
             <div id={"videoSelector"}>
+
                 {
                     this.props.availableVideos.map((video, index) => {
 

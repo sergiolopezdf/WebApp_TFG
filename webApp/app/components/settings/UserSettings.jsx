@@ -13,39 +13,40 @@ export default class UserSettings extends React.Component {
 
                 <form action={'/update_password'} method={"post"}>
 
-                    <table>
-                        <tr>
-                            <th>Name:</th>
-                            <td>{this.props.myself.name}</td>
-                        </tr>
-                        <tr>
-                            <th>Username:</th>
-                            <td>{this.props.myself.username}</td>
-                        </tr>
-                        <tr>
-                            <th>ID:</th>
-                            <td>{this.props.myself.id}</td>
-                        </tr>
-                        <tr>
-                            <th>Admin:</th>
-                            <td>{this.props.myself.admin ? "Yes" : "No"}</td>
-                        </tr>
+                    <div className={"settingsForm"}>
 
-                        <tr>
-                            <th>Update password:</th>
-                            <td>
-                                <input name={"updatePassword"} type={"password"} className={"styledInput"}/>
+                        <div>
+                            <div><strong>Name:</strong></div>
+                            <div>{this.props.myself.name}</div>
+                        </div>
 
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                <button id="newButton" action="submit">Submit</button>
-                            </th>
-                        </tr>
+                        <div>
+                            <div><strong>Username:</strong></div>
+                            <div>{this.props.myself.username}</div>
+                        </div>
+
+                        <div>
+                            <div><strong>ID:</strong></div>
+                            <div>{this.props.myself.id}</div>
+                        </div>
+
+                        <div>
+                            <div><strong>Admin:</strong></div>
+                            <div>{this.props.myself.admin ? "Yes" : "No"}</div>
+                        </div>
+
+                        <div>
+                            <div><strong>Update password:</strong></div>
+                            <input name={"updatePassword"} type={"password"} className={"styledInput"}/>
+                        </div>
+
+                        <div>
+                            <button id="newButton" action="submit">Submit</button>
+                        </div>
 
 
-                    </table>
+                    </div>
+
                 </form>
             </div>
 

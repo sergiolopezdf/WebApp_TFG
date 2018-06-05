@@ -9,31 +9,39 @@ export default class AdminSettings extends React.Component {
     render() {
         return (
             <div id={"adminSettings"}>
-                <h2>Create new user</h2>
+
                 <form action={'/new_user'} method={"post"}>
 
-                    <table>
-                        <tr>
-                            <th>Name:</th>
-                            <td><input name={"name"} type={"text"} className={"styledInput"}/></td>
-                        </tr>
-                        <tr>
-                            <th>Username:</th>
-                            <td><input name={"username"} type={"text"} className={"styledInput"}/></td>
-                        </tr>
-                        <tr>
-                            <th>Admin:</th>
-                            <td><input name={"admin"} type={"checkbox"}/></td>
-                        </tr>
-                        <tr>
-                            <th>Password:</th>
-                            <td><input name={"password"} type={"password"} className={"styledInput"}/></td>
-                        </tr>
+                    <div className={"settingsForm"}>
 
-                    </table>
-                    <button id="newButton" action="submit">Create</button>
+                        <div>
+                            <h2>Create new user</h2>
+                        </div>
+
+                        <div>
+                            <div><strong>Name:</strong></div>
+                            <input name={"name"} type={"text"} className={"styledInput"}/>
+                        </div>
+
+                        <div>
+                            <div><strong>Admin:</strong></div>
+                            <input name={"admin"} type={"checkbox"}/>
+                        </div>
+
+
+                        <div>
+                            <div><strong>Password:</strong></div>
+                            <input name={"password"} type={"password"} className={"styledInput"}/>
+                        </div>
+
+                        <div>
+                            <button id="newButton" action="submit">Create</button>
+                        </div>
+
+                    </div>
 
                 </form>
+
 
                 <h2>Existing users</h2>
 
@@ -54,7 +62,7 @@ export default class AdminSettings extends React.Component {
                                     <td>{user.name}</td>
                                     <td>{user.username}</td>
                                     <td>{user.admin && "Yes"}</td>
-                                    <td>{user.createdAt}</td>
+                                    <td>{user.createdAt.substring(0, 10)}</td>
                                 </tr>
                             );
                         })
