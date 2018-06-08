@@ -24,6 +24,11 @@ export default class AdminSettings extends React.Component {
                         </div>
 
                         <div>
+                            <div><strong>Username:</strong></div>
+                            <input name={"username"} type={"text"} className={"styledInput"}/>
+                        </div>
+
+                        <div>
                             <div><strong>Admin:</strong></div>
                             <input name={"admin"} type={"checkbox"}/>
                         </div>
