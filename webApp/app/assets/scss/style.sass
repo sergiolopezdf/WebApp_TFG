@@ -304,6 +304,10 @@ textarea#content
 /*************************************/
 /*ChatSide*/
 /*************************************/
+.numberOfNotifications
+  font-size: 14px
+  margin-right: 4px
+  margin-left: 10px
 
 div#chatSideWrapper
   height: 83%
@@ -322,6 +326,7 @@ div#chatSideWrapper
 #contact
   display: flex
   flex-direction: row
+  justify-content: space-between
   padding: 5px
   cursor: pointer
   border-radius: 4px
@@ -329,12 +334,17 @@ div#chatSideWrapper
 #contact:hover
   background: $green
 
+.chatNotificationStyle
+  background: $white
+  color: $black
+
 #contactName
   font-size: 13px
-  flex: 10
+//flex: 10
 
 #contactStatus
-  flex: 1
+  margin-left: 10px
+  margin-right: 10px
 
 .contactStatus
   border-radius: 25px
@@ -343,9 +353,11 @@ div#chatSideWrapper
   display: inline-block
   margin-top: 4px
 
+
 #myselfContact
   display: flex
   flex-direction: row
+  justify-content: space-between
   padding: 5px
   border-bottom: thin solid $white
   margin-bottom: 5px
@@ -354,7 +366,7 @@ a#logout
   color: $green
 
 a#logout:hover
-  color: $black
+  color: $white
 
 a#logout i
   font-size: 15px
@@ -564,7 +576,7 @@ div#chatWindowMessageBox
 
 .typing
   font-size: 11px
-  color: $darkGrey
+  color: $white
   text-align: right
 
 /*************************************/

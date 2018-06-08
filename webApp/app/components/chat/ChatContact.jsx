@@ -1,4 +1,5 @@
 import React from 'react';
+import $ from 'jquery';
 
 export default class ChatContactBar extends React.Component {
 
@@ -23,24 +24,42 @@ export default class ChatContactBar extends React.Component {
 
     render() {
 
-        //console.log(this.props.chatNotifications)
+        if (this.props.chatNotifications > 0) {
+            $('#contact').addClass("chatNotificationStyle");
+        }
+
+        if (this.props.chatNotifications === 0) {
+            $('#contact').removeClass("chatNotificationStyle");
+        }
+
         return (
             <div id="contact" onClick={this._openNewChat}>
-                <span id="contactName">{this.props.user.username}</span>
-                <div id="contactStatus">
+                <div id="contactName">{this.props.user.username}</div>
+
+                {this.props.typing ?
+                    <div id="contactStatus">
+                        <div className="typing">typing...</div>
+                    </div>
+                    :
+
+                    <div id="contactStatus">
+
+                        {this.props.chatNotifications > 0 ?
+                            <div className={"numberOfNotifications"}>{this.props.chatNotifications}</div>
+                            :
+                            this.props.user.online ? <div className="online contactStatus"/> :
+                                <div className="offline contactStatus"/>
+
+                        }
 
 
-                    {this.props.typing && <span className="typing">typing...</span>}
+                    </div>
 
-                    {this.props.chatNotifications > 0 ? <span>{this.props.chatNotifications}</span>
-                        :
-                        this.props.user.online ? <span className="online contactStatus"/> :
-                            <span className="offline contactStatus"/>
-
-                    }
+                }
 
 
-                </div>
+
+
             </div>
         );
     }

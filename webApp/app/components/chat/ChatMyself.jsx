@@ -11,7 +11,7 @@ export default class ChatMyself extends React.Component {
         return (
             <div id="myselfContact">
 
-                <span id="contactName">{this.props.myself.username}</span>
+                <div id="contactName">{this.props.myself.username}</div>
                 <div id="contactStatus">
                     <a href="/logout" id={"logout"}><i className="material-icons">power_settings_new</i></a>
                 </div>
