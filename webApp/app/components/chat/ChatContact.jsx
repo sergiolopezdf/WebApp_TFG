@@ -25,15 +25,16 @@ export default class ChatContactBar extends React.Component {
     render() {
 
         if (this.props.chatNotifications > 0) {
-            $('#contact').addClass("chatNotificationStyle");
+            $('#' + this.props.user.id).addClass("chatNotificationStyle");
+        } else {
+
+            $('#' + this.props.user.id).removeClass("chatNotificationStyle");
         }
 
-        if (this.props.chatNotifications === 0) {
-            $('#contact').removeClass("chatNotificationStyle");
-        }
+        console.log(this.props.chatNotifications);
 
         return (
-            <div id="contact" onClick={this._openNewChat}>
+            <div id={this.props.user.id} className={"contact"} onClick={this._openNewChat}>
                 <div id="contactName">{this.props.user.username}</div>
 
                 {this.props.typing ?
@@ -56,8 +57,6 @@ export default class ChatContactBar extends React.Component {
                     </div>
 
                 }
-
-
 
 
             </div>

@@ -36,8 +36,6 @@ export default class ChatContactBar extends React.Component {
 
                         let chatNotifications = this.props.chatNotifications[chatId];
 
-                        //console.log(chatNotifications);
-
                         if (user.id === this.props.myself.id) {
                             return;
                         }
