@@ -31,7 +31,6 @@ export default class ChatContactBar extends React.Component {
             $('#' + this.props.user.id).removeClass("chatNotificationStyle");
         }
 
-        console.log(this.props.chatNotifications);
 
         return (
             <div id={this.props.user.id} className={"contact"} onClick={this._openNewChat}>

@@ -15,7 +15,7 @@ export default class NavbarItem extends React.Component {
         return (
             <li>
 
-                <Link to={url}><i class="material-icons">{this.props.iconName}</i>   &nbsp;
+                <Link to={url}><i className="material-icons">{this.props.iconName}</i>   &nbsp;
                     <span>{this.props.title}</span> </Link>
 
             </li>

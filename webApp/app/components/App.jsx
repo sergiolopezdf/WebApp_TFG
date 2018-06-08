@@ -101,6 +101,14 @@ class App extends React.Component {
             });
         });
 
+        //console.log(this.props.store.getState());
+
+        //Open connections between users
+        for (let i = 0; i < this.props.remoteUsers.length; i++) {
+            let users = this.props.remoteUsers;
+            this._createRooms(users[i]);
+        }
+
     }
 
     async componentDidMount() {
@@ -224,6 +232,21 @@ class App extends React.Component {
 
         let room = n1 + "_" + n2;
 
+        this.props.dispatch(setCurrentChat(room, user.username));
+        this.props.dispatch(showChat(true));
+
+        this.props.dispatch(cleanNotifications(room));
+        removeNotifications(room);
+
+        //console.log(this.props.store.getState());
+
+    }
+
+    _createRooms(user) {
+        let n1 = Math.min(parseInt(this.props.myself.id), parseInt(user.id));
+        let n2 = Math.max(parseInt(this.props.myself.id), parseInt(user.id));
+
+        let room = n1 + "_" + n2;
 
         if (!this.props.chat[room]) {
 
@@ -237,15 +260,6 @@ class App extends React.Component {
 
             });
         }
-
-        this.props.dispatch(setCurrentChat(room, user.username));
-        this.props.dispatch(showChat(true));
-
-        this.props.dispatch(cleanNotifications(room));
-        removeNotifications(room);
-
-        //console.log(this.props.store.getState());
-
     }
 
     _sendMessage(msg) {
