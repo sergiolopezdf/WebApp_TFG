@@ -108,6 +108,6 @@
     "url-loader": "0.6.1",
     "webpack": "^3.8.0",
     "webpack-dev-middleware": "^2.0.5",
-    "webpack-dev-server": "2.9.2"
+    "webpack-dev-server": "3.1.11"
   }
 }
